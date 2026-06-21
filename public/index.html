@@ -8,17 +8,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    },
                     colors: {
                         brand: { 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
                         dark: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
                         accent: { 500: '#f59e0b', 600: '#d97706' }
+                    },
+                    boxShadow: {
+                        'brutal': '8px 8px 0px 0px rgba(96, 165, 250, 1)',
+                        'brutal-hover': '4px 4px 0px 0px rgba(96, 165, 250, 1)'
                     }
                 }
             }
@@ -32,8 +39,29 @@
         .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
     
         .tap-sound-overlay { background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); transition: all 0.3s ease; }
+        
+        /* Animasi Custom */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
         .pulse-animation { animation: pulse-red 2s infinite; }
         @keyframes pulse-red { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+        
+        /* Kartu Glitch Villain */
+        .villain-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .villain-card:hover {
+            transform: scale(1.05) rotate(-2deg);
+            z-index: 20;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+        }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
@@ -52,42 +80,60 @@
         </div>
     </nav>
 
-    <section class="relative pt-32 pb-20 px-5 overflow-hidden min-h-[90vh] flex flex-col justify-center">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-96 bg-brand-600 rounded-full mix-blend-screen filter blur-[150px] opacity-20 pointer-events-none"></div>
+    <section class="relative pt-40 pb-20 px-5 overflow-hidden min-h-[95vh] flex flex-col justify-center">
+        <!-- Background Ornaments -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-600 rounded-full mix-blend-screen filter blur-[150px] opacity-20 pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-600 rounded-full mix-blend-screen filter blur-[120px] opacity-10 pointer-events-none transform -translate-x-1/2 translate-y-1/2"></div>
         
-        <div class="w-full max-w-7xl mx-auto text-center relative z-10">
-            <div class="inline-block bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-1.5 rounded-full text-sm font-bold tracking-wide mb-8 uppercase">
-                Berhenti Membayar Langganan Bulanan Untuk AI Pembuat Video Pendek!
-            </div>
+        <div class="w-full max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
             
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-8 tracking-tight">
-                Ubah 1 Video Podcast Menjadi <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-indigo-400 to-purple-400 glow-text">Puluhan Klip Viral</span> 100% Otomatis.
-            </h1>
-            
-            <p class="text-lg md:text-2xl text-slate-300 mb-10 max-w-5xl mx-auto font-light leading-relaxed">
-                Hasilkan format VT/Reels/Shorts dengan Subtitle Animasi ala MrBeast. Jalan langsung di PC Anda Sendiri. <br>
-                <strong class="text-white font-semibold">Tanpa Kuota Server. Tanpa Ribet Seting API Key. Tanpa Biaya Bulanan.</strong>
-            </p>
-            
-            <div class="flex flex-col items-center gap-6">
-                <a href="#demo" class="bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white px-10 py-5 rounded-2xl text-xl font-bold transition-all shadow-[0_0_30px_rgba(37,99,235,0.5)] hover:scale-105 flex items-center gap-3">
-                    <i class="fa-solid fa-play-circle text-2xl"></i> 
-                    TONTON DEMO: 3 MENIT JADI 10 KONTEN
-                </a>
-                <p class="text-sm text-slate-500"><i class="fa-solid fa-check text-emerald-500"></i> Sekali bayar. Bebas pakai selamanya.</p>
-            </div>
-
-            <div id="demo" class="w-full mt-16 relative mx-auto max-w-5xl rounded-2xl border-2 border-slate-700/50 overflow-hidden shadow-2xl shadow-brand-900/50 bg-dark-900 aspect-video group cursor-pointer" onclick="toggleVideoAudio(this)">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
-                    <source src="assets/img/demo_intisariClips.webm" type="video/webm">
-                </video>
-                <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
-                    <div class="w-20 h-20 rounded-full bg-brand-600/90 flex items-center justify-center mb-4 pulse-animation shadow-[0_0_30px_rgba(37,99,235,0.8)] border-2 border-white/20">
-                        <i class="fa-solid fa-volume-xmark text-3xl"></i>
-                    </div>
-                    <span class="font-black tracking-widest text-sm bg-black/60 backdrop-blur-sm px-6 py-2 rounded-full uppercase border border-white/10 shadow-lg">KLIK UNTUK MENDENGARKAN SUARA</span>
+            <!-- Kiri: Headline Asimetris -->
+            <div class="w-full lg:w-3/5 text-left animate-fade-up">
+                <div class="inline-block bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-wide mb-8 uppercase transform -rotate-1">
+                    Stop Bayar Langganan AI Bulanan!
+                </div>
+                
+                <!-- Kombinasi Sans & Serif Asimetris -->
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight relative z-20">
+                    <span class="font-sans">Ubah 1 Video Panjang</span><br>
+                    <span class="font-serif italic font-normal text-brand-400 text-6xl md:text-7xl lg:text-8xl">Menjadi Puluhan</span><br>
+                    <span class="font-sans bg-brand-600 px-2 py-1 transform -skew-x-6 inline-block mt-2">Klip Viral.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl font-light leading-relaxed">
+                    Software Desktop All-in-One berteknologi AI. <strong>Tanpa batas durasi. Tanpa sewa server.</strong> Jalankan <span class="text-white font-bold border-b border-brand-500">100% Offline</span> dari PC Anda selamanya.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                    <a href="#checkout" class="bg-white text-dark-950 px-8 py-4 text-lg font-black uppercase tracking-wider transition-all shadow-brutal hover:shadow-brutal-hover hover:translate-x-[4px] hover:translate-y-[4px] flex items-center gap-3">
+                        Dapatkan Akses <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <p class="text-sm text-slate-500 font-medium">
+                        <i class="fa-solid fa-shield-halved text-emerald-500 mr-1"></i> Garansi 1x24 Jam
+                    </p>
                 </div>
             </div>
+
+            <!-- Kanan: Video Melayang Neo-Brutalism -->
+            <div class="w-full lg:w-2/5 relative animate-fade-up delay-200">
+                <div id="demo" class="relative z-10 w-full max-w-[400px] mx-auto lg:mx-0 lg:ml-auto aspect-[9/16] bg-dark-900 border-4 border-slate-800 shadow-brutal transform rotate-3 hover:rotate-0 transition-transform duration-500 cursor-pointer group" onclick="toggleVideoAudio(this)">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
+                        <source src="assets/img/demo_intisariClips.webm" type="video/webm">
+                    </video>
+                    
+                    <!-- Dekorasi Overlap -->
+                    <div class="absolute -left-6 -bottom-6 bg-brand-500 text-white font-black py-2 px-4 text-xl transform -rotate-12 border-2 border-dark-950 shadow-lg">
+                        AUTO-CUT AI
+                    </div>
+
+                    <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
+                        <div class="w-16 h-16 rounded-full bg-brand-600/90 flex items-center justify-center mb-4 pulse-animation border-2 border-white/20">
+                            <i class="fa-solid fa-volume-xmark text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </section>
 
@@ -128,317 +174,190 @@
         </div>
     </section>
 
-    <section class="py-24 px-5 bg-dark-950 border-y border-slate-800">
-        <div class="w-full max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-black text-center text-white mb-6">
-                Apakah Anda Masih Terjebak di <span class="text-red-500">"Siklus Neraka"</span> Kreator Konten?
-            </h2>
-            <p class="text-xl text-center text-slate-400 mb-12">Jujur saja, memotong video panjang menjadi konten short-form itu menyiksa.</p>
-
-            <div class="space-y-6">
-                <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 flex gap-5 items-start">
-                    <div class="bg-red-500/10 p-3 rounded-lg border border-red-500/20 shrink-0">
-                        <i class="fa-solid fa-xmark text-2xl text-red-500"></i>
-                    </div>
-                    <div>
-                        <p class="text-lg text-slate-300 leading-relaxed">Anda membuang <strong>4-6 jam di CapCut Pro</strong> hanya untuk mencari momen lucu, memotongnya, dan membuat subtitle word-by-word yang pas dengan audio. Waktu Anda habis untuk editing, bukan memikirkan strategi.</p>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 flex gap-5 items-start">
-                    <div class="bg-red-500/10 p-3 rounded-lg border border-red-500/20 shrink-0">
-                        <i class="fa-solid fa-xmark text-2xl text-red-500"></i>
-                    </div>
-                    <div>
-                        <p class="text-lg text-slate-300 leading-relaxed">Anda mencoba beralih ke "Aplikasi AI Luar Negeri", tapi akhirnya sadar Anda diperas. Anda dipaksa membayar <strong>$20 - $50 (Rp 300.000 - Rp 700.000) SETIAP BULAN</strong>.</p>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 flex gap-5 items-start">
-                    <div class="bg-red-500/10 p-3 rounded-lg border border-red-500/20 shrink-0">
-                        <i class="fa-solid fa-xmark text-2xl text-red-500"></i>
-                    </div>
-                    <div>
-                        <p class="text-lg text-slate-300 leading-relaxed">Lebih parah lagi? Server mereka <strong>sering down</strong> saat Anda kejar tayang, atau sistem menagih biaya tambahan karena "Kuota Menit" Anda tiba-tiba habis.</p>
-                    </div>
-                </div>
+    <section class="py-32 px-5 bg-dark-950 border-y border-slate-800 relative">
+        <div class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            
+            <!-- Kiri: Headline Problem -->
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif italic text-white mb-6 leading-tight">
+                    Masih terjebak di <br>
+                    <span class="font-sans font-black text-red-500 not-italic transform -skew-x-12 inline-block">"Siklus Neraka"</span> <br>
+                    Kreator Konten?
+                </h2>
+                <p class="text-xl text-slate-400 mb-8 font-light">
+                    Jujur saja, memotong podcast 2 jam menjadi 30 konten short-form secara manual adalah pekerjaan kuli. <strong>Waktu Anda habis untuk editing, bukan menyusun strategi.</strong>
+                </p>
             </div>
 
-            <div class="mt-12 text-center">
-                <p class="text-2xl font-bold text-white bg-slate-800 inline-block px-8 py-4 rounded-xl border border-slate-700">
-                    Sampai kapan Anda mau menyewa alat yang tidak akan pernah jadi milik Anda?
-                </p>
+            <!-- Kanan: Kartu Bertumpuk Asimetris -->
+            <div class="w-full lg:w-1/2 relative min-h-[400px] flex justify-center items-center">
+                
+                <!-- Kartu 1 -->
+                <div class="villain-card absolute top-0 left-0 md:left-10 w-4/5 md:w-[350px] bg-dark-900 border-2 border-slate-700 p-6 shadow-brutal z-10 transform -rotate-3">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-red-500 text-white w-10 h-10 flex items-center justify-center font-black text-xl">1</div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Mata Berdarah</h3>
+                    </div>
+                    <p class="text-slate-400">Membuang <strong>4-6 jam di CapCut</strong> hanya untuk mencari momen lucu, nge-cut, dan ngetik subtitle satu per satu.</p>
+                </div>
+
+                <!-- Kartu 2 -->
+                <div class="villain-card absolute top-20 right-0 md:right-10 w-4/5 md:w-[350px] bg-dark-800 border-2 border-red-900/50 p-6 shadow-brutal z-20 transform rotate-2">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-red-600 text-white w-10 h-10 flex items-center justify-center font-black text-xl">2</div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Diperas Bule</h3>
+                    </div>
+                    <p class="text-slate-400">Beralih ke web AI luar negeri, tapi kaget karena dipaksa bayar <strong>Rp 400.000 SETIAP BULAN</strong> hanya untuk kuota 2 jam.</p>
+                </div>
+
+                <!-- Kartu 3 -->
+                <div class="villain-card absolute top-48 left-8 md:left-24 w-4/5 md:w-[380px] bg-dark-950 border-2 border-red-500 p-6 shadow-[8px_8px_0px_0px_rgba(239,68,68,1)] z-30 transform -rotate-1">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-red-500 text-white w-10 h-10 flex items-center justify-center font-black text-xl">3</div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Server Down</h3>
+                    </div>
+                    <p class="text-slate-300">Saat kejar tayang iklan, tiba-tiba web AI mereka <strong>Down/Maintenance</strong>. Proyek klien Anda hancur berantakan.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-5 relative overflow-hidden">
+    <section class="py-24 px-5 relative overflow-hidden bg-dark-900">
+        <!-- Dekorasi Background -->
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
-        <div class="w-full max-w-[1600px] mx-auto relative z-10 lg:px-10">
-            <div class="text-center mb-20">
-                <span class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-2 block">Solusi Enterprise</span>
-                <h2 class="text-4xl md:text-5xl font-black text-white mb-6">Perkenalkan: INTISARICLIPS V10</h2>
-                <p class="text-xl text-slate-400 max-w-4xl mx-auto">
-                    Ini bukan sekadar software. Ini adalah <strong>"Studio Produksi Pribadi"</strong> berbekal kecerdasan buatan yang tertanam langsung di PC Anda. Sekali beli, pakai sepuasnya selamanya.
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-900/20 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="w-full max-w-[1400px] mx-auto relative z-10 lg:px-10">
+            <div class="text-center mb-16">
+                <span class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-2 block border border-brand-500/30 inline-block px-4 py-1 rounded-full bg-brand-500/10">Solusi Enterprise</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-6 font-serif italic">Perkenalkan: INTISARICLIPS V10</h2>
+                <p class="text-xl text-slate-400 max-w-4xl mx-auto font-light">
+                    Ini bukan sekadar software. Ini adalah <strong>"Studio Produksi Pribadi"</strong> berbekal kecerdasan buatan yang tertanam langsung di PC Anda. 
                 </p>
             </div>
 
-            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20 mb-32">
-                <div class="w-full md:w-1/2 space-y-6">
-                    <div class="w-16 h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
-                        <i class="fa-solid fa-closed-captioning text-3xl text-purple-400"></i>
+            <!-- BENTO GRID ASYMMETRICAL -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[minmax(250px,auto)]">
+                
+                <!-- BENTO 1: GOD MODE (Lebar Penuh Kiri) -->
+                <div class="md:col-span-2 lg:col-span-3 bg-dark-950 p-8 md:p-10 rounded-3xl border border-slate-700 hover:border-brand-500/50 transition-all flex flex-col justify-center relative overflow-hidden group shadow-brutal hover:translate-y-[-4px]">
+                    <div class="absolute -right-20 -bottom-20 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-brain text-[250px] text-brand-500"></i>
                     </div>
-                    <h3 class="text-3xl md:text-5xl font-bold text-white leading-tight">
-                        Subtitle Perkalimat dan Karoke
-                    </h3>
-                    <p class="text-lg text-slate-400 leading-relaxed">
-                        Tinggalkan cara manual memotong teks baris per baris. Algoritma kami secara otomatis menyusun teks di layar agar pas di tengah, proporsional, dan tidak menutupi wajah. 
-                    </p>
-                    <ul class="space-y-3 mt-4">
-                        <li class="flex items-center gap-3 text-slate-300"><i class="fa-solid fa-check text-purple-400"></i> Sinkronisasi suara & teks 99% akurat.</li>
-                        <li class="flex items-center gap-3 text-slate-300"><i class="fa-solid fa-check text-purple-400"></i> Highlight kata penting otomatis.</li>
-                        <li class="flex items-center gap-3 text-slate-300"><i class="fa-solid fa-check text-purple-400"></i> Efek Pop-up / Bouncing text siap pakai.</li>
-                    </ul>
+                    <div class="relative z-10 w-full md:w-2/3">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/20 flex items-center justify-center border border-brand-500/30 mb-6">
+                            <i class="fa-solid fa-brain text-2xl text-brand-400"></i>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">God Mode (AI Director)</h3>
+                        <p class="text-lg text-slate-400 leading-relaxed">
+                            Tidak perlu repot mencari momen lucu. AI menganalisis transkrip dan <strong>memotong bagian paling engaging secara otomatis</strong> dengan tingkat akurasi emosi 98%.
+                        </p>
+                    </div>
                 </div>
-                <div class="w-full md:w-1/2">
-                    <div class="relative rounded-3xl border border-slate-700 overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.2)] bg-dark-900 aspect-[9/16] max-h-[700px] mx-auto md:ml-auto md:mr-0 group cursor-pointer" onclick="toggleVideoAudio(this)">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
+
+                <!-- BENTO 2: Anti Copyright -->
+                <div class="md:col-span-1 lg:col-span-1 bg-gradient-to-br from-red-950/80 to-dark-950 p-8 rounded-3xl border border-red-900/50 hover:border-red-500/50 transition-all flex flex-col justify-center shadow-lg">
+                    <i class="fa-solid fa-shield-virus text-4xl text-red-400 mb-6"></i>
+                    <h3 class="text-xl font-bold text-white mb-3">Smart Anti-Copyright</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Manipulasi audio/visual pintar mengecoh algoritma deteksi hak cipta TikTok dan YouTube Shorts.</p>
+                </div>
+
+                <!-- BENTO 3: Subtitle Animasi (Tinggi) -->
+                <div class="md:col-span-1 lg:col-span-2 md:row-span-2 bg-dark-950 p-0 rounded-3xl border border-slate-700 overflow-hidden shadow-brutal flex flex-col relative group">
+                    <div class="p-8 pb-4 relative z-10 bg-gradient-to-b from-dark-950 to-transparent">
+                        <h3 class="text-2xl font-bold text-white mb-2">Subtitle Animasi MrBeast</h3>
+                        <p class="text-slate-400 text-sm">Pop-up dinamis, Sinkronisasi suara 99%, dan Highlight kata penting otomatis.</p>
+                    </div>
+                    <div class="relative flex-grow min-h-[300px] bg-dark-900 mt-auto cursor-pointer" onclick="toggleVideoAudio(this)">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity">
                             <source src="assets/img/Subtitle_Animasi_Dinamis.webm" type="video/webm">
                         </video>
-                        <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
-                            <div class="w-16 h-16 rounded-full bg-brand-500/80 flex items-center justify-center mb-3 pulse-animation">
-                                <i class="fa-solid fa-volume-xmark text-2xl"></i>
-                            </div>
-                            <span class="font-bold tracking-wider text-sm bg-black/50 px-4 py-1 rounded-full">KLIK UNTUK SUARA</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row-reverse items-center gap-12 lg:gap-20 mb-32">
-                <div class="w-full md:w-1/2 space-y-6">
-                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-                        <i class="fa-solid fa-crosshairs text-3xl text-indigo-400"></i>
-                    </div>
-                    <h3 class="text-3xl md:text-5xl font-bold text-white leading-tight">
-                        Smart Pan & Auto Face Tracking Podcast
-                    </h3>
-                    <p class="text-lg text-slate-400 leading-relaxed">
-                        Punya video podcast asli berformat landscape (lebar)? Santai. Anda tidak perlu lagi menggeser-geser frame secara manual.
-                    </p>
-                    <p class="text-lg text-slate-400 leading-relaxed">
-                        AI mendeteksi wajah pembicara yang sedang aktif dan secara dinamis memotong frame menjadi rasio vertikal (9:16). Serasa memiliki kameramen profesional yang terus mengikuti gerakan Anda!
-                    </p>
-                </div>
-                <div class="w-full md:w-1/2">
-                    <div class="space-y-4 w-full max-w-[500px] mx-auto md:mr-auto md:ml-0">
-                        <div class="relative rounded-2xl border border-slate-800 overflow-hidden bg-dark-900 aspect-video shadow-lg">
-                            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60">
-                                <source src="assets/img/Face_Tracking_Original.webm" type="video/webm">
-                            </video>
-                            <div class="absolute top-3 left-3 bg-black/70 px-3 py-1 rounded-md text-[10px] font-bold text-slate-400 border border-slate-700 tracking-widest">VIDEO ASLI (16:9)</div>
-                        </div>
-
-                        <div class="flex flex-col items-center gap-1 py-4">
-                            <i class="fa-solid fa-arrow-down text-indigo-500 animate-bounce text-2xl"></i>
-                            <span class="text-xs font-black text-indigo-400 tracking-tighter uppercase">AI Smart Face Tracking</span>
-                        </div>
-
-                        <div class="relative rounded-3xl border-2 border-indigo-500/50 overflow-hidden shadow-[0_0_50px_rgba(99,102,241,0.3)] bg-dark-900 aspect-[9/16] group cursor-pointer" onclick="toggleVideoAudio(this)">
-                            <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
-                                <source src="assets/img/Auto_Face_Tracking.webm" type="video/webm">
-                            </video>
-                            <div class="absolute top-4 left-4 bg-indigo-600 px-3 py-1 rounded-md text-[10px] font-bold text-white shadow-lg tracking-widest">HASIL AI (9:16)</div>
-                            <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
-                                <div class="w-14 h-14 rounded-full bg-indigo-500/80 flex items-center justify-center mb-2 pulse-animation">
-                                    <i class="fa-solid fa-volume-xmark text-xl"></i>
-                                </div>
-                                <span class="font-bold tracking-wider text-[10px] bg-black/50 px-3 py-1 rounded-full uppercase">Klik untuk Suara</span>
+                        <div class="tap-sound-overlay absolute inset-0 flex items-center justify-center text-white group-[.is-playing]:opacity-0">
+                            <div class="w-12 h-12 rounded-full bg-purple-500/80 flex items-center justify-center pulse-animation">
+                                <i class="fa-solid fa-volume-xmark text-lg"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-                <div class="w-full md:w-1/2 space-y-6">
-                    <div class="w-16 h-16 rounded-2xl bg-brand-500/20 flex items-center justify-center border border-brand-500/30">
-                        <i class="fa-solid fa-fire-flame-curved text-3xl text-brand-400"></i>
+                <!-- BENTO 4: Face Tracking -->
+                <div class="md:col-span-2 lg:col-span-2 bg-dark-800/50 p-8 rounded-3xl border border-indigo-900/50 hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-crosshairs text-4xl text-indigo-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-white mb-3">Auto Face Tracking 9:16</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Punya video podcast landscape (16:9)? AI mendeteksi wajah pembicara aktif dan memotong frame menjadi vertikal mengikuti gerak wajah secara dinamis.</p>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="bg-black px-3 py-1 rounded text-xs font-bold text-slate-500 border border-slate-700">16:9 Ori</div>
+                        <i class="fa-solid fa-arrow-right text-indigo-500"></i>
+                        <div class="bg-indigo-600 px-3 py-1 rounded text-xs font-bold text-white shadow-[0_0_15px_rgba(79,70,229,0.5)]">9:16 AI Face-Track</div>
                     </div>
-                    <h3 class="text-3xl md:text-5xl font-bold text-white leading-tight">
-                        Auto Teks Cover & Hook Generator
-                    </h3>
-                    <p class="text-lg text-slate-400 leading-relaxed">
-                        Detik pertama adalah penentu apakah video Anda di-skip atau ditonton sampai habis. AI Tone Reading kami bukan sekadar memotong klip, tapi juga **Menciptakan Judul Hook Otomatis**.
-                    </p>
-                    <p class="text-lg text-slate-400 leading-relaxed">
-                        Sistem menganalisis inti pembicaraan dan menempelkan teks cover berukuran besar di awal video (detik ke 0-2) untuk memastikan penonton langsung penasaran dan berhenti men-scroll.
-                    </p>
                 </div>
-                <div class="w-full md:w-1/2">
-                    <div class="relative rounded-3xl border border-slate-700 overflow-hidden shadow-[0_0_40px_rgba(59,130,246,0.2)] bg-dark-900 aspect-[9/16] max-h-[700px] mx-auto md:ml-auto md:mr-0 group cursor-pointer" onclick="toggleVideoAudio(this)">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
-                            <source src="assets/img/Auto_Teks_Cover.webm" type="video/webm">
-                        </video>
-                        <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
-                            <div class="w-16 h-16 rounded-full bg-brand-500/80 flex items-center justify-center mb-3 pulse-animation">
-                                <i class="fa-solid fa-volume-xmark text-2xl"></i>
-                            </div>
-                            <span class="font-bold tracking-wider text-sm bg-black/50 px-4 py-1 rounded-full">KLIK UNTUK SUARA</span>
+
+                <!-- BENTO 5: Zero API Cost (Pendek Lebar) -->
+                <div class="md:col-span-3 lg:col-span-4 bg-emerald-950/30 p-8 md:p-10 rounded-3xl border border-emerald-900/50 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-2"><i class="fa-solid fa-coins text-emerald-400 mr-2"></i> Arsitektur Zero API Cost</h3>
+                        <p class="text-slate-400 text-sm max-w-2xl">Tanpa langganan bulanan. Rendering paralel dilakukan murni oleh kekuatan (GPU/CPU) PC Anda sendiri. Tersedia opsi Ekstensi Chrome Bridge.</p>
+                    </div>
+                    <div class="shrink-0">
+                        <div class="inline-block bg-emerald-500/20 text-emerald-400 px-6 py-3 rounded-xl border border-emerald-500/30 font-bold text-lg transform rotate-2">
+                            100% OFFLINE RENDER
                         </div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
-    </section>
-
-    <section class="py-24 px-5 bg-slate-900/50 border-y border-slate-800 overflow-hidden">
-        <div class="w-full max-w-[1440px] mx-auto lg:px-10">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Arsitektur "Anti-Rapuh" <br><span class="text-brand-400">(Zero API Cost)</span></h2>
-                <p class="text-xl text-slate-400 max-w-4xl mx-auto">
-                    Banyak aplikasi lokal yang mengharuskan Anda—orang awam—untuk mendaftar akun developer, memasukkan kartu kredit, dan merakit API Key sendiri. Membingungkan, bukan? <strong>IntisariClips bekerja dengan Ekosistem 3 Lapis yang super mulus.</strong>
-                </p>
-            </div>
-
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4 lg:gap-8 relative">
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-800 -z-10 -translate-y-1/2"></div>
-                
-                <div class="bg-dark-950 p-10 rounded-3xl border border-slate-700 text-center w-full md:w-1/3 relative z-10 shadow-xl">
-                    <i class="fa-solid fa-robot text-6xl text-blue-400 mb-6 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]"></i>
-                    <h3 class="text-2xl font-bold text-white mb-3">1. Otak AI</h3>
-                    <p class="text-slate-400 text-base">Gunakan Custom AI Analyzer kami di cloud tanpa biaya. Anda tinggal berikan link YouTube.</p>
-                </div>
-
-                <div class="md:hidden text-slate-600 my-2"><i class="fa-solid fa-arrow-down text-3xl"></i></div>
-                <div class="hidden md:flex text-slate-600 mx-2 bg-dark-950 p-3 rounded-full border border-slate-800"><i class="fa-solid fa-arrow-right text-2xl text-brand-500"></i></div>
-
-                <div class="bg-brand-900/40 p-10 rounded-3xl border border-brand-500 text-center w-full md:w-1/3 relative z-10 shadow-[0_0_30px_rgba(37,99,235,0.2)]">
-                    <i class="fa-brands fa-chrome text-6xl text-brand-400 mb-6 drop-shadow-[0_0_15px_rgba(96,165,250,0.8)]"></i>
-                    <h3 class="text-2xl font-bold text-white mb-3">2. Jembatan Ajaib</h3>
-                    <p class="text-slate-300 text-base">Ekstensi Chrome Eksklusif menangkap blueprint klip dan menembakkannya ke PC Anda tanpa copy-paste.</p>
-                </div>
-
-                <div class="md:hidden text-slate-600 my-2"><i class="fa-solid fa-arrow-down text-3xl"></i></div>
-                <div class="hidden md:flex text-slate-600 mx-2 bg-dark-950 p-3 rounded-full border border-slate-800"><i class="fa-solid fa-arrow-right text-2xl text-emerald-500"></i></div>
-
-                <div class="bg-emerald-900/20 p-10 rounded-3xl border border-emerald-700/50 text-center w-full md:w-1/3 relative z-10 shadow-xl">
-                    <i class="fa-solid fa-desktop text-6xl text-emerald-400 mb-6 drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]"></i>
-                    <h3 class="text-2xl font-bold text-white mb-3">3. Otot PC</h3>
-                    <p class="text-slate-400 text-base">PC Anda yang bekerja melakukan rendering lokal secara brutal. Nol biaya server bulanan.</p>
-                </div>
-            </div>
-
-            <div class="mt-16 bg-accent-600/10 border border-accent-600/30 p-8 rounded-2xl flex items-start gap-6 max-w-5xl mx-auto">
-                <i class="fa-solid fa-triangle-exclamation text-accent-500 text-3xl mt-1"></i>
-                <div>
-                    <h4 class="text-xl font-bold text-accent-500 mb-2">MODE CADANGAN MANUAL</h4>
-                    <p class="text-slate-300 text-lg">Tidak ada internet? Tidak ada akses web AI? Tenang! Selama PC Anda menyala, Anda tetap bisa memasukkan instruksi pemotongan secara manual via file text. Pabrik konten Anda tidak akan pernah mati!</p>
-                </div>
-            </div>
-        </div>
-            <!-- Additional Big Features Grid -->
-            <div class="mt-20 pt-16 border-t border-slate-800">
-                <div class="text-center mb-16">
-                    <h3 class="text-3xl md:text-4xl font-black text-white mb-4">Bukan Sekedar "Pemotong Video" Biasa</h3>
-                    <p class="text-lg text-slate-400">Dilengkapi teknologi AI level studio untuk mendominasi algoritma.</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Feature A -->
-                    <div class="bg-dark-950 p-8 rounded-3xl border border-slate-800 hover:border-brand-500/50 transition-colors">
-                        <i class="fa-solid fa-brain text-4xl text-brand-400 mb-6"></i>
-                        <h4 class="text-xl font-bold text-white mb-3">God Mode (AI Director)</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Punya asisten sutradara AI! Tidak perlu repot mencari momen lucu. AI menganalisis transkrip dan memotong bagian paling *engaging* secara otomatis.</p>
-                    </div>
-                    <!-- Feature B -->
-                    <div class="bg-dark-950 p-8 rounded-3xl border border-slate-800 hover:border-brand-500/50 transition-colors relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Most Wanted</div>
-                        <i class="fa-solid fa-shield-virus text-4xl text-emerald-400 mb-6"></i>
-                        <h4 class="text-xl font-bold text-white mb-3">Smart Anti-Copyright</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Bebas *reupload* tanpa takut *banned*. Fitur manipulasi audio/visual pintar yang mengecoh algoritma deteksi hak cipta TikTok dan Shorts.</p>
-                    </div>
-                    <!-- Feature C -->
-                    <div class="bg-dark-950 p-8 rounded-3xl border border-slate-800 hover:border-brand-500/50 transition-colors">
-                        <i class="fa-solid fa-bolt text-4xl text-accent-400 mb-6"></i>
-                        <h4 class="text-xl font-bold text-white mb-3">Downloader Super Ngebut</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Mesin ganda terintegrasi. Masukkan link video panjang apapun, unduh resolusi maksimal dengan kecepatan penuh tanpa *throttling*.</p>
-                    </div>
-                    <!-- Feature D -->
-                    <div class="bg-dark-950 p-8 rounded-3xl border border-slate-800 hover:border-brand-500/50 transition-colors">
-                        <i class="fa-solid fa-layer-group text-4xl text-purple-400 mb-6"></i>
-                        <h4 class="text-xl font-bold text-white mb-3">Hook Painter & Multi-Part</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Otomatis menyatukan video dengan desain *Hook* tebal (teks pancingan) di atas dan judul di bawah sesuai format viral masa kini.</p>
-                    </div>
-                    <!-- Feature E -->
-                    <div class="bg-dark-950 p-8 rounded-3xl border border-slate-800 hover:border-brand-500/50 transition-colors md:col-span-2 lg:col-span-2 flex flex-col md:flex-row items-center gap-6">
-                        <div class="shrink-0"><i class="fa-solid fa-microchip text-6xl text-slate-600"></i></div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-3">Hardware Acceleration (Performa Buas)</h4>
-                            <p class="text-slate-400 text-sm leading-relaxed">Rendering secepat kilat tanpa bikin laptop jebol! Dioptimalkan khusus untuk pengguna Windows (NVENC) dan Mac (Apple Silicon / M1 Thermal Guard). Merender puluhan video secara paralel kini nyata.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <section class="py-24 px-5 bg-dark-950">
-        <div class="w-full max-w-[1600px] mx-auto lg:px-10">
+        <div class="w-full max-w-4xl mx-auto lg:px-10">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Jangan Percaya Kata-kata Kami.<br>Percaya Pada "Mata Uang" Kreator: <span class="text-emerald-400 glow-text">VIEWS.</span></h2>
-                <p class="text-xl text-slate-400 max-w-4xl mx-auto">
-                    Aplikasi ini dirancang untuk satu hal: Menembus algoritma FYP, Reels, dan Shorts. Lihat hasil nyata dari pengguna kami:
-                </p>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 font-serif italic">Jangan Percaya Kami.<br>Percaya Pada <span class="text-emerald-400 glow-text not-italic font-sans">BUKTI VIEWS.</span></h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 mb-16">
-                <div class="bg-slate-800/50 p-10 rounded-3xl border border-slate-700 relative">
-                    <i class="fa-solid fa-quote-left text-5xl text-slate-600 absolute top-6 left-6 opacity-50"></i>
-                    <p class="text-xl text-slate-300 italic relative z-10 pt-6">"Biasanya video mentok di 200 views. Iseng masukin video podcast lama ke IntisariClips, AI-nya milih bagian hook yang paling ngena. Upload, ditinggal tidur, besoknya tembus <span class="text-brand-400 font-bold">300.000+ Views!</span> Edan!"</p>
-                    <div class="mt-8 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-                        <span class="font-bold text-white text-lg">— hendy Clips</span>
-                    </div>
+            <!-- BUBBLE CHAT TESTIMONIALS -->
+            <div class="space-y-6 max-w-2xl mx-auto bg-dark-900/50 p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl relative">
+                <!-- Watermark -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                    <i class="fa-solid fa-comments text-[200px]"></i>
                 </div>
-                
-                <div class="bg-slate-800/50 p-10 rounded-3xl border border-slate-700 relative">
-                    <i class="fa-solid fa-quote-left text-5xl text-slate-600 absolute top-6 left-6 opacity-50"></i>
-                    <p class="text-xl text-slate-300 italic relative z-10 pt-6">"Saya pegang 3 akun klien. Dulu capek cari momen. Sekarang masukin link ke ekstensi Intisari, klik Kirim ke PC, jadi 20 klip otomatis. Salah satu klip <span class="text-brand-400 font-bold">nembus 500K views.</span> Klien puas, saya tinggal ngopi."</p>
-                    <div class="mt-8 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
-                        <span class="font-bold text-white text-lg">— Agency Owner</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="relative w-full overflow-hidden py-10 space-y-8" id="testimonial-master-container">
-                <div class="absolute top-0 bottom-0 left-0 w-20 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute top-0 bottom-0 right-0 w-20 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none"></div>
-                
-                <div class="relative w-full overflow-hidden slider-container-group">
-                    <div class="flex gap-6 w-max items-center testimonial-track-top">
-                        <img src="assets/img/Testimoni- (1).PNG" alt="Bukti 1" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (2).PNG" alt="Bukti 2" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (3).PNG" alt="Bukti 3" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (4).PNG" alt="Bukti 4" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (5).PNG" alt="Bukti 5" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
+                <!-- Bubble 1 (Kiri) -->
+                <div class="flex gap-4 items-end animate-fade-up">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shrink-0"></div>
+                    <div class="bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-slate-700 shadow-md max-w-[85%]">
+                        <p class="text-sm text-brand-300 font-bold mb-1">~ Hendy Clips</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">Biasanya mentok 200 views. Iseng masukin podcast lama, AI-nya pinter banget milih hook. Upload semalam, pagi ini tembus <span class="text-brand-400 font-bold bg-brand-900/50 px-1 rounded">300.000+ Views!</span> Edan 🔥</p>
+                        <p class="text-[10px] text-slate-500 text-right mt-2">10:42 AM</p>
                     </div>
                 </div>
 
-                <div class="relative w-full overflow-hidden slider-container-group">
-                    <div class="flex gap-6 w-max items-center testimonial-track-bottom">
-                        <img src="assets/img/Testimoni- (6).PNG" alt="Bukti 6" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (7).PNG" alt="Bukti 7" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (8).PNG" alt="Bukti 8" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (9).PNG" alt="Bukti 9" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (10).PNG" alt="Bukti 10" class="w-[280px] md:w-[320px] rounded-2xl shadow-lg border border-slate-800 shrink-0">
+                <!-- Bubble 2 (Kanan) -->
+                <div class="flex gap-4 items-end justify-end animate-fade-up delay-100">
+                    <div class="bg-brand-600 p-4 rounded-2xl rounded-br-none shadow-md max-w-[85%]">
+                        <p class="text-white text-sm leading-relaxed">Gila kan? Fitur hook generator-nya emang dibikin khusus buat nge-hack algoritma FYP. Lanjut gas terus bang! 🚀</p>
+                        <div class="flex justify-end items-center gap-1 mt-2">
+                            <p class="text-[10px] text-brand-200">10:45 AM</p>
+                            <i class="fa-solid fa-check-double text-[10px] text-blue-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bubble 3 (Kiri) -->
+                <div class="flex gap-4 items-end animate-fade-up delay-200 mt-8">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
+                    <div class="bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-slate-700 shadow-md max-w-[85%]">
+                        <p class="text-sm text-purple-400 font-bold mb-1">~ Agency Owner JKT</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">Pegang 3 akun klien sekarang jadi enteng. Dulu capek cari momen, skrg pake ekstensi chrome, klik, auto jadi 20 klip. Kemarin satu klip nembus <strong class="text-emerald-400">500K views</strong>. Klien seneng, gw tinggal ngopi ☕</p>
+                        <img src="assets/img/Testimoni- (1).PNG" alt="Bukti Views" class="mt-3 rounded-lg border border-slate-700 w-full max-w-[200px] opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+                        <p class="text-[10px] text-slate-500 text-right mt-2">14:20 PM</p>
                     </div>
                 </div>
             </div>
-            </div>
+            
+        </div>
     </section>
 
     <section id="checkout" class="py-24 px-5 bg-gradient-to-b from-dark-900 to-dark-950 border-t border-slate-800 relative">
