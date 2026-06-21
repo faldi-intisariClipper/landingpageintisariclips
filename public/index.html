@@ -282,15 +282,44 @@
                 </div>
 
                 <!-- BENTO 4: Face Tracking -->
-                <div class="md:col-span-2 lg:col-span-2 bg-dark-800/50 p-8 rounded-3xl border border-indigo-900/50 hover:border-indigo-500/50 transition-all">
-                    <i class="fa-solid fa-crosshairs text-4xl text-indigo-400 mb-4"></i>
-                    <h3 class="text-2xl font-bold text-white mb-3">Auto Face Tracking 9:16</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Punya video podcast landscape (16:9)? AI mendeteksi wajah pembicara aktif dan memotong frame menjadi vertikal mengikuti gerak wajah secara dinamis.</p>
+                <div class="md:col-span-2 lg:col-span-2 bg-dark-800/50 p-6 md:p-8 rounded-3xl border border-indigo-900/50 hover:border-indigo-500/50 transition-all flex flex-col">
+                    <i class="fa-solid fa-crosshairs text-3xl text-indigo-400 mb-3"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">Auto Face Tracking 9:16</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Punya video podcast landscape (16:9)? AI mendeteksi wajah aktif dan memotong frame menjadi vertikal mengikuti gerak wajah secara dinamis.</p>
                     
-                    <div class="flex items-center gap-4">
-                        <div class="bg-black px-3 py-1 rounded text-xs font-bold text-slate-500 border border-slate-700">16:9 Ori</div>
-                        <i class="fa-solid fa-arrow-right text-indigo-500"></i>
-                        <div class="bg-indigo-600 px-3 py-1 rounded text-xs font-bold text-white shadow-[0_0_15px_rgba(79,70,229,0.5)]">9:16 AI Face-Track</div>
+                    <div class="grid grid-cols-2 gap-4 mt-auto">
+                        <!-- Ori 16:9 -->
+                        <div class="space-y-2">
+                            <div class="bg-black text-[10px] text-center font-bold text-slate-500 py-1 rounded">16:9 ORI</div>
+                            <div class="rounded-xl overflow-hidden border border-slate-700 aspect-video">
+                                <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60">
+                                    <source src="assets/img/Face_Tracking_Original.webm" type="video/webm">
+                                </video>
+                            </div>
+                        </div>
+                        <!-- Hasil 9:16 -->
+                        <div class="space-y-2">
+                            <div class="bg-indigo-600 text-[10px] text-center font-bold text-white py-1 rounded shadow-[0_0_10px_rgba(79,70,229,0.5)]">9:16 AI</div>
+                            <div class="rounded-xl overflow-hidden border-2 border-indigo-500/50 aspect-[9/16] max-h-[150px] mx-auto group cursor-pointer" onclick="toggleVideoAudio(this)">
+                                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                    <source src="assets/img/Auto_Face_Tracking.webm" type="video/webm">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BENTO 6: Teks Cover & Hook -->
+                <div class="md:col-span-1 lg:col-span-2 bg-dark-950 p-6 rounded-3xl border border-brand-900/50 hover:border-brand-500/50 transition-all flex gap-4 items-center">
+                    <div class="w-1/2">
+                        <i class="fa-solid fa-fire-flame-curved text-3xl text-brand-400 mb-3"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Auto Hook Generator</h3>
+                        <p class="text-slate-400 text-sm">Sistem menempelkan teks cover besar di awal video (detik 0-2) untuk menghentikan jempol penonton men-scroll.</p>
+                    </div>
+                    <div class="w-1/2 rounded-2xl overflow-hidden border border-brand-500/30 aspect-[9/16] max-h-[250px] cursor-pointer" onclick="toggleVideoAudio(this)">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                            <source src="assets/img/Auto_Teks_Cover.webm" type="video/webm">
+                        </video>
                     </div>
                 </div>
 
@@ -318,7 +347,7 @@
             </div>
 
             <!-- BUBBLE CHAT TESTIMONIALS -->
-            <div class="space-y-6 max-w-2xl mx-auto bg-dark-900/50 p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl relative">
+            <div class="space-y-6 max-w-2xl mx-auto bg-dark-900/50 p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl relative mb-16">
                 <!-- Watermark -->
                 <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
                     <i class="fa-solid fa-comments text-[200px]"></i>
@@ -353,6 +382,37 @@
                         <p class="text-slate-300 text-sm leading-relaxed">Pegang 3 akun klien sekarang jadi enteng. Dulu capek cari momen, skrg pake ekstensi chrome, klik, auto jadi 20 klip. Kemarin satu klip nembus <strong class="text-emerald-400">500K views</strong>. Klien seneng, gw tinggal ngopi ☕</p>
                         <img src="assets/img/Testimoni- (1).PNG" alt="Bukti Views" class="mt-3 rounded-lg border border-slate-700 w-full max-w-[200px] opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
                         <p class="text-[10px] text-slate-500 text-right mt-2">14:20 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TUNTUTAN BUKTI MASIF (CAROUSEL) -->
+            <div class="text-center mb-8">
+                <p class="text-brand-400 font-bold tracking-widest uppercase text-xs mb-2">Masih Kurang Yakin?</p>
+                <h3 class="text-2xl text-white font-black">Ratusan Bukti Nyata dari Dashboard Pengguna</h3>
+            </div>
+
+            <div class="relative w-full overflow-hidden py-4 space-y-6" id="testimonial-master-container">
+                <div class="absolute top-0 bottom-0 left-0 w-16 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none"></div>
+                
+                <div class="relative w-full overflow-hidden slider-container-group">
+                    <div class="flex gap-4 w-max items-center testimonial-track-top">
+                        <img src="assets/img/Testimoni- (1).PNG" alt="Bukti 1" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (2).PNG" alt="Bukti 2" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (3).PNG" alt="Bukti 3" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (4).PNG" alt="Bukti 4" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (5).PNG" alt="Bukti 5" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                    </div>
+                </div>
+
+                <div class="relative w-full overflow-hidden slider-container-group">
+                    <div class="flex gap-4 w-max items-center testimonial-track-bottom">
+                        <img src="assets/img/Testimoni- (6).PNG" alt="Bukti 6" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (7).PNG" alt="Bukti 7" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (8).PNG" alt="Bukti 8" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (9).PNG" alt="Bukti 9" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
+                        <img src="assets/img/Testimoni- (10).PNG" alt="Bukti 10" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
                     </div>
                 </div>
             </div>
