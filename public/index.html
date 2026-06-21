@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -16,16 +16,13 @@
                 extend: {
                     fontFamily: { 
                         sans: ['Outfit', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
+                        serif: ['Playfair Display', 'serif'],
+                        disp: ['Fredoka', 'Outfit', 'sans-serif']
                     },
                     colors: {
                         brand: { 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
                         dark: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
                         accent: { 500: '#f59e0b', 600: '#d97706' }
-                    },
-                    boxShadow: {
-                        'brutal': '8px 8px 0px 0px rgba(96, 165, 250, 1)',
-                        'brutal-hover': '4px 4px 0px 0px rgba(96, 165, 250, 1)'
                     }
                 }
             }
@@ -35,676 +32,3040 @@
     <link rel="stylesheet" href="assets/css/style.css">
     
     <style>
-        .glow-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
-    
-        .tap-sound-overlay { background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); transition: all 0.3s ease; }
-        
-        /* Animasi Custom */
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        :root {
+            --canvas: #020617; /* Slate 950 */
+            --soft: #0f172a;   /* Slate 900 */
+            --card: #1e293b;   /* Slate 800 */
+            --strong: #334155; /* Slate 700 */
+            --hair: #1e293b;   /* Slate 800 / border */
+            --hair2: #334155;  /* Slate 700 / border secondary */
+            --ink: #f8fafc;    /* Slate 50 / text primary */
+            --bodys: #f1f5f9;  /* Slate 100 */
+            --body: #cbd5e1;   /* Slate 300 / text body */
+            --muted: #94a3b8;  /* Slate 400 / text muted */
+            --muted2: #64748b; /* Slate 500 */
+            --on: #020617;     /* Background for buttons on solid white/light */
+            
+            --pink: #ff4d8b; 
+            --teal: #10b981;   /* Emerald 500 */
+            --lav: #b8a4ed; 
+            --peach: #ffb084; 
+            --ochre: #f59e0b;  /* Amber */
+            --mint: #34d399; 
+            --coral: #ef4444;  /* Red */
+            --max: 1280px;
+            --disp: 'Fredoka', 'Outfit', 'Playfair Display', sans-serif;
+            --sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; }
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
 
-        .pulse-animation { animation: pulse-red 2s infinite; }
-        @keyframes pulse-red { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+        body {
+            background: var(--canvas);
+            color: var(--body);
+            font-family: var(--sans);
+        }
+
+        .container {
+            width: min(var(--max), calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        /* Nav & Header */
+        .top {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--hair);
+        }
+        .nav {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+        .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 9999px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--hair);
+        }
+        .brand b {
+            display: block;
+            font-family: var(--disp);
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: -.02em;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+        .brand small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 1px;
+            font-weight: 500;
+        }
+        .links {
+            display: flex;
+            gap: 26px;
+        }
+        .links a {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color .15s;
+        }
+        .links a:hover {
+            color: var(--ink);
+        }
+        .nav-cta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .price-tag {
+            border: 1px solid var(--hair);
+            color: var(--muted);
+            background: var(--card);
+            padding: 7px 13px;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            min-height: 44px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background .15s, opacity .15s, border-color .15s;
+            font-family: var(--sans);
+        }
+        .btn-primary {
+            background: var(--ink);
+            color: var(--on);
+        }
+        .btn-primary:hover {
+            background: #e2e8f0;
+        }
+        .btn-primary:active {
+            background: #cbd5e1;
+            opacity: .9;
+        }
+        .btn-dark {
+            background: var(--canvas);
+            border-color: var(--hair);
+            color: var(--ink);
+        }
+        .btn-dark:hover {
+            background: var(--soft);
+            border-color: var(--ink);
+        }
+        .btn-lg {
+            padding: 13px 22px;
+            font-size: 15px;
+        }
+
+        /* Sections */
+        section {
+            padding: 72px 0;
+        }
+        .section-head {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 32px;
+            align-items: end;
+            margin-bottom: 48px;
+        }
+        .section-head h2 {
+            max-width: 760px;
+            font-size: clamp(32px, 4vw, 56px);
+            line-height: 1.05;
+            letter-spacing: -.03em;
+            font-weight: 500;
+        }
+        .section-head h2 .accent {
+            color: var(--ink);
+        }
+        .section-head p {
+            max-width: 340px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ink);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 18px;
+            padding: 6px 13px;
+            background: var(--card);
+            border-radius: 9999px;
+            border: 1px solid var(--hair2);
+        }
+        .section-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--coral);
+            flex-shrink: 0;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 72px 0 56px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+            gap: 56px;
+            align-items: center;
+            position: relative;
+        }
+        .hero-eyebrow {
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+        .maint-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            border: 1px solid var(--hair);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .maint-badge svg {
+            width: 14px;
+            height: 14px;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+        .maint-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--teal);
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: clamp(40px, 5.4vw, 72px);
+            line-height: 1.1;
+            letter-spacing: -.035em;
+            font-weight: 800;
+            margin-bottom: 22px;
+            max-width: 640px;
+            text-wrap: balance;
+            color: var(--ink);
+        }
+        h1 .accent {
+            color: var(--ink);
+        }
+        .lead {
+            color: var(--body);
+            font-size: clamp(16px, 1.2vw, 18px);
+            line-height: 1.55;
+            max-width: 500px;
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+        .lead b {
+            color: var(--bodys);
+            font-weight: 600;
+        }
+
+        /* Price Card */
+        .price-card {
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 20px 22px;
+            margin-bottom: 24px;
+            max-width: 480px;
+        }
+        .pc-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .once {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--teal);
+            color: var(--on);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 13px;
+            border-radius: 9999px;
+        }
+        .once::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--mint);
+        }
+        .pc-save {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink);
+            background: var(--card);
+            padding: 6px 12px;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+        .pc-price {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .new {
+            font-family: var(--disp);
+            color: var(--ink);
+            font-size: 46px;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+        .new-unit {
+            color: var(--muted);
+            font-size: 18px;
+            font-weight: 500;
+            margin-left: 1px;
+        }
+        .old {
+            text-decoration: line-through;
+            color: var(--muted2);
+            font-size: 16px;
+            font-weight: 400;
+        }
+        .pc-next {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--hair);
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+        .pc-next svg {
+            width: 14px;
+            height: 14px;
+            color: var(--ink);
+            flex-shrink: 0;
+        }
+        .pc-next b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .actions {
+            display: flex;
+            gap: 11px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        /* Right Column Hero */
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .uw-panel {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-radius: 24px;
+            background: var(--lav);
+            color: var(--on);
+            padding: 20px 22px;
+        }
+        .uw-badge {
+            width: 104px;
+            height: 104px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .uw-ring-text {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            fill: var(--on);
+            text-transform: uppercase;
+        }
+        .uw-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            min-width: 0;
+        }
+        .uw-copy b {
+            font-family: var(--sans);
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -.01em;
+            color: var(--on);
+            line-height: 1.3;
+        }
+        .uw-copy p {
+            margin: 0;
+            color: rgba(9, 13, 22, .72);
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        .uw-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 2px;
+        }
+        .uw-tags span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--on);
+            padding: 4px 11px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, .45);
+        }
+        .uw-tags svg {
+            width: 13px;
+            height: 13px;
+            color: var(--on);
+            flex-shrink: 0;
+        }
+
+        .hero-card {
+            width: 100%;
+            border-radius: 24px;
+            background: var(--soft);
+            padding: 14px;
+            border: 1px solid var(--hair);
+        }
+        .hero-img {
+            width: 100%;
+            display: block;
+            border-radius: 14px;
+            background: var(--canvas);
+            border: 1px solid var(--hair);
+        }
+        .hero-steps {
+            width: 100%;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hstep {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .hstep .n {
+            width: 24px;
+            height: 24px;
+            border-radius: 9999px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--on);
+            background: var(--ink);
+        }
+        .harrow {
+            width: 16px;
+            height: 16px;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+        .hero-meta {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-meta span::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--coral);
+        }
+
+        /* Circled Doodle */
+        .circled {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            --doodle: var(--pink);
+        }
+        .circle-doodle {
+            position: absolute;
+            left: -9%;
+            top: -22%;
+            width: 118%;
+            height: 148%;
+            overflow: visible;
+            pointer-events: none;
+            transform: rotate(-1.5deg);
+            z-index: 0;
+        }
+        .circle-doodle path {
+            fill: none;
+            stroke: var(--doodle);
+            stroke-width: 2.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vector-effect: non-scaling-stroke;
+            stroke-dasharray: 1;
+            stroke-dashoffset: 1;
+            transition: stroke-dashoffset .9s cubic-bezier(.65, .05, .36, 1);
+        }
+        .circled.drawn .circle-doodle path {
+            stroke-dashoffset: 0;
+        }
+
+        /* QA Grid */
+        .qa-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+        .qa {
+            border: 1px solid var(--hair);
+            border-radius: 20px;
+            background: var(--soft);
+            padding: 24px;
+        }
+        .qa-q {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+        .qa-a {
+            display: block;
+            font-family: var(--disp);
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -.02em;
+            color: var(--ink);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+        .qa p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* Cocok Buat Chips */
+        .uc-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .uc-chips span {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink);
+            padding: 11px 18px;
+            border: 1px solid var(--hair);
+            border-radius: 9999px;
+            background: var(--soft);
+        }
+
+        /* Kenapa & Fitur Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .card {
+            position: relative;
+            border: 1px solid var(--hair);
+            border-radius: 24px;
+            background: var(--soft);
+            padding: 32px;
+            transition: transform .2s;
+        }
+        .card h3 {
+            font-size: 18px;
+            letter-spacing: 0;
+            margin-bottom: 9px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .card p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+        .card .num {
+            display: inline-flex;
+            margin-bottom: 20px;
+            width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: var(--ink);
+            color: var(--on);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .feat-ic {
+            display: grid;
+            place-items: center;
+            margin-bottom: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            color: var(--c-on, var(--ink));
+            background: var(--c-chipbg, rgba(255, 255, 255, 0.05));
+            border: 1px solid var(--c-chipbd, rgba(255, 255, 255, 0.1));
+        }
+        .feat-ic svg {
+            width: 21px;
+            height: 21px;
+        }
+        .feat-new {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--c-on, var(--ink));
+            background: var(--c-chipbg, rgba(255, 255, 255, 0.06));
+            border: 1px solid var(--c-chipbd, rgba(255, 255, 255, 0.12));
+            padding: 3px 10px;
+            border-radius: 9999px;
+        }
+
+        #kenapa .cards .card:nth-child(1) .num { background: var(--pink); color: var(--on); }
+        #kenapa .cards .card:nth-child(2) .num { background: var(--lav); color: var(--on); }
+        #kenapa .cards .card:nth-child(3) .num { background: var(--ochre); color: var(--on); }
+
+        #fitur .cards .card {
+            border: 1px solid var(--hair);
+            color: var(--ink);
+            background: var(--soft);
+        }
+        #fitur .cards .card h3 { color: var(--ink); }
+        #fitur .cards .card p { color: var(--muted); }
+        #fitur .cards .card:nth-child(1) { border-color: var(--pink); --c-on: var(--pink); }
+        #fitur .cards .card:nth-child(2) { border-color: var(--teal); --c-on: var(--teal); }
+        #fitur .cards .card:nth-child(3) { border-color: var(--lav); --c-on: var(--lav); }
+        #fitur .cards .card:nth-child(4) { border-color: var(--peach); --c-on: var(--peach); }
+        #fitur .cards .card:nth-child(5) { border-color: var(--ochre); --c-on: var(--ochre); }
+        #fitur .cards .card:nth-child(6) { border-color: var(--muted); --c-on: var(--muted); }
+
+        /* Showcase */
+        .showcase {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 36px;
+            align-items: center;
+            margin-bottom: 18px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 16px;
+        }
+        .showcase-img {
+            border: 1px solid var(--hair);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--canvas);
+        }
+        .showcase-img img {
+            width: 100%;
+            display: block;
+        }
+        .showcase-copy {
+            padding: 16px 24px 16px 10px;
+        }
+        .showcase-copy h3 {
+            font-family: var(--disp);
+            font-size: clamp(26px, 2.6vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .showcase-copy > p {
+            color: var(--body);
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .pipeline {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 7px;
+        }
+        .pipeline li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--ink);
+            padding: 10px 13px;
+            background: var(--canvas);
+            border: 1px solid var(--hair);
+            border-radius: 12px;
+            font-weight: 400;
+        }
+        .pipeline li span {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--ink);
+            background: var(--card);
+            padding: 3px 8px;
+            border-radius: 9999px;
+        }
+
+        /* Calculator */
+        .calc-box {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 16px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 16px;
+        }
+        .calc-inputs {
+            padding: 20px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .formula {
+            align-self: flex-start;
+            font-size: 13px;
+            line-height: 1.4;
+            padding: 8px 14px;
+            background: var(--canvas);
+            border: 1px solid var(--hair);
+            border-radius: 9999px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .calc {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 11px;
+        }
+        .field {
+            border: 1px solid var(--hair);
+            border-radius: 12px;
+            background: var(--canvas);
+            padding: 13px 15px;
+            transition: border-color .15s;
+        }
+        .field:focus-within {
+            border-color: var(--ink);
+        }
+        .field label {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .field input {
+            width: 100%;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            color: var(--ink);
+            font-size: 24px;
+            font-weight: 600;
+            padding: 0;
+            font-family: var(--sans);
+            letter-spacing: -.01em;
+        }
+        .calc-result {
+            border-radius: 24px;
+            background: var(--ochre);
+            color: var(--on);
+            padding: 32px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+        }
+        .result-label {
+            color: rgba(9, 13, 22, 0.6);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+        .calc-result strong {
+            display: block;
+            font-family: var(--disp);
+            color: var(--on);
+            font-size: clamp(40px, 5vw, 56px);
+            line-height: 1;
+            margin-top: 6px;
+            letter-spacing: -.03em;
+            font-weight: 500;
+        }
+        .result-desc {
+            display: block;
+            color: rgba(9, 13, 22, 0.65);
+            font-size: 13px;
+            margin-top: 10px;
+            line-height: 1.45;
+            font-weight: 400;
+        }
+        .result-note {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(9, 13, 22, 0.16);
+            font-size: 13px;
+            color: rgba(9, 13, 22, 0.6);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        .result-note .mono {
+            color: var(--on);
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        /* Versus */
+        .vs2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .vs2-card {
+            border: 1px solid var(--hair);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        .vs2-them {
+            background: var(--soft);
+        }
+        .vs2-us {
+            background: #064e3b;
+            color: var(--ink);
+            border-color: transparent;
+        }
+        .vs2-card h3 {
+            font-size: 17px;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+        .vs2-them h3 {
+            color: var(--muted);
+        }
+        .vs2-us h3 {
+            color: var(--ink);
+        }
+        .vs2-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 13px;
+        }
+        .vs2-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+        .vs2-them li {
+            color: var(--body);
+        }
+        .vs2-us li {
+            color: rgba(255, 255, 255, .92);
+        }
+        .vs2-ic {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            margin-top: 1px;
+        }
+        .vs2-them .vs2-ic {
+            background: var(--card);
+            color: var(--muted);
+        }
+        .vs2-us .vs2-ic {
+            background: rgba(255, 255, 255, .16);
+            color: var(--ink);
+        }
+        .vs2-ic svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Batches Pricing */
+        .batches {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        .batch {
+            position: relative;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 22px 22px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            min-height: 198px;
+            transition: border-color .2s;
+        }
+        .batch-num {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .batch-status {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 400;
+        }
+        .batch-price {
+            font-family: var(--disp);
+            font-size: 34px;
+            font-weight: 500;
+            letter-spacing: -.03em;
+            color: var(--ink);
+            margin-top: auto;
+            line-height: 1;
+        }
+        .batch-price small {
+            font-size: 16px;
+            color: var(--muted);
+            font-weight: 500;
+            margin-left: 1px;
+        }
+        .batch.sold {
+            opacity: .55;
+        }
+        .batch.sold .batch-price {
+            color: var(--muted);
+            text-decoration: line-through;
+            text-decoration-color: rgba(255, 255, 255, .3);
+        }
+        .batch-soldtag {
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            background: var(--card);
+            color: var(--muted);
+            border: 1px solid var(--hair);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 11px;
+            border-radius: 9999px;
+        }
+        .batch-check {
+            width: 13px;
+            height: 13px;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+        .batch.active {
+            border-color: transparent;
+            background: #065f46;
+            color: var(--ink);
+        }
+        .batch.active .batch-num {
+            color: rgba(255, 255, 255, .6);
+        }
+        .batch.active .batch-status {
+            color: var(--ink);
+            font-weight: 500;
+        }
+        .batch.active .batch-price {
+            color: var(--ink);
+            font-size: 38px;
+        }
+        .batch.active .batch-price small {
+            color: rgba(255, 255, 255, .6);
+        }
+        .batch-save {
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            background: var(--coral);
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 11px;
+            border-radius: 9999px;
+        }
+        .batch-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--mint);
+            flex-shrink: 0;
+        }
+        .batch.next {
+            border-color: var(--ink);
+        }
+        .batch.next .batch-num {
+            color: var(--ink);
+        }
+        .batch.next .batch-status {
+            color: var(--ink);
+            font-weight: 500;
+        }
+        .batch.next .batch-price {
+            color: var(--ink);
+        }
+        .batch.locked {
+            opacity: .5;
+        }
+        .batch-lock {
+            width: 12px;
+            height: 12px;
+            color: var(--muted);
+        }
+
+        /* Price box layout */
+        .price {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            overflow: hidden;
+        }
+        .offer {
+            padding: 40px;
+            border-right: 1px solid var(--hair);
+        }
+        .offer h2 {
+            font-family: var(--disp);
+            font-size: clamp(28px, 3.4vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+        .offer h2 .accent {
+            color: var(--ink);
+        }
+        .offer > p {
+            color: var(--body);
+            font-size: 16px;
+            line-height: 1.55;
+            max-width: 520px;
+            font-weight: 400;
+        }
+        .stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+            margin-top: 26px;
+        }
+        .stack div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--hair);
+            border-radius: 9999px;
+            padding: 9px 14px;
+            background: var(--canvas);
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .stack i {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--on);
+            display: grid;
+            place-items: center;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .pricebox {
+            padding: 40px;
+            background: #064e3b;
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--on);
+            background: var(--ink);
+            border-radius: 9999px;
+            padding: 5px 12px;
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 18px;
+            width: max-content;
+        }
+        .label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--coral);
+        }
+        .pricebox .old {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: rgba(255, 255, 255, .55);
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+        .pricebox .big {
+            display: block;
+            font-family: var(--disp);
+            color: var(--ink);
+            font-size: clamp(54px, 6vw, 72px);
+            line-height: .95;
+            font-weight: 500;
+            letter-spacing: -.03em;
+            margin-bottom: 12px;
+        }
+        .pricebox .big .unit {
+            font-size: .4em;
+            color: rgba(255, 255, 255, .6);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+        .pricebox > p {
+            color: rgba(255, 255, 255, .72);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        .pricebox .btn-primary {
+            background: var(--ink);
+            color: var(--on);
+            width: 100%;
+        }
+        .pricebox .btn-primary:hover {
+            background: #e5e7eb;
+        }
+        .micro {
+            color: rgba(255, 255, 255, .5);
+            font-size: 12px;
+            text-align: center;
+            margin-top: 14px;
+            font-weight: 400;
+        }
+
+        /* Unlimited Grid */
+        .unlimited-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .ulim {
+            border: 1px solid var(--hair);
+            border-radius: 24px;
+            background: var(--soft);
+            padding: 32px;
+            transition: transform .2s;
+        }
+        .ulim-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            margin-bottom: 20px;
+        }
+        .ulim-icon svg {
+            width: 21px;
+            height: 21px;
+        }
+        .unlimited-grid .ulim:nth-child(1) .ulim-icon { background: var(--coral); color: var(--ink); }
+        .unlimited-grid .ulim:nth-child(2) .ulim-icon { background: var(--lav); color: var(--on); }
+        .unlimited-grid .ulim:nth-child(3) .ulim-icon { background: var(--mint); color: var(--on); }
+        .ulim h3 {
+            font-size: 18px;
+            letter-spacing: 0;
+            font-weight: 600;
+            margin-bottom: 9px;
+            line-height: 1.4;
+        }
+        .ulim p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+        .ulim p .strike {
+            color: var(--muted2);
+            text-decoration: line-through;
+        }
+
+        /* Guarantee */
+        .guarantee {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 30px;
+            align-items: center;
+            border-radius: 24px;
+            background: #064e3b;
+            color: var(--ink);
+            padding: 36px 40px;
+        }
+        .guarantee-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 9999px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .2);
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+        }
+        .guarantee-badge svg {
+            width: 40px;
+            height: 40px;
+        }
+        .guarantee-copy h3 {
+            font-family: var(--disp);
+            font-size: clamp(24px, 2.8vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            font-weight: 500;
+            margin-bottom: 9px;
+            color: var(--ink);
+        }
+        .guarantee-copy h3 .accent {
+            color: var(--ink);
+        }
+        .guarantee-copy h3 .circled {
+            --doodle: var(--coral);
+        }
+        .guarantee-copy p {
+            color: rgba(255, 255, 255, .75);
+            font-size: 16px;
+            line-height: 1.55;
+            max-width: 560px;
+            font-weight: 400;
+        }
+        .guarantee-100 {
+            font-family: var(--disp);
+            font-weight: 500;
+            font-size: 52px;
+            color: var(--ink);
+            letter-spacing: -.03em;
+            line-height: 1;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .guarantee-100 small {
+            display: block;
+            font-family: var(--sans);
+            font-size: 11px;
+            color: rgba(255, 255, 255, .6);
+            font-weight: 500;
+            margin-top: 7px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        /* Proof */
+        .proof {
+            padding: 56px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .proof-head {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 48px;
+            align-items: end;
+            margin-bottom: 40px;
+        }
+        .proof-head .section-tag {
+            margin-bottom: 18px;
+        }
+        .proof-head h2 {
+            font-family: var(--disp);
+            font-size: clamp(32px, 4vw, 56px);
+            line-height: 1.05;
+            letter-spacing: -.03em;
+            font-weight: 500;
+            max-width: 600px;
+        }
+        .proof-head h2 .accent {
+            color: var(--ink);
+        }
+        .proof-head p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.55;
+            max-width: 340px;
+            padding-bottom: 6px;
+            font-weight: 400;
+        }
+        .proof-head p b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .proof-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .proof-stat {
+            padding: 24px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+        }
+        .proof-stat-num {
+            display: block;
+            font-family: var(--disp);
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: -.02em;
+            line-height: 1;
+            color: var(--ink);
+        }
+        .proof-stat-num em {
+            font-style: normal;
+            color: var(--coral);
+        }
+        .proof-stat-label {
+            display: block;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        .marquee {
+            position: relative;
+            width: calc(100% + 96px);
+            margin: 0 -48px;
+            mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 18px;
+            width: max-content;
+        }
+        .proof-card {
+            flex-shrink: 0;
+            width: 280px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 8px;
+        }
+        .proof-card img {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+            background: var(--canvas);
+            border: 1px solid var(--hair);
+        }
+        .proof-card-meta {
+            padding: 12px 8px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .proof-card-meta b {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+        .proof-card-meta span {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .proof-foot {
+            margin-top: 24px;
+            padding: 16px 18px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .proof-foot-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+        .proof-foot p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+            flex: 1;
+            font-weight: 400;
+        }
+        .proof-foot p b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* OS Platforms */
+        .platforms {
+            padding: 56px 0;
+        }
+        .platforms-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            border-radius: 24px;
+            background: var(--card);
+            padding: 44px 48px;
+            border: 1px solid var(--hair);
+        }
+        .platforms-claim .section-tag {
+            margin-bottom: 18px;
+            background: var(--canvas);
+        }
+        .platforms-claim h2 {
+            font-family: var(--disp);
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .platforms-claim h2 .accent {
+            color: var(--ink);
+        }
+        .platforms-claim p {
+            color: var(--body);
+            font-size: 16px;
+            line-height: 1.55;
+            max-width: 420px;
+            font-weight: 400;
+        }
+        .platforms-claim p b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .platforms-os {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+        .os-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 16px;
+            align-items: center;
+            padding: 17px 18px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--canvas);
+            transition: border-color .2s;
+        }
+        .os-item:hover {
+            border-color: var(--ink);
+        }
+        .os-logo {
+            width: 28px;
+            height: 28px;
+            color: var(--ink);
+            flex-shrink: 0;
+        }
+        .os-info b {
+            display: block;
+            font-family: var(--sans);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.15;
+            color: var(--ink);
+        }
+        .os-info span {
+            display: block;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 3px;
+            font-weight: 400;
+        }
+        .os-status {
+            font-size: 12px;
+            color: var(--on);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            background: var(--mint);
+        }
+        .os-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        /* Final CTA */
+        .final {
+            padding: 56px 0 80px;
+        }
+        .final-box {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border-radius: 24px;
+            background: var(--soft);
+            padding: 80px 32px;
+            border: 1px solid var(--hair);
+        }
+        .final-box h2 {
+            font-family: var(--disp);
+            max-width: 760px;
+            margin: 0 auto 16px;
+            font-size: clamp(34px, 4.4vw, 56px);
+            line-height: 1.02;
+            letter-spacing: -.03em;
+            font-weight: 500;
+        }
+        .final-box h2 .accent {
+            color: var(--ink);
+        }
+        .final-box p {
+            max-width: 560px;
+            margin: 0 auto 28px;
+            color: var(--body);
+            font-size: 17px;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+        .center {
+            justify-content: center;
+        }
+
+        /* Shorts Grid */
+        .shorts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .short {
+            position: relative;
+            aspect-ratio: 9/16;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--canvas);
+            overflow: hidden;
+            transition: transform .2s;
+        }
+        .short:hover {
+            transform: translateY(-3px);
+        }
+        .short iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        .short-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--ink);
+            background: rgba(9, 13, 22, 0.92);
+            border: 1px solid var(--hair);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            backdrop-filter: blur(6px);
+            pointer-events: none;
+        }
+        .demo-foot {
+            margin-top: 24px;
+            padding: 16px 18px;
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .demo-foot svg {
+            width: 18px;
+            height: 18px;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+        .demo-foot p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+            flex: 1;
+            font-weight: 400;
+        }
+        .demo-foot p b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0 48px;
+            background: var(--soft);
+            border-top: 1px solid var(--hair);
+        }
+        .foot {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* Sticky Bar on Mobile */
+        .sticky {
+            display: none;
+            position: fixed;
+            z-index: 40;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: rgba(9, 13, 22, 0.95);
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            padding: 9px 9px 9px 16px;
+            backdrop-filter: blur(12px);
+        }
+        .sticky b {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+        .sticky span {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .sticky .btn {
+            padding: 10px 16px;
+            min-height: 0;
+            font-size: 13px;
+        }
+
+        /* Universal CTA Wrap */
+        .cta-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-top: 44px;
+            text-align: center;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 24px;
+            min-height: 44px;
+            border-radius: 12px;
+            background: var(--ink);
+            color: var(--on);
+            border: 1px solid transparent;
+            font-weight: 600;
+            font-size: 15px;
+            font-family: var(--sans);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .16s ease;
+        }
+        .cta-btn:hover {
+            background: #e5e7eb;
+        }
+        .cta-btn:active {
+            opacity: .9;
+        }
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+            color: var(--on);
+            flex-shrink: 0;
+            transition: transform .16s ease;
+        }
+        .cta-btn:hover svg {
+            transform: translateX(3px);
+        }
+        .cta-note {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        .cta-note b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* FAQ List */
+        .faq-list {
+            display: grid;
+            gap: 11px;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border: 1px solid var(--hair);
+            border-radius: 16px;
+            background: var(--soft);
+            transition: border-color .2s;
+        }
+        .faq-item.open {
+            border-color: var(--ink);
+        }
+        .faq-q {
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            border: 0;
+            background: transparent;
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 22px;
+        }
+        .faq-q .ic {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 9999px;
+            display: grid;
+            place-items: center;
+            color: var(--on);
+            background: var(--ink);
+            transition: transform .25s ease;
+        }
+        .faq-q .ic svg {
+            width: 15px;
+            height: 15px;
+        }
+        .faq-item.open .ic {
+            transform: rotate(45deg);
+        }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease;
+        }
+        .faq-a p {
+            margin: 0;
+            padding: 0 22px 20px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .faq-a p .hl {
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .faq-a p b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* Diagram Alur */
+        .flow {
+            padding: 56px 0;
+        }
+        .flow-stage {
+            border: 1px solid var(--hair);
+            border-radius: 24px;
+            background: var(--soft);
+            padding: 16px 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        .flow-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+        }
+        .flow-svg .cpf-card {
+            fill: var(--canvas);
+            stroke: var(--hair);
+            stroke-width: 1.5;
+        }
+        .flow-svg .cpf-glow {
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 1.5;
+            opacity: 0;
+        }
+        .flow-svg .cpf-cardglow {
+            fill: var(--ink);
+            opacity: 0;
+        }
+        .flow-svg .cpf-num {
+            fill: var(--muted);
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .04em;
+        }
+        .flow-svg .cpf-title {
+            fill: var(--ink);
+            font-family: var(--sans);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
+        .flow-svg .cpf-sub {
+            fill: var(--muted);
+            font-family: var(--sans);
+            font-size: 11px;
+            letter-spacing: .02em;
+        }
+        .flow-svg .cpf-mono {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 400;
+            fill: var(--ink);
+        }
+        .flow-svg .cpf-chev {
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: .4;
+        }
+        .flow-svg * {
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+        .flow-svg .cpf-g1 { animation: cpfA1 9s linear infinite; }
+        .flow-svg .cpf-g2 { animation: cpfA2 9s linear infinite; }
+        .flow-svg .cpf-g3 { animation: cpfA3 9s linear infinite; }
+        @keyframes cpfA1 { 0%, 1% { opacity: 0 } 4% { opacity: 1 } 30% { opacity: 1 } 33%, 100% { opacity: 0 } }
+        @keyframes cpfA2 { 0%, 35% { opacity: 0 } 38% { opacity: 1 } 62% { opacity: 1 } 66%, 100% { opacity: 0 } }
+        @keyframes cpfA3 { 0%, 68% { opacity: 0 } 71% { opacity: 1 } 96% { opacity: 1 } 99%, 100% { opacity: 0 } }
         
-        /* Kartu Glitch Villain */
-        .villain-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .flow-svg .cpf-cardglow.cpf-g1 { animation: cpfA1s 9s linear infinite; }
+        .flow-svg .cpf-cardglow.cpf-g2 { animation: cpfA2s 9s linear infinite; }
+        .flow-svg .cpf-cardglow.cpf-g3 { animation: cpfA3s 9s linear infinite; }
+        @keyframes cpfA1s { 0%, 1% { opacity: 0 } 6% { opacity: .04 } 30% { opacity: .04 } 33%, 100% { opacity: 0 } }
+        @keyframes cpfA2s { 0%, 35% { opacity: 0 } 40% { opacity: .04 } 62% { opacity: .04 } 66%, 100% { opacity: 0 } }
+        @keyframes cpfA3s { 0%, 68% { opacity: 0 } 73% { opacity: .04 } 96% { opacity: .04 } 99%, 100% { opacity: 0 } }
+        
+        .flow-svg .cpf-urlclip { animation: cpfType 9s linear infinite; }
+        @keyframes cpfType { 0%, 4% { width: 0 } 24% { width: 188px; } 100% { width: 188px; } }
+        
+        .flow-svg .cpf-caret { animation: cpfBlink .9s steps(1) infinite, cpfA1 9s linear infinite; }
+        @keyframes cpfBlink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+        
+        .flow-svg .cpf-paste { animation: cpfPaste 9s linear infinite; }
+        @keyframes cpfPaste { 0%, 3% { opacity: 0; transform: translateY(6px); } 7% { opacity: 1; transform: translateY(0); } 14% { opacity: 1; } 18% { opacity: 0; } 100% { opacity: 0; } }
+        
+        .flow-svg .cpf-pick { animation: cpfPick 9s linear infinite; }
+        @keyframes cpfPick { 0%, 40% { opacity: 0; transform: scale(.55); } 45% { opacity: 1; transform: scale(1.12); } 49% { transform: scale(1); } 62% { opacity: 1; } 66%, 100% { opacity: 0; } }
+        
+        .flow-svg .cpf-pickfill { animation: cpfPickFill 9s linear infinite; }
+        @keyframes cpfPickFill { 0%, 42% { opacity: 0 } 46% { opacity: 1 } 62% { opacity: 1 } 66%, 100% { opacity: 0 } }
+        
+        .flow-svg .cpf-pop1 { animation: cpfPop 9s linear infinite; }
+        .flow-svg .cpf-pop2 { animation: cpfPop2 9s linear infinite; transform-origin: bottom; }
+        .flow-svg .cpf-pop3 { animation: cpfPop3 9s linear infinite; transform-origin: bottom; }
+        @keyframes cpfPop { 0%, 70% { opacity: 0; transform: translateY(16px) scale(.9); } 76% { opacity: 1; transform: translateY(0) scale(1); } 96% { opacity: 1; } 99%, 100% { opacity: 0; } }
+        @keyframes cpfPop2 { 0%, 72% { opacity: 0; transform: translateY(16px) scale(.9); } 78% { opacity: 1; transform: translateY(0) scale(1); } 96% { opacity: 1; } 99%, 100% { opacity: 0; } }
+        @keyframes cpfPop3 { 0%, 74% { opacity: 0; transform: translateY(16px) scale(.9); } 80% { opacity: 1; transform: translateY(0) scale(1); } 96% { opacity: 1; } 99%, 100% { opacity: 0; } }
+        
+        .flow-svg .cpf-check { animation: cpfCheck 9s linear infinite; }
+        @keyframes cpfCheck { 0%, 80% { opacity: 0; transform: scale(0); } 85% { opacity: 1; transform: scale(1.15); } 88% { transform: scale(1); } 96% { opacity: 1; } 99%, 100% { opacity: 0; } }
+        
+        .flow-svg .cpf-trav1 { animation: cpfTrav1 9s linear infinite; }
+        @keyframes cpfTrav1 { 0%, 30% { opacity: 0; transform: translateX(0); } 31% { opacity: 1; } 35% { transform: translateX(60px); } 36% { opacity: 0; transform: translateX(60px); } 100% { opacity: 0; } }
+        
+        .flow-svg .cpf-trav2 { animation: cpfTrav2 9s linear infinite; }
+        @keyframes cpfTrav2 { 0%, 63% { opacity: 0; transform: translateX(0); } 64% { opacity: 1; } 68% { transform: translateX(60px); } 69% { opacity: 0; transform: translateX(60px); } 100% { opacity: 0; } }
+        
+        .flow-svg .cpf-prog { animation: cpfProg 9s linear infinite; }
+        @keyframes cpfProg { from { width: 0; } to { width: 1058px; } }
+        
+        .flow-svg .cpf-knob { animation: cpfKnob 9s linear infinite; }
+        @keyframes cpfKnob { from { transform: translateX(0); } to { transform: translateX(1058px); } }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 1000px) {
+            .container { width: min(var(--max), calc(100% - 40px)); }
+            .hero { padding: 48px 0 44px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-card, .hero-visual { max-width: 660px; margin: 0 auto; width: 100%; }
+            h1 { font-size: clamp(36px, 7vw, 52px); max-width: 660px; }
+            .price, .calc-box, .showcase, .platforms-card { grid-template-columns: 1fr; }
+            .showcase { gap: 20px; padding: 14px; }
+            .showcase-copy { padding: 8px 16px 16px; }
+            .offer { border-right: 0; border-bottom: 1px solid var(--hair); }
+            .cards { grid-template-columns: 1fr 1fr; }
+            .section-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
+            .section-head p { max-width: 540px; }
+            .links { display: none; }
+            section, .proof, .platforms, .flow { padding: 44px 0; }
+            .final { padding: 44px 0 64px; }
+            .platforms-card { gap: 28px; padding: 34px 30px; }
+            .proof-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 28px; }
+            .proof-head p { padding-bottom: 0; }
+            .proof-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .proof-stat-num { font-size: 26px; }
+            .marquee { width: calc(100% + 56px); margin: 0 -28px; }
+            .proof-card { width: 240px; }
+            .unlimited-grid { grid-template-columns: 1fr 1fr; }
+            .shorts-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+            .qa-grid { grid-template-columns: 1fr 1fr 1fr; }
         }
-        .villain-card:hover {
-            transform: scale(1.05) rotate(-2deg);
-            z-index: 20;
-            box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+        @media (max-width: 860px) {
+            .shorts-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
+        @media (max-width: 640px) {
+            .container { width: min(var(--max), calc(100% - 32px)); }
+            .cards { grid-template-columns: 1fr; }
+            .stack { grid-template-columns: 1fr; }
+            .calc { grid-template-columns: 1fr 1fr; }
+            .field { padding: 11px 13px; }
+            .field input { font-size: 20px; }
+            .nav-cta .price-tag, .nav-cta .btn { display: none; }
+            .sticky { display: flex; }
+            .final-box { padding: 56px 20px; }
+            .final-box p { margin-bottom: 22px; }
+            .hero-steps { gap: 6px 12px; }
+            .hstep { font-size: 13px; }
+            .harrow { display: none; }
+            .unlimited-grid { grid-template-columns: 1fr; }
+            .guarantee { grid-template-columns: 1fr; text-align: center; gap: 20px; padding: 32px 24px; }
+            .guarantee-badge { margin: 0 auto; }
+            .guarantee-100 { font-size: 44px; }
+            .shorts-grid { grid-template-columns: 1fr; gap: 12px; }
+            .qa-grid { grid-template-columns: 1fr; }
+            .batches { grid-template-columns: 1fr; gap: 12px; }
+            .batch { min-height: auto; }
+            .uw-panel { flex-direction: column; text-align: center; gap: 20px; }
+            .uw-badge { width: 88px; height: 88px; }
+            .uw-copy b { font-size: 15px; }
+            .vs2 { grid-template-columns: 1fr; }
+            .vs2-card { padding: 24px; }
+        }
+
+        .glow-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+        .tap-sound-overlay { background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); transition: all 0.3s ease; }
+        .pulse-animation { animation: pulse-blue 2s infinite; }
+        @keyframes pulse-blue { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
 
-    <nav class="fixed w-full z-50 bg-dark-950/80 backdrop-blur-md border-b border-slate-800">
-        <div class="w-full max-w-[1600px] mx-auto px-5 lg:px-10 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-brand-500/20">
-                    <i class="fa-solid fa-bolt text-white text-lg"></i>
+    <!-- Header Navbar -->
+    <header class="top">
+        <div class="container nav">
+            <a class="brand" href="#top" aria-label="IntisariClips">
+                <div class="logo">
+                    <i class="fa-solid fa-bolt text-brand-400 text-lg"></i>
                 </div>
-                <span class="text-xl font-bold text-white tracking-tight">Intisari<span class="text-brand-400">Clips</span></span>
-            </div>
-            <a href="#checkout" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                Dapatkan Akses
+                <span><b>IntisariClips</b><small>Studio clipping desktop offline</small></span>
             </a>
+            <nav class="links" aria-label="Navigasi">
+                <a href="#bukti">Bukti pasar</a>
+                <a href="#kenapa">Kenapa sekarang</a>
+                <a href="#alur">Alur</a>
+                <a href="#cpm">Hitung cuan</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#harga">Harga</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <div class="nav-cta">
+                <span class="price-tag">Batch 3 Rp190rb</span>
+                <a class="btn btn-primary" href="#checkout">Ambil akses</a>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <section class="relative pt-40 pb-20 px-5 overflow-hidden min-h-[95vh] flex flex-col justify-center">
-        <!-- Background Ornaments -->
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-600 rounded-full mix-blend-screen filter blur-[150px] opacity-20 pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
-        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-600 rounded-full mix-blend-screen filter blur-[120px] opacity-10 pointer-events-none transform -translate-x-1/2 translate-y-1/2"></div>
+    <main id="top">
         
-        <div class="w-full max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
-            
-            <!-- Kiri: Headline Asimetris -->
-            <div class="w-full lg:w-3/5 text-left animate-fade-up">
-                <div class="inline-block bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-wide mb-8 uppercase transform -rotate-1">
-                    Stop Bayar Langganan AI Bulanan!
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    
+                    <!-- Kiri: Headline, Price Card & CTA -->
+                    <div>
+                        <div class="hero-eyebrow">
+                            <span class="maint-badge">
+                                <span class="maint-dot"></span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
+                                Selalu di-maintain · update gratis
+                            </span>
+                        </div>
+                        <h1>Kreator &amp; Brand butuh <span class="circled">clipper viral</span>. <span class="text-brand-400">Ambil peluangnya sebelum semua ikutan.</span></h1>
+                        <p class="lead"><b>Tempel link video panjang, AI potong otomatis jadi 5-10 klip pendek siap upload.</b> Tiap hari ada podcast, live, webinar, dan vlog. Yang dicari: orang yang bisa <b>nemuin hook terbaik, bikin subtitle dinamis, lalu jadiin klip pendek.</b></p>
+
+                        <div class="price-card">
+                            <div class="pc-top">
+                                <span class="once">Batch 3 · Sekarang</span>
+                                <span class="pc-save">Hemat Rp210rb</span>
+                            </div>
+                            <div class="pc-price">
+                                <span class="new">Rp190<span class="new-unit">rb</span></span>
+                                <span class="old">Rp400rb</span>
+                            </div>
+                            <div class="pc-next">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M17 7H9M17 7v8"/></svg>
+                                <span>Naik ke <b>Rp250rb</b> di batch berikutnya. Bayar sekali, pakai selamanya.</span>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <a class="btn btn-primary btn-lg" href="#checkout" id="cta-main-text">YA! SAYA MAU AKSES SEKARANG</a>
+                            <a class="btn btn-dark btn-lg" href="#cpm">Hitung cuan</a>
+                        </div>
+                    </div>
+
+                    <!-- Kanan: Visual & 100% Unlimited -->
+                    <div class="hero-visual">
+                        <div class="hero-card" aria-label="Preview video dashboard IntisariClips">
+                            <div id="demo-video-wrapper" class="relative w-full max-w-[320px] mx-auto aspect-[9/16] bg-dark-900 rounded-xl overflow-hidden cursor-pointer group border-4 border-slate-800 shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:scale-[1.02] transition-transform duration-300" onclick="toggleVideoAudio(this)">
+                                <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
+                                    <source src="assets/img/demo_intisariClips.webm" type="video/webm">
+                                </video>
+                                <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
+                                    <div class="w-14 h-14 rounded-full bg-brand-600/90 flex items-center justify-center mb-3 pulse-animation border-2 border-white/20">
+                                        <i class="fa-solid fa-volume-xmark text-xl"></i>
+                                    </div>
+                                    <span class="text-xs font-semibold tracking-wider bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">TAP UNTUK BERSUARA</span>
+                                </div>
+                                <div class="absolute -left-3 -bottom-3 bg-brand-500 text-white font-black py-1.5 px-3.5 text-sm transform -rotate-6 border-2 border-dark-950 shadow-lg z-20">
+                                    AUTO-CUT AI
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="uw-panel">
+                            <div class="uw-badge" role="img" aria-label="100% unlimited, tanpa batasan kredit atau token">
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <path id="uwRingPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" fill="none"/>
+                                        <radialGradient id="uwCore" cx="50%" cy="42%" r="65%">
+                                            <stop offset="0%" stop-color="#1e293b"/>
+                                            <stop offset="100%" stop-color="#0f172a"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <circle cx="100" cy="100" r="92" fill="#0f172a" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+                                    <g class="uw-spin">
+                                        <circle cx="100" cy="100" r="90" fill="none" stroke="#f8fafc" stroke-width="1" stroke-dasharray="2 5" opacity=".45"/>
+                                        <text class="uw-ring-text" fill="#f8fafc"><textPath href="#uwRingPath" startOffset="0">TANPA TOKEN&#160;·&#160;TANPA CREDIT&#160;·&#160;TANPA LIMIT&#160;·&#160;</textPath></text>
+                                    </g>
+                                    <circle cx="100" cy="100" r="60" fill="url(#uwCore)" stroke="#3b82f6" stroke-width="2"/>
+                                    <text x="100" y="93" text-anchor="middle" font-size="31" font-weight="800" letter-spacing="-1" fill="#f8fafc">100%</text>
+                                    <text x="100" y="114" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" letter-spacing="2.5" fill="#3b82f6">OFFLINE</text>
+                                    <text x="100" y="135" text-anchor="middle" font-size="15" fill="rgba(248,250,252,.45)">&#8734;</text>
+                                </svg>
+                            </div>
+                            <div class="uw-copy">
+                                <b class="text-slate-900">100% Offline &amp; Tanpa Batas</b>
+                                <p class="text-slate-800">Generate klip sepuasnya secara lokal di PC Anda, tanpa token, tanpa credit, dan tanpa batas kuota bulanan.</p>
+                                <div class="uw-tags">
+                                    <span class="text-slate-950 font-bold"><i class="fa-solid fa-check"></i> Tanpa token</span>
+                                    <span class="text-slate-950 font-bold"><i class="fa-solid fa-check"></i> Tanpa credit</span>
+                                    <span class="text-slate-950 font-bold"><i class="fa-solid fa-check"></i> Tanpa limit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-steps" aria-label="Cara kerja singkat">
+                            <span class="hstep"><span class="n">1</span> Muat / Tempel link video</span>
+                            <svg class="harrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            <span class="hstep"><span class="n">2</span> AI deteksi &amp; potong</span>
+                            <svg class="harrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            <span class="hstep"><span class="n">3</span> Pilih subtitle &amp; export</span>
+                        </div>
+
+                        <div class="hero-meta">
+                            <span>Windows 10/11 &amp; macOS</span>
+                            <span>Sekali Bayar</span>
+                            <span>Garansi Uang Kembali</span>
+                        </div>
+                    </div>
+
                 </div>
-                
-                <!-- Kombinasi Sans & Serif Asimetris -->
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight relative z-20">
-                    <span class="font-sans">Ubah 1 Video Panjang</span><br>
-                    <span class="font-serif italic font-normal text-brand-400 text-6xl md:text-7xl lg:text-8xl">Menjadi Puluhan</span><br>
-                    <span class="font-sans bg-brand-600 px-2 py-1 transform -skew-x-6 inline-block mt-2">Klip Viral.</span>
-                </h1>
-                
-                <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl font-light leading-relaxed">
-                    Software Desktop All-in-One berteknologi AI. <strong>Tanpa batas durasi. Tanpa sewa server.</strong> Jalankan <span class="text-white font-bold border-b border-brand-500">100% Offline</span> dari PC Anda selamanya.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                    <a href="#checkout" class="bg-white text-dark-950 px-8 py-4 text-lg font-black uppercase tracking-wider transition-all shadow-brutal hover:shadow-brutal-hover hover:translate-x-[4px] hover:translate-y-[4px] flex items-center gap-3">
-                        Dapatkan Akses <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <p class="text-sm text-slate-500 font-medium">
-                        <i class="fa-solid fa-shield-halved text-emerald-500 mr-1"></i> Garansi 1x24 Jam
+            </div>
+        </section>
+
+        <!-- Jawaban Cepat (FAQ Ringkas) -->
+        <section class="quickans" aria-label="Jawaban cepat">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="section-tag">Jawaban Cepat</span>
+                        <h2>5 hal paling penting <span class="text-brand-400">untuk diketahui.</span></h2>
+                    </div>
+                    <p>Biar tidak ragu, ini jawaban singkatnya sebelum Anda men-scroll lebih jauh.</p>
+                </div>
+                <div class="qa-grid">
+                    <div class="qa">
+                        <span class="qa-q">Perlu API key?</span>
+                        <b class="qa-a text-brand-400">Nggak</b>
+                        <p>Tanpa API key OpenAI atau Whisper. Semua AI tertanam langsung &amp; gratis dipakai.</p>
+                    </div>
+                    <div class="qa">
+                        <span class="qa-q">Pakai token / kredit?</span>
+                        <b class="qa-a text-teal">Nggak ada</b>
+                        <p>Generate klip sepuasnya. Tidak ada saldo yang habis tiap kali rendering.</p>
+                    </div>
+                    <div class="qa">
+                        <span class="qa-q">Bayar bulanan?</span>
+                        <b class="qa-a text-pink">Sekali saja</b>
+                        <p>Cukup bayar sekali untuk lisensi aktif selamanya. Tidak ada tagihan bulanan.</p>
+                    </div>
+                    <div class="qa">
+                        <span class="qa-q">Dapat update?</span>
+                        <b class="qa-a text-ochre">Gratis terus</b>
+                        <p>Kami update fitur &amp; optimasi berkala, gratis selamanya untuk pembeli.</p>
+                    </div>
+                    <div class="qa">
+                        <span class="qa-q">Bisa buat apa saja?</span>
+                        <b class="qa-a text-brand-400">Hampir semua</b>
+                        <p>Kajian, podcast, talkshow, highlight bola, webinar, gaming, dll.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OS Support & Platform -->
+        <section class="platforms" aria-label="Sistem yang didukung">
+            <div class="container">
+                <div class="platforms-card bg-slate-900 border border-slate-800">
+                    <div class="platforms-claim">
+                        <span class="section-tag">Platform</span>
+                        <h2>Aplikasi desktop, untuk <span class="text-brand-400">Windows &amp; Mac.</span></h2>
+                        <p>Tinggal download, masukkan lisensi Anda, langsung pakai offline di PC/Laptop Anda.</p>
+                    </div>
+                    <div class="platforms-os">
+                        <div class="os-item bg-dark-950 border border-slate-800">
+                            <svg class="os-logo text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.557 10.235 4.6v6.961H3V5.557Zm0 12.886 7.235.957v-6.876H3v5.919Zm8.027.971L21 20.75V12.61H11.027v6.804Zm0-14.828v6.916H21V3.25l-9.973 1.336Z"/></svg>
+                            <div class="os-info"><b>Windows</b><span class="text-slate-400">10 / 11 · 64-bit</span></div>
+                            <span class="os-status bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Tersedia</span>
+                        </div>
+                        <div class="os-item bg-dark-950 border border-slate-800">
+                            <svg class="os-logo text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/></svg>
+                            <div class="os-info"><b>macOS</b><span class="text-slate-400">12+ · Intel &amp; Apple Silicon M1/M2/M3</span></div>
+                            <span class="os-status bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bukti Pasar (Social Proof) -->
+        <section class="proof" id="bukti">
+            <div class="container">
+                <div class="proof-head">
+                    <div>
+                        <span class="section-tag">Bukti Pasar</span>
+                        <h2>Banyak yang lagi <span class="text-brand-400"><span class="circled">butuh clipper</span>.</span></h2>
+                    </div>
+                    <p>Contoh bukti real views &amp; job list dari dashboard serta komunitas kreator di Indonesia.</p>
+                </div>
+
+                <div class="proof-stats">
+                    <div class="proof-stat"><span class="proof-stat-num text-brand-400">Rp<em>1.5-5rb</em></span><span class="proof-stat-label">Tarif umum per 1.000 views</span></div>
+                    <div class="proof-stat"><span class="proof-stat-num text-teal"><em>100k+</em> views</span><span class="proof-stat-label">Rata-rata fyp klip hook yang terstruktur</span></div>
+                    <div class="proof-stat"><span class="proof-stat-num text-pink">Rp<em>10jt+</em></span><span class="proof-stat-label">Potensi bonus omset dari program afiliasi</span></div>
+                </div>
+
+                <!-- TESTIMONI MARQUEE SLIDER -->
+                <div class="marquee py-4 overflow-hidden relative" aria-label="Galeri bukti views pengguna IntisariClips">
+                    <div class="absolute top-0 bottom-0 left-0 w-16 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none"></div>
+                    
+                    <div class="relative w-full overflow-hidden slider-container-group">
+                        <div class="flex gap-4 w-max items-center testimonial-track-top">
+                            <img src="assets/img/Testimoni- (1).PNG" alt="Testimoni 1" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (2).PNG" alt="Testimoni 2" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (3).PNG" alt="Testimoni 3" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (4).PNG" alt="Testimoni 4" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (5).PNG" alt="Testimoni 5" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                        </div>
+                    </div>
+
+                    <div class="relative w-full overflow-hidden slider-container-group mt-4">
+                        <div class="flex gap-4 w-max items-center testimonial-track-bottom">
+                            <img src="assets/img/Testimoni- (6).PNG" alt="Testimoni 6" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (7).PNG" alt="Testimoni 7" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (8).PNG" alt="Testimoni 8" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (9).PNG" alt="Testimoni 9" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                            <img src="assets/img/Testimoni- (10).PNG" alt="Testimoni 10" class="h-[200px] w-auto rounded-xl border border-slate-800 shrink-0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proof-foot border border-slate-800">
+                    <svg class="proof-foot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                    <p>Hasil views di atas dicapai oleh para pengguna aktif yang memanfaatkan fitur <b>Auto Hook Generator</b> dan model pemotongan pintar IntisariClips.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kenapa Sekarang -->
+        <section id="kenapa">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="section-tag">Kenapa Sekarang</span>
+                        <h2>Yang butuh klip banyak, <span class="text-brand-400">tapi video editor mahal.</span></h2>
+                    </div>
+                    <p>Setiap hari jutaan video panjang diunggah. Kreator &amp; agensi butuh menyebarkan klip pendek agar tetap bersaing.</p>
+                </div>
+                <div class="cards">
+                    <div class="card border border-slate-800"><span class="num bg-pink text-white">01</span><h3>Banyak Video Panjang</h3><p>Podcast, talkshow, live webinar, dan vlog menumpuk. Satu video panjang bisa dipotong jadi puluhan klip pendek siap upload.</p></div>
+                    <div class="card border border-slate-800"><span class="num bg-indigo-500 text-white">02</span><h3>Pembuka (Hook) Penentu</h3><p>Sosial media menghukum video tanpa hook di 3 detik pertama. AI IntisariClips otomatis mendeteksi dan menempel teks hook cover.</p></div>
+                    <div class="card border border-slate-800"><span class="num bg-emerald-500 text-white">03</span><h3>Konsistensi Adalah Raja</h3><p>Bukan editing canggih ala film bioskop yang FYP, melainkan kuantitas postingan yang konsisten mengetes algoritma.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cocok Buat (Use Cases) -->
+        <section class="usecase" id="cocok" aria-label="Jenis konten yang didukung">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="section-tag">Cocok Buat</span>
+                        <h2>Bisa untuk berbagai <span class="text-brand-400">niche konten.</span></h2>
+                    </div>
+                    <p>Apapun format video landscape panjang Anda, IntisariClips siap memotongnya secara instan.</p>
+                </div>
+                <div class="uc-chips">
+                    <span>⚽ Highlight Bola &amp; Olahraga</span>
+                    <span>🎙️ Podcast &amp; Talkshow</span>
+                    <span>📿 Ceramah Keagamaan / Kajian</span>
+                    <span>🎮 Gaming &amp; Live Streaming</span>
+                    <span>📰 Rangkuman Berita &amp; Politik</span>
+                    <span>🎓 E-Learning &amp; Webinar Bisnis</span>
+                    <span>😂 Komedi &amp; Stand-up Show</span>
+                    <span>🎤 Interview &amp; Rekaman Layar</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hitung Cuan (ROI Calculator) -->
+        <section id="cpm">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="section-tag">Hitung Cuan</span>
+                        <h2>Berapa potensi cuan <span class="text-brand-400">yang bisa didapat?</span></h2>
+                    </div>
+                    <p>Simulasi kasar untuk membantu Anda memproyeksikan pendapatan sebagai kreator klip pendek / afiliasi.</p>
+                </div>
+                <div class="calc-box border border-slate-800">
+                    <div class="calc-inputs">
+                        <span class="formula bg-dark-950 border border-slate-800 text-slate-400">views ÷ 1.000 × bayaran per 1.000 views</span>
+                        <div class="calc">
+                            <div class="field border border-slate-800 bg-dark-950"><label>Klip per bulan</label><input id="clips" type="number" value="60" min="0"></div>
+                            <div class="field border border-slate-800 bg-dark-950"><label>Estimasi Views per klip</label><input id="views" type="number" value="5000" min="0"></div>
+                            <div class="field border border-slate-800 bg-dark-950"><label>Bayaran / 1.000 views (RPM)</label><input id="rpm" type="number" value="5000" min="0"></div>
+                            <div class="field border border-slate-800 bg-dark-950"><label>Jumlah Bulan</label><input id="months" type="number" value="1" min="0"></div>
+                        </div>
+                    </div>
+                    <div class="calc-result bg-brand-600 text-white flex flex-col justify-center gap-2">
+                        <span class="result-label text-blue-200">PERKIRAAN PENDAPATAN KOTOR</span>
+                        <strong id="rev" class="text-white text-5xl font-black">Rp0</strong>
+                        <span id="desc" class="result-desc text-blue-100 text-sm"></span>
+                        <div class="result-note border-t border-blue-500/50 pt-4 text-blue-200"><span class="mono text-white font-bold">Ingat:</span> Hasil nyata tergantung kualitas konten, retensi penonton, dan program monetisasi yang diikuti.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fitur Utama -->
+        <section id="fitur">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="section-tag">Fitur Utama</span>
+                        <h2>Bekerja cerdas, <span class="text-brand-400">bukan asal memotong video.</span></h2>
+                    </div>
+                    <p>Meningkatkan kecepatan produksi konten Anda hingga 10x lipat dibanding editing manual.</p>
+                </div>
+
+                <div class="showcase border border-slate-800">
+                    <div class="showcase-img border border-slate-800">
+                        <!-- Dashboard Preview Webm or Image -->
+                        <video autoplay loop muted playsinline class="w-full h-auto object-cover opacity-90">
+                            <source src="assets/img/demo_intisariClips.webm" type="video/webm">
+                        </video>
+                    </div>
+                    <div class="showcase-copy">
+                        <span class="section-tag">Proses Otomatis</span>
+                        <h3>Beri File Video, Biar AI Selesaikan Sisanya.</h3>
+                        <p class="text-slate-400">IntisariClips otomatis memotong momen terbaik, mentranskrip, mendeteksi wajah pembicara aktif, dan merender klip siap upload dalam hitungan menit.</p>
+                        <ul class="pipeline">
+                            <li class="bg-dark-950 border border-slate-800"><span>01</span> Media: Analisis file video landscape Anda</li>
+                            <li class="bg-dark-950 border border-slate-800"><span>02</span> Transkrip: Otomatis mendeteksi ucapan &amp; teks</li>
+                            <li class="bg-dark-950 border border-slate-800"><span>03</span> AI Director: Scoring bagian paling engaging secara emosional</li>
+                            <li class="bg-dark-950 border border-slate-800"><span>04</span> Preview &amp; Export: Download klip 9:16 resolusi tinggi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Grid Kartu Fitur + Video Demo Real -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                    
+                    <!-- Fitur 1: Subtitle Animasi MrBeast -->
+                    <div class="card border border-slate-800 flex flex-col justify-between overflow-hidden p-0 rounded-2xl">
+                        <div class="p-6 pb-2">
+                            <span class="text-pink font-bold text-xs uppercase tracking-wider">Animasi Subtitle</span>
+                            <h3 class="text-lg font-bold text-white mt-1 mb-2">Subtitle Animasi MrBeast</h3>
+                            <p class="text-slate-400 text-sm">Pop-up teks dinamis mengikuti ketukan suara dengan highlight warna yang menarik mata penonton.</p>
+                        </div>
+                        <div class="relative w-full max-w-[180px] mx-auto aspect-[9/16] bg-black cursor-pointer mt-4 mb-4 rounded-xl overflow-hidden border border-slate-800 group" onclick="toggleVideoAudio(this)">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                <source src="assets/img/Subtitle_Animasi_Dinamis.webm" type="video/webm">
+                            </video>
+                            <div class="tap-sound-overlay absolute inset-0 flex items-center justify-center text-white group-[.is-playing]:opacity-0">
+                                <div class="w-10 h-10 rounded-full bg-pink/80 flex items-center justify-center pulse-animation">
+                                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fitur 2: Auto Face Tracking -->
+                    <div class="card border border-slate-800 flex flex-col justify-between overflow-hidden p-0 rounded-2xl">
+                        <div class="p-6 pb-2">
+                            <span class="text-teal font-bold text-xs uppercase tracking-wider">Face Lock AI</span>
+                            <h3 class="text-lg font-bold text-white mt-1 mb-2">Auto Face Tracking 9:16</h3>
+                            <p class="text-slate-400 text-sm">AI melacak wajah aktif yang sedang berbicara di video landscape dan memposisikannya tepat di tengah frame 9:16.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 p-4 mt-auto border-t border-slate-800 bg-dark-900 items-end">
+                            <div>
+                                <div class="text-[9px] text-center font-bold text-slate-500 py-1 bg-black/40 rounded mb-1.5 uppercase">16:9 Landscape</div>
+                                <div class="rounded-lg overflow-hidden aspect-video border border-slate-800 bg-black">
+                                    <video autoplay loop muted playsinline class="w-full h-full object-contain opacity-60">
+                                        <source src="assets/img/Face_Tracking_Original.webm" type="video/webm">
+                                    </video>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-[9px] text-center font-bold text-brand-400 py-1 bg-brand-500/10 rounded mb-1.5 uppercase">9:16 AI Face Tracking</div>
+                                <div class="rounded-lg overflow-hidden aspect-[9/16] max-h-[160px] mx-auto border-2 border-brand-500/50 bg-black">
+                                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                        <source src="assets/img/Auto_Face_Tracking.webm" type="video/webm">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fitur 3: Auto Teks Cover & Hook -->
+                    <div class="card border border-slate-800 flex flex-col justify-between overflow-hidden p-0 rounded-2xl">
+                        <div class="p-6 pb-2">
+                            <span class="text-lav font-bold text-xs uppercase tracking-wider">Hook Cover</span>
+                            <h3 class="text-lg font-bold text-white mt-1 mb-2">Auto Hook Cover Generator</h3>
+                            <p class="text-slate-400 text-sm">Secara otomatis menyisipkan teks cover mencolok di awal video (detik 0-2) untuk memicu rasa penasaran jari penonton.</p>
+                        </div>
+                        <div class="relative w-full max-w-[180px] mx-auto aspect-[9/16] bg-black cursor-pointer mt-4 mb-4 rounded-xl overflow-hidden border border-slate-800 group" onclick="toggleVideoAudio(this)">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                <source src="assets/img/Auto_Teks_Cover.webm" type="video/webm">
+                            </video>
+                            <div class="tap-sound-overlay absolute inset-0 flex items-center justify-center text-white group-[.is-playing]:opacity-0">
+                                <div class="w-10 h-10 rounded-full bg-brand-500/80 flex items-center justify-center pulse-animation">
+                                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fitur 4: Pemotongan Pintar -->
+                    <div class="card border border-slate-800 p-6 flex flex-col justify-center min-h-[200px]">
+                        <div class="feat-ic" style="color:var(--pink); background:rgba(255, 77, 139, 0.1); border-color:rgba(255, 77, 139, 0.2)">
+                            <i class="fa-solid fa-scissors text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Pemotongan Kalimat Pintar</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">AI memotong klip tepat di jeda kalimat alami (bukan di tengah kata), menghasilkan perpindahan klip yang natural &amp; rapi.</p>
+                    </div>
+
+                    <!-- Fitur 5: Logo & Watermark -->
+                    <div class="card border border-slate-800 p-6 flex flex-col justify-center min-h-[200px]">
+                        <div class="feat-ic" style="color:var(--teal); background:rgba(16, 185, 129, 0.1); border-color:rgba(16, 185, 129, 0.2)">
+                            <i class="fa-solid fa-copyright text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Logo &amp; Watermark Otomatis</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Tempel watermark atau logo personal branding Anda di semua klip hasil export sekaligus untuk melindungi karya cipta Anda.</p>
+                    </div>
+
+                    <!-- Fitur 6: Zero API Cost -->
+                    <div class="card border border-slate-800 p-6 flex flex-col justify-center min-h-[200px]">
+                        <div class="feat-ic" style="color:var(--ochre); background:rgba(245, 158, 11, 0.1); border-color:rgba(245, 158, 11, 0.2)">
+                            <i class="fa-solid fa-coins text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Arsitektur Zero API Cost</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Semua render dijalankan offline memanfaatkan hardware komputer Anda. Bebas biaya langganan server yang memeras kantong.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Alur Kerja 3 Langkah (SVG Diagram) -->
+        <section class="flow" id="alur">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="section-tag">Alur · 3 Langkah</span>
+                        <h2>Dari video landscape ke klip fyp, <span class="text-brand-400">cuma 3 langkah.</span></h2>
+                    </div>
+                    <p>Proses super cepat, tidak perlu jago editing dari nol. AI kami menyelesaikan segalanya.</p>
+                </div>
+
+                <div class="flow-stage border border-slate-800">
+                    <svg class="flow-svg" viewBox="12 40 1096 318" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tiga langkah alur offline render">
+                        <defs>
+                            <filter id="cpfGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="5" result="b"/>
+                                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                            <clipPath id="cpfUrlClip"><rect class="cpf-urlclip" x="116" y="176" width="0" height="36"/></clipPath>
+                        </defs>
+
+                        <g>
+                            <rect class="cpf-card" x="30" y="60" width="300" height="248" rx="18"/>
+                            <rect class="cpf-cardglow cpf-g1" x="30" y="60" width="300" height="248" rx="18"/>
+                            <rect class="cpf-glow cpf-g1" x="30" y="60" width="300" height="248" rx="18"/>
+                            <rect x="54" y="166" width="252" height="56" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                            <rect x="68" y="184" width="34" height="24" rx="6" fill="#3b82f6"/>
+                            <path d="M82 190 v12 l9 -6 z" fill="#ffffff"/>
+                            <g clip-path="url(#cpfUrlClip)">
+                                <text x="116" y="201" class="cpf-mono" fill="#94a3b8">video_podcast_landscape.mp4</text>
+                            </g>
+                            <rect class="cpf-caret" x="300" y="180" width="2" height="28" fill="#3b82f6"/>
+                            <g class="cpf-paste">
+                                <rect x="196" y="136" width="96" height="26" rx="8" fill="#3b82f6"/>
+                                <text x="244" y="153" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">Import Video</text>
+                                <path d="M244 162 l-5 7 l10 0 z" fill="#3b82f6"/>
+                            </g>
+                            <text x="54" y="262" class="cpf-num">01</text>
+                            <text x="54" y="282" class="cpf-title">Muat file video</text>
+                        </g>
+
+                        <g>
+                            <line x1="334" y1="184" x2="384" y2="184" stroke="#1e293b" stroke-width="2" stroke-dasharray="4 5"/>
+                            <path class="cpf-chev" d="M376 178 l6 6 l-6 6"/>
+                            <circle class="cpf-trav1" cx="334" cy="184" r="5" fill="#3b82f6" filter="url(#cpfGlow)"/>
+                        </g>
+
+                        <g>
+                            <rect class="cpf-card" x="410" y="60" width="300" height="248" rx="18"/>
+                            <rect class="cpf-cardglow cpf-g2" x="410" y="60" width="300" height="248" rx="18"/>
+                            <rect class="cpf-glow cpf-g2" x="410" y="60" width="300" height="248" rx="18"/>
+                            <text x="434" y="120" class="cpf-sub" fill="#94a3b8">JUMLAH KLIP?</text>
+                            <g font-family="var(--sans)" font-size="17" font-weight="700" text-anchor="middle">
+                                <rect x="434" y="150" width="56" height="48" rx="11" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                                <text x="462" y="181" fill="#94a3b8">3</text>
+                                <rect class="cpf-pickfill" x="504" y="150" width="56" height="48" rx="11" fill="rgba(59, 130, 246, .2)"/>
+                                <rect x="504" y="150" width="56" height="48" rx="11" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+                                <text x="532" y="181" fill="#f8fafc">5</text>
+                                <rect class="cpf-pick" x="500" y="146" width="64" height="56" rx="13" fill="none" stroke="#3b82f6" stroke-width="2.4" filter="url(#cpfGlow)"/>
+                                <rect x="574" y="150" width="56" height="48" rx="11" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                                <text x="602" y="181" fill="#94a3b8">8</text>
+                                <rect x="644" y="150" width="56" height="48" rx="11" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                                <text x="672" y="181" fill="#94a3b8">10</text>
+                            </g>
+                            <text x="434" y="262" class="cpf-num">02</text>
+                            <text x="434" y="282" class="cpf-title">Pilih jumlah klip</text>
+                        </g>
+
+                        <g>
+                            <line x1="714" y1="184" x2="764" y2="184" stroke="#1e293b" stroke-width="2" stroke-dasharray="4 5"/>
+                            <path class="cpf-chev" d="M756 178 l6 6 l-6 6"/>
+                            <circle class="cpf-trav2" cx="714" cy="184" r="5" fill="#3b82f6" filter="url(#cpfGlow)"/>
+                        </g>
+
+                        <g>
+                            <rect class="cpf-card" x="790" y="60" width="300" height="248" rx="18"/>
+                            <rect class="cpf-cardglow cpf-g3" x="790" y="60" width="300" height="248" rx="18"/>
+                            <rect class="cpf-glow cpf-g3" x="790" y="60" width="300" height="248" rx="18"/>
+                            <g class="cpf-pop1">
+                                <rect x="832" y="100" width="62" height="110" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                                <path d="M856 138 v20 l16 -10 z" fill="#3b82f6"/>
+                                <rect x="842" y="184" width="42" height="6" rx="3" fill="#1e293b"/>
+                                <g class="cpf-check"><circle cx="888" cy="106" r="11" fill="#10b981"/><path d="M883 106 l3.5 3.5 l6 -6.5" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+                            </g>
+                            <g class="cpf-pop2">
+                                <rect x="908" y="100" width="62" height="110" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                                <path d="M932 138 v20 l16 -10 z" fill="#3b82f6"/>
+                                <rect x="918" y="184" width="42" height="6" rx="3" fill="#1e293b"/>
+                                <g class="cpf-check"><circle cx="964" cy="106" r="11" fill="#10b981"/><path d="M959 106 l3.5 3.5 l6 -6.5" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+                            </g>
+                            <g class="cpf-pop3">
+                                <rect x="984" y="100" width="62" height="110" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                                <path d="M1008 138 v20 l16 -10 z" fill="#3b82f6"/>
+                                <rect x="994" y="184" width="42" height="6" rx="3" fill="#1e293b"/>
+                                <g class="cpf-check"><circle cx="1040" cy="106" r="11" fill="#10b981"/><path d="M1035 106 l3.5 3.5 l6 -6.5" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+                            </g>
+                            <text x="814" y="262" class="cpf-num">03</text>
+                            <text x="814" y="282" class="cpf-title">Klip Pendek Siap</text>
+                            <text x="814" y="232" class="cpf-sub" fill="#10b981">● Ready: TikTok/Reels/Shorts</text>
+                        </g>
+
+                        <g>
+                            <rect class="cpf-prog" x="31" y="332" width="0" height="4" rx="2" fill="#3b82f6"/>
+                            <g class="cpf-knob"><circle cx="31" cy="334" r="7" fill="#3b82f6" filter="url(#cpfGlow)"/></g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing & Checkout Section -->
+        <section id="harga" class="py-20 px-5 bg-gradient-to-b from-dark-900 to-dark-950 border-t border-slate-800">
+            <div class="container">
+                <div class="section-head mb-8">
+                    <div>
+                        <span class="section-tag">Harga</span>
+                        <h2>Sekali bayar, <span class="text-brand-400">pakai selamanya.</span></h2>
+                    </div>
+                    <p>Harga naik bertahap seiring bertambahnya pembeli lisensi. Masuk lebih awal untuk hemat paling banyak!</p>
+                </div>
+
+                <!-- BATCH PRICING -->
+                <div class="batches">
+                    <div class="batch sold border border-slate-800">
+                        <span class="batch-soldtag">Habis</span>
+                        <span class="batch-num">Batch 1</span>
+                        <span class="batch-status"><svg class="batch-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Terjual habis</span>
+                        <span class="batch-price text-slate-500">Rp49<small class="text-slate-500">rb</small></span>
+                    </div>
+                    <div class="batch sold border border-slate-800">
+                        <span class="batch-soldtag">Habis</span>
+                        <span class="batch-num">Batch 2</span>
+                        <span class="batch-status"><svg class="batch-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Terjual habis</span>
+                        <span class="batch-price text-slate-500">Rp99<small class="text-slate-500">rb</small></span>
+                    </div>
+                    <div class="batch active">
+                        <span class="batch-save">Aktif Sekarang</span>
+                        <span class="batch-num">Batch 3</span>
+                        <span class="batch-status"><span class="batch-dot"></span> Tersedia</span>
+                        <span class="batch-price">Rp190<small>rb</small></span>
+                    </div>
+                    <div class="batch locked">
+                        <span class="batch-num">Batch 4</span>
+                        <span class="batch-status"><svg class="batch-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Harga akhir</span>
+                        <span class="batch-price">Rp400<small>rb</small></span>
+                    </div>
+                </div>
+
+                <div class="price border border-slate-800">
+                    <div class="offer">
+                        <h2>Mulai kerja cerdas <span class="text-brand-400">hari ini.</span></h2>
+                        <p>Dapatkan lisensi offline seumur hidup. Tanpa dipalak biaya langganan bulanan di kemudian hari.</p>
+                        <div class="stack">
+                            <div><i>✓</i> Unlimited generate clip</div>
+                            <div><i>✓</i> 100% Offline (GPU/CPU lokal)</div>
+                            <div><i>✓</i> Tanpa token / credit</div>
+                            <div><i>✓</i> Tanpa biaya API Key</div>
+                            <div><i>✓</i> Auto Subtitle &amp; Face Track</div>
+                            <div><i>✓</i> Update &amp; Maintenance gratis</div>
+                        </div>
+                    </div>
+                    <div class="pricebox">
+                        <span class="label">Batch 3 · Sekarang</span>
+                        <span class="old">Harga Akhir: Rp400.000</span>
+                        <span class="big">Rp190<span class="unit">rb</span></span>
+                        <p>Sekali bayar untuk lisensi aplikasi desktop offline. Pakai selamanya tanpa perpanjangan kuota.</p>
+                        <a class="btn btn-primary btn-lg" href="#checkout">Ambil Sebelum Naik</a>
+                        <div class="micro">Sekali Bayar · Garansi 1x24 Jam</div>
+                    </div>
+                </div>
+
+                <!-- DIRECT CHECKOUT FORM (Layout 2 Kolom) -->
+                <div id="checkout" class="grid lg:grid-cols-12 gap-8 lg:gap-12 mt-16 items-start">
+                    
+                    <!-- Kolom Kiri: Benefit & Bonus -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-gradient-to-r from-slate-800/80 to-slate-800/40 p-6 rounded-3xl border border-brand-500/30 flex gap-4">
+                            <div class="shrink-0 pt-1"><i class="fa-solid fa-gift text-3xl text-brand-400"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-2">Bonus VIP 1: Gratis Remote Setup</h4>
+                                <p class="text-slate-400 text-sm mb-2">Tim teknis kami siap meremote PC Anda via AnyDesk/TeamViewer untuk instalasi gratis. Terima beres!</p>
+                                <span class="text-brand-300 text-xs font-bold bg-brand-900/50 px-2 py-1 rounded-lg">Senilai Rp500.000</span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-slate-800/80 to-slate-800/40 p-6 rounded-3xl border border-brand-500/30 flex gap-4">
+                            <div class="shrink-0 pt-1"><i class="fa-solid fa-gift text-3xl text-brand-400"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-2">Bonus VIP 2: 100 Hook Teks Viral</h4>
+                                <p class="text-slate-400 text-sm mb-2">Template kalimat pembuka hook cover yang terbukti menghentikan jempol audiens men-scroll.</p>
+                                <span class="text-brand-300 text-xs font-bold bg-brand-900/50 px-2 py-1 rounded-lg">Senilai Rp250.000</span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-slate-800/80 to-slate-800/40 p-6 rounded-3xl border border-brand-500/30 flex gap-4">
+                            <div class="shrink-0 pt-1"><i class="fa-solid fa-gift text-3xl text-brand-400"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-2">Bonus VIP 3: Update Gratis 5 Tahun</h4>
+                                <p class="text-slate-400 text-sm mb-2">Dapatkan semua pembaruan algoritma AI masa depan secara gratis tanpa biaya tambahan.</p>
+                                <span class="text-brand-300 text-xs font-bold bg-brand-900/50 px-2 py-1 rounded-lg">Senilai Rp600.000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Kanan: Checkout Form -->
+                    <div class="lg:col-span-7 bg-slate-900 border-2 border-brand-500/80 rounded-3xl p-6 md:p-10 shadow-[0_0_50px_rgba(59,130,246,0.15)] relative">
+                        <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-600 text-white font-black px-8 py-2 rounded-full tracking-wider uppercase text-sm shadow-lg shadow-brand-500/40 whitespace-nowrap flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-yellow-300"></i> Form Pembelian
+                        </div>
+
+                        <div class="text-center mb-6 pt-4">
+                            <h3 class="text-2xl font-bold text-white mb-2">Informasi Pembeli</h3>
+                            <p class="text-slate-400 text-sm">Lisensi dan link download IntisariClips akan dikirim otomatis ke email Anda.</p>
+                        </div>
+
+                        <div id="checkoutAlert" class="hidden bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg text-sm mb-6 flex gap-3 items-start">
+                            <i class="fa-solid fa-circle-exclamation mt-1"></i>
+                            <span id="checkoutAlertText">Terjadi kesalahan, mohon coba lagi.</span>
+                        </div>
+
+                        <!-- DIRECT FORM DUITKU -->
+                        <form id="checkoutForm" onsubmit="processCheckout(event)" class="space-y-5">
+                            <div class="space-y-1.5">
+                                <label class="text-sm font-medium text-slate-300 block">Nama Lengkap</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fa-solid fa-user text-slate-500"></i>
+                                    </div>
+                                    <input type="text" id="custName" required placeholder="Contoh: Budi Santoso" class="w-full bg-dark-950 border border-slate-700 text-white rounded-xl py-3.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-sm font-medium text-slate-300 block">Email Aktif <span class="text-brand-400">(Tempat Lisensi Dikirim)</span></label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fa-solid fa-envelope text-slate-500"></i>
+                                    </div>
+                                    <input type="email" id="custEmail" required placeholder="Contoh: budi@gmail.com" class="w-full bg-dark-950 border border-slate-700 text-white rounded-xl py-3.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-sm font-medium text-slate-300 block">Nomor WhatsApp Aktif</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fa-brands fa-whatsapp text-emerald-500"></i>
+                                    </div>
+                                    <input type="tel" id="custPhone" required placeholder="Contoh: 081234567890" class="w-full bg-dark-950 border border-slate-700 text-white rounded-xl py-3.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                                </div>
+                            </div>
+
+                            <!-- CTA BUTTON -->
+                            <button type="submit" id="btnProcessCheckout" class="w-full mt-6 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-xl py-5 px-4 rounded-xl transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:scale-[1.02] flex items-center justify-center gap-3 relative cursor-pointer border-none">
+                                <span id="btnProcessText">BAYAR SEKARANG</span>
+                                <i id="btnProcessIcon" class="fa-solid fa-arrow-right"></i>
+                                <div id="btnProcessSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-emerald-600 rounded-xl">
+                                    <i class="fa-solid fa-circle-notch fa-spin text-2xl"></i>
+                                </div>
+                            </button>
+                        </form>
+
+                        <!-- TRUST BADGES AREA -->
+                        <div class="mt-8 border-t border-slate-800 pt-6 text-center space-y-4">
+                            <p class="text-xs text-slate-400 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-lock text-emerald-500"></i> Pembayaran Terenkripsi &amp; Aman 100% via Duitku
+                            </p>
+                            <div class="flex items-center justify-center gap-4 text-3xl text-slate-500">
+                                <i class="fa-brands fa-cc-visa hover:text-white transition-colors"></i>
+                                <i class="fa-brands fa-cc-mastercard hover:text-white transition-colors"></i>
+                                <i class="fa-solid fa-qrcode hover:text-emerald-400 transition-colors" title="QRIS"></i>
+                                <i class="fa-solid fa-wallet hover:text-blue-400 transition-colors" title="E-Wallet"></i>
+                                <i class="fa-solid fa-building-columns hover:text-brand-400 transition-colors" title="Bank Transfer"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Garansi & FAQ -->
+        <section class="py-20 px-5 bg-dark-900">
+            <div class="container space-y-12">
+                <div class="bg-gradient-to-r from-slate-900 to-dark-950 border-2 border-accent-500 p-10 rounded-3xl flex flex-col md:flex-row items-center gap-10 relative overflow-hidden shadow-[0_0_30px_rgba(245,158,11,0.15)]">
+                    <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                        <i class="fa-solid fa-shield-halved text-[250px] text-accent-500"></i>
+                    </div>
+                    <div class="shrink-0 relative z-10 text-center">
+                        <i class="fa-solid fa-shield-halved text-8xl text-accent-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"></i>
+                    </div>
+                    <div class="relative z-10 text-center md:text-left">
+                        <h3 class="text-3xl font-black text-white mb-4 uppercase">Garansi 1x24 Jam: Aplikasi Jalan 100% atau Uang Kembali!</h3>
+                        <p class="text-slate-300 leading-relaxed text-base">Saya sangat yakin arsitektur IntisariClips akan mengubah cara Anda berbisnis konten. Jika setelah beli, tim kami sudah membantu instalasi via AnyDesk, namun aplikasi ini TETAP tidak bisa berjalan di PC Anda, laporkan dalam 1x24 Jam. Kami kembalikan uang Anda 100% HARI ITU JUGA. Risiko sepenuhnya di tangan saya!</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/30 p-10 rounded-3xl border border-slate-700">
+                    <h3 class="text-2xl font-bold text-white mb-5 border-b border-slate-700 pb-5"><i class="fa-solid fa-circle-question text-brand-400 mr-3"></i> "Apakah PC/Laptop Saya Kuat?"</h3>
+                    <p class="text-slate-300 leading-relaxed text-lg">
+                        IntisariClips dirancang sangat ringan, efisien, dan <strong>100% Portable</strong> (Bisa ditaruh di Flashdisk/Harddisk Eksternal tanpa mengotori Drive C Anda). Jika Laptop/PC Windows Anda bisa membuka Google Chrome dan memutar YouTube dengan lancar, Anda BISA menggunakan IntisariClips! <br><br>
+                        <span class="text-base font-semibold text-slate-400 bg-dark-950 px-4 py-2 rounded-xl border border-slate-800">(Spesifikasi Minimal: Windows 10/11, RAM 8GB)</span>
                     </p>
                 </div>
             </div>
+        </section>
 
-            <!-- Kanan: Video Melayang Neo-Brutalism -->
-            <div class="w-full lg:w-2/5 relative animate-fade-up delay-200">
-                <div id="demo" class="relative z-10 w-full max-w-[400px] mx-auto lg:mx-0 lg:ml-auto aspect-[9/16] bg-dark-900 border-4 border-slate-800 shadow-brutal transform rotate-3 hover:rotate-0 transition-transform duration-500 cursor-pointer group" onclick="toggleVideoAudio(this)">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
-                        <source src="assets/img/demo_intisariClips.webm" type="video/webm">
-                    </video>
-                    
-                    <!-- Dekorasi Overlap -->
-                    <div class="absolute -left-6 -bottom-6 bg-brand-500 text-white font-black py-2 px-4 text-xl transform -rotate-12 border-2 border-dark-950 shadow-lg">
-                        AUTO-CUT AI
-                    </div>
-
-                    <div class="tap-sound-overlay absolute inset-0 flex flex-col items-center justify-center z-10 text-white group-[.is-playing]:opacity-0 group-[.is-playing]:pointer-events-none">
-                        <div class="w-16 h-16 rounded-full bg-brand-600/90 flex items-center justify-center mb-4 pulse-animation border-2 border-white/20">
-                            <i class="fa-solid fa-volume-xmark text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <section class="py-16 px-5 bg-dark-900 border-t border-slate-800 relative overflow-hidden">
-        <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="w-full max-w-6xl mx-auto relative z-10">
-            <div class="text-center mb-12">
-                <span class="text-brand-400 font-bold tracking-widest uppercase text-sm block mb-2">SIAPA YANG MEMBUTUHKAN INI?</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white">Senjata Rahasia Berbagai Profesi Digital</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:-translate-y-1 transition-transform">
-                    <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-bullhorn"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Affiliate & Dropshipper</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Buat ratusan klip TikTok massal tanpa kena pelanggaran hak cipta. Skalakan omset dengan cepat.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:-translate-y-1 transition-transform">
-                    <div class="w-12 h-12 bg-red-500/20 text-red-400 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-video"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">YouTuber & Kreator</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Repurpose video podcast/vlog 2 jam menjadi puluhan short viral otomatis.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:-translate-y-1 transition-transform">
-                    <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-scissors"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Video Editor Freelance</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Percepat workflow editing. Kerjakan 5 klien dalam waktu yang biasa dipakai untuk 1 klien.</p>
-                </div>
-                <!-- Card 4 -->
-                <div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:-translate-y-1 transition-transform">
-                    <div class="w-12 h-12 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-store"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Pemilik Bisnis Online</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Ciptakan materi Video Ads (iklan) tanpa harus jago Adobe Premiere atau langganan software mahal.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 px-5 bg-dark-950 border-y border-slate-800 relative">
-        <div class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-            
-            <!-- Kiri: Headline Problem -->
-            <div class="w-full lg:w-1/2">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif italic text-white mb-6 leading-tight">
-                    Masih terjebak di <br>
-                    <span class="font-sans font-black text-red-500 not-italic transform -skew-x-12 inline-block">"Siklus Neraka"</span> <br>
-                    Kreator Konten?
-                </h2>
-                <p class="text-xl text-slate-400 mb-8 font-light">
-                    Jujur saja, memotong podcast 2 jam menjadi 30 konten short-form secara manual adalah pekerjaan kuli. <strong>Waktu Anda habis untuk editing, bukan menyusun strategi.</strong>
-                </p>
-            </div>
-
-            <!-- Kanan: Kartu Bertumpuk Asimetris -->
-            <div class="w-full lg:w-1/2 relative min-h-[400px] flex justify-center items-center">
-                
-                <!-- Kartu 1 -->
-                <div class="villain-card absolute top-0 left-0 md:left-10 w-4/5 md:w-[350px] bg-dark-900 border-2 border-slate-700 p-6 shadow-brutal z-10 transform -rotate-3">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="bg-red-500 text-white w-10 h-10 flex items-center justify-center font-black text-xl">1</div>
-                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Mata Berdarah</h3>
-                    </div>
-                    <p class="text-slate-400">Membuang <strong>4-6 jam di CapCut</strong> hanya untuk mencari momen lucu, nge-cut, dan ngetik subtitle satu per satu.</p>
+        <!-- FAQ ACCORDION -->
+        <section class="py-20 px-5 bg-dark-950 border-t border-slate-800" id="faq">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Pertanyaan Seputar <span class="text-brand-400">IntisariClips</span></h2>
+                    <p class="text-slate-400 text-lg">Masih ragu? Berikut jawaban untuk pertanyaan yang paling sering ditanyakan sebelum Anda membeli.</p>
                 </div>
 
-                <!-- Kartu 2 -->
-                <div class="villain-card absolute top-20 right-0 md:right-10 w-4/5 md:w-[350px] bg-dark-800 border-2 border-red-900/50 p-6 shadow-brutal z-20 transform rotate-2">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="bg-red-600 text-white w-10 h-10 flex items-center justify-center font-black text-xl">2</div>
-                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Diperas Bule</h3>
-                    </div>
-                    <p class="text-slate-400">Beralih ke web AI luar negeri, tapi kaget karena dipaksa bayar <strong>Rp 400.000 SETIAP BULAN</strong> hanya untuk kuota 2 jam.</p>
-                </div>
-
-                <!-- Kartu 3 -->
-                <div class="villain-card absolute top-48 left-8 md:left-24 w-4/5 md:w-[380px] bg-dark-950 border-2 border-red-500 p-6 shadow-[8px_8px_0px_0px_rgba(239,68,68,1)] z-30 transform -rotate-1">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="bg-red-500 text-white w-10 h-10 flex items-center justify-center font-black text-xl">3</div>
-                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Server Down</h3>
-                    </div>
-                    <p class="text-slate-300">Saat kejar tayang iklan, tiba-tiba web AI mereka <strong>Down/Maintenance</strong>. Proyek klien Anda hancur berantakan.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-5 relative overflow-hidden bg-dark-900">
-        <!-- Dekorasi Background -->
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-900/20 rounded-full blur-[150px] pointer-events-none"></div>
-
-        <div class="w-full max-w-[1400px] mx-auto relative z-10 lg:px-10">
-            <div class="text-center mb-16">
-                <span class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-2 block border border-brand-500/30 inline-block px-4 py-1 rounded-full bg-brand-500/10">Solusi Enterprise</span>
-                <h2 class="text-4xl md:text-5xl font-black text-white mb-6 font-serif italic">Perkenalkan: INTISARICLIPS V10</h2>
-                <p class="text-xl text-slate-400 max-w-4xl mx-auto font-light">
-                    Ini bukan sekadar software. Ini adalah <strong>"Studio Produksi Pribadi"</strong> berbekal kecerdasan buatan yang tertanam langsung di PC Anda. 
-                </p>
-            </div>
-
-            <!-- BENTO GRID ASYMMETRICAL -->
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[minmax(250px,auto)]">
-                
-                <!-- BENTO 1: GOD MODE (Lebar Penuh Kiri) -->
-                <div class="md:col-span-2 lg:col-span-3 bg-dark-950 p-8 md:p-10 rounded-3xl border border-slate-700 hover:border-brand-500/50 transition-all flex flex-col justify-center relative overflow-hidden group shadow-brutal hover:translate-y-[-4px]">
-                    <div class="absolute -right-20 -bottom-20 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fa-solid fa-brain text-[250px] text-brand-500"></i>
-                    </div>
-                    <div class="relative z-10 w-full md:w-2/3">
-                        <div class="w-14 h-14 rounded-2xl bg-brand-500/20 flex items-center justify-center border border-brand-500/30 mb-6">
-                            <i class="fa-solid fa-brain text-2xl text-brand-400"></i>
-                        </div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">God Mode (AI Director)</h3>
-                        <p class="text-lg text-slate-400 leading-relaxed">
-                            Tidak perlu repot mencari momen lucu. AI menganalisis transkrip dan <strong>memotong bagian paling engaging secara otomatis</strong> dengan tingkat akurasi emosi 98%.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- BENTO 2: Anti Copyright -->
-                <div class="md:col-span-1 lg:col-span-1 bg-gradient-to-br from-red-950/80 to-dark-950 p-8 rounded-3xl border border-red-900/50 hover:border-red-500/50 transition-all flex flex-col justify-center shadow-lg">
-                    <i class="fa-solid fa-shield-virus text-4xl text-red-400 mb-6"></i>
-                    <h3 class="text-xl font-bold text-white mb-3">Smart Anti-Copyright</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Manipulasi audio/visual pintar mengecoh algoritma deteksi hak cipta TikTok dan YouTube Shorts.</p>
-                </div>
-
-                <!-- BENTO 3: Subtitle Animasi (Tinggi) -->
-                <div class="md:col-span-1 lg:col-span-2 md:row-span-2 bg-dark-950 p-0 rounded-3xl border border-slate-700 overflow-hidden shadow-brutal flex flex-col relative group">
-                    <div class="p-8 pb-4 relative z-10 bg-gradient-to-b from-dark-950 to-transparent">
-                        <h3 class="text-2xl font-bold text-white mb-2">Subtitle Animasi MrBeast</h3>
-                        <p class="text-slate-400 text-sm">Pop-up dinamis, Sinkronisasi suara 99%, dan Highlight kata penting otomatis.</p>
-                    </div>
-                    <div class="relative flex-grow min-h-[300px] bg-dark-900 mt-auto cursor-pointer" onclick="toggleVideoAudio(this)">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity">
-                            <source src="assets/img/Subtitle_Animasi_Dinamis.webm" type="video/webm">
-                        </video>
-                        <div class="tap-sound-overlay absolute inset-0 flex items-center justify-center text-white group-[.is-playing]:opacity-0">
-                            <div class="w-12 h-12 rounded-full bg-purple-500/80 flex items-center justify-center pulse-animation">
-                                <i class="fa-solid fa-volume-xmark text-lg"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BENTO 4: Face Tracking -->
-                <div class="md:col-span-2 lg:col-span-2 bg-dark-800/50 p-6 md:p-8 rounded-3xl border border-indigo-900/50 hover:border-indigo-500/50 transition-all flex flex-col">
-                    <i class="fa-solid fa-crosshairs text-3xl text-indigo-400 mb-3"></i>
-                    <h3 class="text-2xl font-bold text-white mb-2">Auto Face Tracking 9:16</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Punya video podcast landscape (16:9)? AI mendeteksi wajah aktif dan memotong frame menjadi vertikal mengikuti gerak wajah secara dinamis.</p>
-                    
-                    <div class="grid grid-cols-2 gap-4 mt-auto">
-                        <!-- Ori 16:9 -->
-                        <div class="space-y-2">
-                            <div class="bg-black text-[10px] text-center font-bold text-slate-500 py-1 rounded">16:9 ORI</div>
-                            <div class="rounded-xl overflow-hidden border border-slate-700 aspect-video">
-                                <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60">
-                                    <source src="assets/img/Face_Tracking_Original.webm" type="video/webm">
-                                </video>
-                            </div>
-                        </div>
-                        <!-- Hasil 9:16 -->
-                        <div class="space-y-2">
-                            <div class="bg-indigo-600 text-[10px] text-center font-bold text-white py-1 rounded shadow-[0_0_10px_rgba(79,70,229,0.5)]">9:16 AI</div>
-                            <div class="rounded-xl overflow-hidden border-2 border-indigo-500/50 aspect-[9/16] max-h-[150px] mx-auto group cursor-pointer" onclick="toggleVideoAudio(this)">
-                                <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                                    <source src="assets/img/Auto_Face_Tracking.webm" type="video/webm">
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BENTO 6: Teks Cover & Hook -->
-                <div class="md:col-span-1 lg:col-span-2 bg-dark-950 p-6 rounded-3xl border border-brand-900/50 hover:border-brand-500/50 transition-all flex gap-4 items-center">
-                    <div class="w-1/2">
-                        <i class="fa-solid fa-fire-flame-curved text-3xl text-brand-400 mb-3"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Auto Hook Generator</h3>
-                        <p class="text-slate-400 text-sm">Sistem menempelkan teks cover besar di awal video (detik 0-2) untuk menghentikan jempol penonton men-scroll.</p>
-                    </div>
-                    <div class="w-1/2 rounded-2xl overflow-hidden border border-brand-500/30 aspect-[9/16] max-h-[250px] cursor-pointer" onclick="toggleVideoAudio(this)">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                            <source src="assets/img/Auto_Teks_Cover.webm" type="video/webm">
-                        </video>
-                    </div>
-                </div>
-
-                <!-- BENTO 5: Zero API Cost (Pendek Lebar) -->
-                <div class="md:col-span-3 lg:col-span-4 bg-emerald-950/30 p-8 md:p-10 rounded-3xl border border-emerald-900/50 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
-                    <div>
-                        <h3 class="text-2xl font-bold text-white mb-2"><i class="fa-solid fa-coins text-emerald-400 mr-2"></i> Arsitektur Zero API Cost</h3>
-                        <p class="text-slate-400 text-sm max-w-2xl">Tanpa langganan bulanan. Rendering paralel dilakukan murni oleh kekuatan (GPU/CPU) PC Anda sendiri. Tersedia opsi Ekstensi Chrome Bridge.</p>
-                    </div>
-                    <div class="shrink-0">
-                        <div class="inline-block bg-emerald-500/20 text-emerald-400 px-6 py-3 rounded-xl border border-emerald-500/30 font-bold text-lg transform rotate-2">
-                            100% OFFLINE RENDER
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-5 bg-dark-950">
-        <div class="w-full max-w-4xl mx-auto lg:px-10">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 font-serif italic">Jangan Percaya Kami.<br>Percaya Pada <span class="text-emerald-400 glow-text not-italic font-sans">BUKTI VIEWS.</span></h2>
-            </div>
-
-            <!-- BUBBLE CHAT TESTIMONIALS -->
-            <div class="space-y-6 max-w-2xl mx-auto bg-dark-900/50 p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl relative mb-16">
-                <!-- Watermark -->
-                <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-                    <i class="fa-solid fa-comments text-[200px]"></i>
-                </div>
-
-                <!-- Bubble 1 (Kiri) -->
-                <div class="flex gap-4 items-end animate-fade-up">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shrink-0"></div>
-                    <div class="bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-slate-700 shadow-md max-w-[85%]">
-                        <p class="text-sm text-brand-300 font-bold mb-1">~ Hendy Clips</p>
-                        <p class="text-slate-300 text-sm leading-relaxed">Biasanya mentok 200 views. Iseng masukin podcast lama, AI-nya pinter banget milih hook. Upload semalam, pagi ini tembus <span class="text-brand-400 font-bold bg-brand-900/50 px-1 rounded">300.000+ Views!</span> Edan 🔥</p>
-                        <p class="text-[10px] text-slate-500 text-right mt-2">10:42 AM</p>
-                    </div>
-                </div>
-
-                <!-- Bubble 2 (Kanan) -->
-                <div class="flex gap-4 items-end justify-end animate-fade-up delay-100">
-                    <div class="bg-brand-600 p-4 rounded-2xl rounded-br-none shadow-md max-w-[85%]">
-                        <p class="text-white text-sm leading-relaxed">Gila kan? Fitur hook generator-nya emang dibikin khusus buat nge-hack algoritma FYP. Lanjut gas terus bang! 🚀</p>
-                        <div class="flex justify-end items-center gap-1 mt-2">
-                            <p class="text-[10px] text-brand-200">10:45 AM</p>
-                            <i class="fa-solid fa-check-double text-[10px] text-blue-300"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bubble 3 (Kiri) -->
-                <div class="flex gap-4 items-end animate-fade-up delay-200 mt-8">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
-                    <div class="bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-slate-700 shadow-md max-w-[85%]">
-                        <p class="text-sm text-purple-400 font-bold mb-1">~ Agency Owner JKT</p>
-                        <p class="text-slate-300 text-sm leading-relaxed">Pegang 3 akun klien sekarang jadi enteng. Dulu capek cari momen, skrg pake ekstensi chrome, klik, auto jadi 20 klip. Kemarin satu klip nembus <strong class="text-emerald-400">500K views</strong>. Klien seneng, gw tinggal ngopi ☕</p>
-                        <img src="assets/img/Testimoni- (1).PNG" alt="Bukti Views" class="mt-3 rounded-lg border border-slate-700 w-full max-w-[200px] opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
-                        <p class="text-[10px] text-slate-500 text-right mt-2">14:20 PM</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TUNTUTAN BUKTI MASIF (CAROUSEL) -->
-            <div class="text-center mb-8">
-                <p class="text-brand-400 font-bold tracking-widest uppercase text-xs mb-2">Masih Kurang Yakin?</p>
-                <h3 class="text-2xl text-white font-black">Ratusan Bukti Nyata dari Dashboard Pengguna</h3>
-            </div>
-
-            <div class="relative w-full overflow-hidden py-4 space-y-6" id="testimonial-master-container">
-                <div class="absolute top-0 bottom-0 left-0 w-16 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none"></div>
-                
-                <div class="relative w-full overflow-hidden slider-container-group">
-                    <div class="flex gap-4 w-max items-center testimonial-track-top">
-                        <img src="assets/img/Testimoni- (1).PNG" alt="Bukti 1" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (2).PNG" alt="Bukti 2" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (3).PNG" alt="Bukti 3" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (4).PNG" alt="Bukti 4" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (5).PNG" alt="Bukti 5" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                    </div>
-                </div>
-
-                <div class="relative w-full overflow-hidden slider-container-group">
-                    <div class="flex gap-4 w-max items-center testimonial-track-bottom">
-                        <img src="assets/img/Testimoni- (6).PNG" alt="Bukti 6" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (7).PNG" alt="Bukti 7" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (8).PNG" alt="Bukti 8" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (9).PNG" alt="Bukti 9" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                        <img src="assets/img/Testimoni- (10).PNG" alt="Bukti 10" class="h-[200px] w-auto rounded-xl shadow-lg border border-slate-800 shrink-0">
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <section id="checkout" class="py-24 px-5 bg-gradient-to-b from-dark-900 to-dark-950 border-t border-slate-800 relative">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-brand-600 rounded-full mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none"></div>
-
-        <div class="w-full max-w-[1440px] mx-auto lg:px-10 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Waktu Anda Terlalu Berharga Untuk Mengedit Video Secara Manual.</h2>
-                <p class="text-xl text-slate-400">Ambil Keputusan Hari Ini, dan Dapatkan Seluruh "Senjata Rahasia" Kami Secara GRATIS.</p>
-            </div>
-
-            <!-- LAYOUT 2 KOLOM FORM LANGSUNG -->
-            <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                
-                <!-- KOLOM KIRI: Benefit & Harga (col-span-5) -->
-                <div class="lg:col-span-5 space-y-6">
-                    <!-- Bonus List -->
-                    <div class="bg-gradient-to-r from-slate-800 to-slate-800/40 p-6 rounded-3xl border border-brand-500/30 flex gap-4">
-                        <div class="shrink-0 pt-1"><i class="fa-solid fa-gift text-3xl text-brand-400"></i></div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Bonus VIP 1: Gratis Remote Setup</h4>
-                            <p class="text-slate-400 text-sm mb-2">Tim teknis kami akan meremote PC Anda (via AnyDesk) untuk instalasi. Terima beres!</p>
-                            <span class="text-brand-300 text-xs font-bold bg-brand-900/50 px-2 py-1 rounded-lg">Senilai Rp 500.000</span>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-r from-slate-800 to-slate-800/40 p-6 rounded-3xl border border-brand-500/30 flex gap-4">
-                        <div class="shrink-0 pt-1"><i class="fa-solid fa-gift text-3xl text-brand-400"></i></div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Bonus VIP 2: 100 Hook Teks Viral</h4>
-                            <p class="text-slate-400 text-sm mb-2">100 template kalimat pembuka yang terbukti menghentikan jempol penonton.</p>
-                            <span class="text-brand-300 text-xs font-bold bg-brand-900/50 px-2 py-1 rounded-lg">Senilai Rp 250.000</span>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-r from-slate-800 to-slate-800/40 p-6 rounded-3xl border border-brand-500/30 flex gap-4">
-                        <div class="shrink-0 pt-1"><i class="fa-solid fa-gift text-3xl text-brand-400"></i></div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Bonus VIP 3: Update Gratis 5 Tahun</h4>
-                            <p class="text-slate-400 text-sm mb-2">Dapatkan semua update AI masa depan tanpa dipalak biaya bulanan.</p>
-                            <span class="text-brand-300 text-xs font-bold bg-brand-900/50 px-2 py-1 rounded-lg">Senilai Rp 600.000</span>
-                        </div>
-                    </div>
-
-                    <!-- Total Value & Discount -->
-                    <div class="mt-6 p-6 bg-dark-900 rounded-3xl border border-slate-700 text-center">
-                        <p class="text-slate-400 font-bold mb-1 uppercase tracking-widest text-sm">Total Nilai</p>
-                        <p class="text-2xl text-red-500/70 line-through font-black mb-4">Rp 2.500.000</p>
-                        <p class="text-slate-300 font-medium mb-2 text-sm">Harga Spesial Hari Ini:</p>
-                        <div class="flex flex-col items-center gap-1 mb-4">
-                            <span class="text-xl font-black text-slate-500 line-through decoration-2">Rp 400.000</span>
-                            <h2 class="text-4xl md:text-5xl font-black text-emerald-400 drop-shadow-[0_0_20px_rgba(52,211,153,0.4)] leading-none">Rp.190.000</h2>
-                        </div>
-                        <p class="text-xs text-brand-300 font-bold bg-brand-900/30 inline-block px-3 py-1.5 rounded-xl border border-brand-500/20">
-                            Sekali Bayar, Bebas Pakai Selamanya!
-                        </p>
-                    </div>
-                </div>
-
-                <!-- KOLOM KANAN: Form Pembelian Langsung (col-span-7) -->
-                <div class="lg:col-span-7 bg-slate-900 border-2 border-brand-500/80 rounded-3xl p-6 md:p-10 shadow-[0_0_50px_rgba(59,130,246,0.15)] relative">
-                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-600 text-white font-black px-8 py-2 rounded-full tracking-wider uppercase text-sm shadow-lg shadow-brand-500/40 whitespace-nowrap flex items-center gap-2">
-                        <i class="fa-solid fa-bolt text-yellow-300"></i> Pesan Sekarang
-                    </div>
-
-                    <div class="text-center mb-6 pt-4">
-                        <h3 class="text-2xl font-bold text-white mb-2">Informasi Pembeli</h3>
-                        <p class="text-slate-400 text-sm">Akses IntisariClips V10 akan dikirim otomatis ke email Anda.</p>
-                    </div>
-
-                    <div id="checkoutAlert" class="hidden bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg text-sm mb-6 flex gap-3 items-start">
-                        <i class="fa-solid fa-circle-exclamation mt-1"></i>
-                        <span id="checkoutAlertText">Terjadi kesalahan, mohon coba lagi.</span>
-                    </div>
-
-                    <!-- DIRECT FORM -->
-                    <form id="checkoutForm" onsubmit="processCheckout(event)" class="space-y-5">
-                        <div class="space-y-1.5">
-                            <label class="text-sm font-medium text-slate-300 block">Nama Lengkap</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <i class="fa-solid fa-user text-slate-500"></i>
-                                </div>
-                                <input type="text" id="custName" required placeholder="Contoh: Budi Santoso" class="w-full bg-dark-950 border border-slate-700 text-white rounded-xl py-3.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
-                            </div>
-                        </div>
-
-                        <div class="space-y-1.5">
-                            <label class="text-sm font-medium text-slate-300 block">Email Aktif <span class="text-brand-400">(Tempat Lisensi Dikirim)</span></label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <i class="fa-solid fa-envelope text-slate-500"></i>
-                                </div>
-                                <input type="email" id="custEmail" required placeholder="Contoh: budi@gmail.com" class="w-full bg-dark-950 border border-slate-700 text-white rounded-xl py-3.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
-                            </div>
-                        </div>
-
-                        <div class="space-y-1.5">
-                            <label class="text-sm font-medium text-slate-300 block">Nomor WhatsApp Aktif</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <i class="fa-brands fa-whatsapp text-emerald-500"></i>
-                                </div>
-                                <input type="tel" id="custPhone" required placeholder="Contoh: 081234567890" class="w-full bg-dark-950 border border-slate-700 text-white rounded-xl py-3.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
-                            </div>
-                        </div>
-
-                        <!-- CTA BUTTON -->
-                        <button type="submit" id="btnProcessCheckout" class="w-full mt-6 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-xl py-5 px-4 rounded-xl transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:scale-[1.02] flex items-center justify-center gap-3 relative cursor-pointer border-none">
-                            <span id="btnProcessText">BAYAR SEKARANG</span>
-                            <i id="btnProcessIcon" class="fa-solid fa-arrow-right"></i>
-                            <div id="btnProcessSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-emerald-600 rounded-xl">
-                                <i class="fa-solid fa-circle-notch fa-spin text-2xl"></i>
-                            </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>Apakah ini sistem berlangganan bulanan yang mahal?</span>
+                            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
                         </button>
-                    </form>
-
-                    <!-- TRUST BADGES AREA -->
-                    <div class="mt-8 border-t border-slate-800 pt-6 text-center space-y-4">
-                        <p class="text-xs text-slate-400 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-lock text-emerald-500"></i> Pembayaran Terenkripsi & Aman 100% via Duitku
-                        </p>
-                        <!-- Fake Logos or Icons -->
-                        <div class="flex items-center justify-center gap-4 text-3xl text-slate-500">
-                            <i class="fa-brands fa-cc-visa hover:text-white transition-colors"></i>
-                            <i class="fa-brands fa-cc-mastercard hover:text-white transition-colors"></i>
-                            <i class="fa-solid fa-qrcode hover:text-emerald-400 transition-colors" title="QRIS"></i>
-                            <i class="fa-solid fa-wallet hover:text-blue-400 transition-colors" title="E-Wallet"></i>
-                            <i class="fa-solid fa-building-columns hover:text-brand-400 transition-colors" title="Bank Transfer"></i>
+                        <div class="faq-a">
+                            <p>Tidak! IntisariClips menggunakan sistem lisensi cerdas (Offline First). Anda tidak perlu dipusingkan dengan tagihan server cloud yang mahal setiap bulannya karena semua proses berjalan di komputer Anda sendiri.</p>
                         </div>
                     </div>
 
-                </div>
-                
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 px-5 bg-dark-900">
-        <div class="w-full max-w-6xl mx-auto space-y-12">
-            
-            <div class="bg-gradient-to-r from-slate-900 to-dark-950 border-2 border-accent-500 p-10 rounded-3xl flex flex-col md:flex-row items-center gap-10 relative overflow-hidden shadow-[0_0_30px_rgba(245,158,11,0.15)]">
-                <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
-                    <i class="fa-solid fa-shield-halved text-[250px] text-accent-500"></i>
-                </div>
-                <div class="shrink-0 relative z-10 text-center">
-                    <i class="fa-solid fa-shield-halved text-8xl text-accent-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"></i>
-                </div>
-                <div class="relative z-10 text-center md:text-left">
-                    <h3 class="text-3xl font-black text-white mb-4 uppercase">Garansi 1x24 Jam: Aplikasi Jalan 100% atau Uang Kembali!</h3>
-                    <p class="text-slate-300 leading-relaxed text-base">Saya sangat yakin arsitektur IntisariClips akan mengubah cara Anda berbisnis konten. Jika setelah beli, tim kami sudah membantu instalasi via AnyDesk, namun aplikasi ini TETAP tidak bisa berjalan di PC Anda, laporkan dalam 1x24 Jam. Kami kembalikan uang Anda 100% HARI ITU JUGA. Risiko sepenuhnya di tangan saya!</p>
-                </div>
-            </div>
-
-            <div class="bg-slate-800/30 p-10 rounded-3xl border border-slate-700">
-                <h3 class="text-2xl font-bold text-white mb-5 border-b border-slate-700 pb-5"><i class="fa-solid fa-circle-question text-brand-400 mr-3"></i> "Apakah PC/Laptop Saya Kuat?"</h3>
-                <p class="text-slate-300 leading-relaxed text-lg">
-                    IntisariClips dirancang sangat ringan, efisien, dan <strong>100% Portable</strong> (Bisa ditaruh di Flashdisk/Harddisk Eksternal tanpa mengotori Drive C Anda). Jika Laptop/PC Windows Anda bisa membuka Google Chrome dan memutar YouTube dengan lancar, Anda BISA menggunakan IntisariClips! <br><br>
-                    <span class="text-base font-semibold text-slate-400 bg-dark-950 px-4 py-2 rounded-xl border border-slate-800">(Spesifikasi Minimal: Windows 10/11, RAM 8GB)</span>
-                </p>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- FAQ SECTION -->
-    <section class="py-20 px-5 bg-dark-950 border-t border-slate-800" id="faq">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Pertanyaan Seputar <span class="text-brand-400">IntisariClips</span></h2>
-                <p class="text-slate-400 text-lg">Masih ragu? Berikut jawaban untuk pertanyaan yang paling sering ditanyakan kreator sebelum Anda.</p>
-            </div>
-
-            <div class="space-y-4">
-                <!-- FAQ 1 -->
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 font-bold text-lg text-white flex justify-between items-center hover:bg-slate-800/50 transition-colors">
-                        <span>Apakah ini sistem berlangganan bulanan yang mahal?</span>
-                        <i class="fa-solid fa-chevron-down text-brand-400 transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-slate-400 leading-relaxed border-t border-slate-800 pt-4">
-                        Tidak! IntisariClips menggunakan sistem lisensi cerdas (Offline First). Anda tidak perlu dipusingkan dengan tagihan server cloud yang mahal setiap bulannya karena semua proses berjalan di komputer Anda sendiri.
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>Apakah komputer saya kuat untuk menjalankannya?</span>
+                            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                        </button>
+                        <div class="faq-a">
+                            <p>Tenang saja! IntisariClips dirancang sangat efisien. Dilengkapi fitur <em>Hardware Acceleration</em> (NVENC/VideoToolbox) dan <em>Thermal Guard</em>, aplikasi ini bisa berjalan mulus di spesifikasi PC/Mac standar tanpa membuat perangkat Anda <em>overheat</em>.</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- FAQ 2 -->
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 font-bold text-lg text-white flex justify-between items-center hover:bg-slate-800/50 transition-colors">
-                        <span>Apakah komputer saya kuat untuk menjalankannya?</span>
-                        <i class="fa-solid fa-chevron-down text-brand-400 transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-slate-400 leading-relaxed border-t border-slate-800 pt-4">
-                        Tenang saja! IntisariClips dirancang sangat efisien. Dilengkapi fitur <em>Hardware Acceleration</em> (NVENC/VideoToolbox) dan <em>M1 Thermal Guard</em>, aplikasi ini bisa berjalan mulus di spesifikasi PC/Mac standar tanpa membuat perangkat Anda <em>overheat</em>.
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>Apakah hasil videonya benar-benar aman dari pelanggaran Hak Cipta?</span>
+                            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                        </button>
+                        <div class="faq-a">
+                            <p>Sangat aman! Kami menanamkan fitur <em>Smart Anti-Copyright</em> dengan mode proteksi parameter audio dan visual secara otomatis untuk mengecoh algoritma platform sosial media seperti TikTok dan Shorts.</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- FAQ 3 -->
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 font-bold text-lg text-white flex justify-between items-center hover:bg-slate-800/50 transition-colors">
-                        <span>Apakah hasil videonya benar-benar aman dari pelanggaran Hak Cipta (Copyright)?</span>
-                        <i class="fa-solid fa-chevron-down text-brand-400 transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-slate-400 leading-relaxed border-t border-slate-800 pt-4">
-                        Sangat aman! Kami menanamkan fitur <em>Smart Anti-Copyright</em> dengan 3 mode proteksi (Light, Balanced, Extreme) yang akan memanipulasi parameter audio dan visual secara otomatis untuk mengecoh algoritma platform sosial media seperti TikTok dan Shorts.
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>Apakah saya butuh koneksi internet super cepat?</span>
+                            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                        </button>
+                        <div class="faq-a">
+                            <p>Hanya di awal saat mengunduh video sumber. Sisa prosesnya—mulai dari pemotongan klip (AI God Mode), pembuatan subtitle, hingga rendering akhir—berjalan <strong>100% Offline</strong> di komputer Anda. Menghemat kuota dan privasi Anda terjamin!</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- FAQ 4 -->
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 font-bold text-lg text-white flex justify-between items-center hover:bg-slate-800/50 transition-colors">
-                        <span>Apakah saya butuh koneksi internet super cepat?</span>
-                        <i class="fa-solid fa-chevron-down text-brand-400 transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-slate-400 leading-relaxed border-t border-slate-800 pt-4">
-                        Hanya di awal saat mengunduh video sumber. Sisa prosesnya—mulai dari pemotongan klip (AI God Mode), pembuatan subtitle, hingga rendering akhir—berjalan <strong>100% Offline</strong> di komputer Anda. Menghemat kuota dan privasi Anda terjamin!
-                    </div>
-                </div>
-
-                <!-- FAQ 5 -->
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 font-bold text-lg text-white flex justify-between items-center hover:bg-slate-800/50 transition-colors">
-                        <span>Bisa dipakai di Mac dan Windows?</span>
-                        <i class="fa-solid fa-chevron-down text-brand-400 transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-slate-400 leading-relaxed border-t border-slate-800 pt-4">
-                        Tentu saja. Satu aplikasi, dua dunia. Kami menyediakan <em>installer</em> berformat EXE untuk Windows dan DMG untuk macOS (mendukung baik prosesor lawas Intel maupun generasi terbaru Apple Silicon M1/M2/M3).
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>Bisa dipakai di Mac dan Windows sekaligus?</span>
+                            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                        </button>
+                        <div class="faq-a">
+                            <p>Tentu saja. Kami menyediakan <em>installer</em> berformat EXE untuk Windows and DMG untuk macOS (mendukung baik prosesor lawas Intel maupun generasi Apple Silicon M1/M2/M3). Satu lisensi berlaku untuk 1 perangkat aktif.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Final CTA Box -->
+        <section class="final">
+            <div class="container">
+                <div class="final-box">
+                    <h2>Mulai buat klip fyp sebelum orang lain <span class="text-brand-400"><span class="circled">ikut sadar</span>.</span></h2>
+                    <p>Kunci lisensi sekali bayar Batch 3 Anda hari ini dan amankan bonus remote setup gratis.</p>
+                    <div class="actions center">
+                        <a class="btn btn-primary btn-lg" href="#checkout">Ambil Akses Sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <footer class="border-t border-slate-800 bg-dark-950 py-12 text-center text-slate-500 text-base">
-        <div class="w-full max-w-[1600px] mx-auto px-5 lg:px-10 flex flex-col items-center gap-8">
-            <div class="flex gap-8">
-                <a href="syarat-ketentuan.html" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
-                <a href="kebijakan-privasi.html" class="hover:text-white transition-colors">Kebijakan Privasi</a>
-            </div>
-            
-            <div class="max-w-2xl text-sm bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-                <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-xs">Contact Support</h4>
-                <div class="flex flex-col gap-3">
-                    <p><i class="fa-solid fa-envelope text-brand-400 w-6"></i> support@intisariapps.com</p>
-                    <p><i class="fa-brands fa-whatsapp text-emerald-400 w-6"></i> 08567870040</p>
-                    <p class="leading-relaxed"><i class="fa-solid fa-location-dot text-red-400 w-6"></i> Perumahan Bumi Kencana Jalan Lantana B 1 No 21, Rt 002 Rw 007 Kencana, KOTA BOGOR, TANAH SEREAL, JAWA BARAT, ID, 16167</p>
+        <div class="container foot">
+            <div class="flex flex-col items-center gap-8 w-full">
+                <div class="flex gap-8">
+                    <a href="syarat-ketentuan.html" class="hover:text-white transition-colors">Syarat &amp; Ketentuan</a>
+                    <a href="kebijakan-privasi.html" class="hover:text-white transition-colors">Kebijakan Privasi</a>
                 </div>
-            </div>
+                
+                <div class="max-w-2xl text-sm bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-xs">Contact Support</h4>
+                    <div class="flex flex-col gap-3">
+                        <p><i class="fa-solid fa-envelope text-brand-400 w-6"></i> support@intisariapps.com</p>
+                        <p><i class="fa-brands fa-whatsapp text-emerald-400 w-6"></i> 08567870040</p>
+                        <p class="leading-relaxed"><i class="fa-solid fa-location-dot text-red-400 w-6"></i> Perumahan Bumi Kencana Jalan Lantana B 1 No 21, Rt 002 Rw 007 Kencana, KOTA BOGOR, TANAH SEREAL, JAWA BARAT, ID, 16167</p>
+                    </div>
+                </div>
 
-            <p>&copy; 2026 Intisari Apps. Produk ini tidak berafiliasi dengan TikTok, YouTube, atau Meta.</p>
+                <p>&copy; <span id="year"></span> Intisari Apps. Produk ini tidak berafiliasi dengan TikTok, YouTube, atau Meta.</p>
+            </div>
         </div>
     </footer>
+
+    <!-- Sticky Bar on Mobile -->
+    <div class="sticky border border-slate-800 bg-dark-950/95">
+        <div>
+            <b>Batch 3 · Sekarang</b>
+            <span class="text-slate-400 text-xs">Rp190rb · Naik ke Rp250rb</span>
+        </div>
+        <a class="btn btn-primary" href="#checkout">Ambil</a>
+    </div>
 
     <script src="assets/js/app.js"></script>
     <script src="assets/js/slider.js"></script>
     <script src="assets/js/universal.js"></script>
 
     <script>
-    // FAQ Accordion Logic
-    function toggleFaq(btn) {
-        const content = btn.nextElementSibling;
-        const icon = btn.querySelector('i');
-        
-        // Toggle hidden class
-        if (content.classList.contains('hidden')) {
-            content.classList.remove('hidden');
-            icon.classList.add('rotate-180');
-        } else {
-            content.classList.add('hidden');
-            icon.classList.remove('rotate-180');
+        // ROI Calculator Logic
+        const f = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
+        const n = id => Number(document.getElementById(id).value || 0);
+        function calc() {
+            const totalViews = n('clips') * n('views') * n('months');
+            const revenue = totalViews / 1000 * n('rpm');
+            document.getElementById('rev').textContent = f.format(revenue);
+            document.getElementById('desc').textContent = totalViews.toLocaleString('id-ID') + ' views × Rp' + n('rpm').toLocaleString('id-ID') + ' / 1.000 views, perkiraan kotor.';
         }
-    }
+        ['clips', 'views', 'rpm', 'months'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', calc);
+        });
+        calc();
 
-    // Video Audio Toggle
-    function toggleVideoAudio(container) {
-        const video = container.querySelector('video');
-        const overlay = container.querySelector('.tap-sound-overlay');
-        
-        if (video.muted) {
-            video.muted = false;
-            video.loop = false;
-            container.classList.add('is-playing');
-            video.currentTime = 0;
-            video.play();
-        } else {
-            video.muted = true;
-            video.loop = true;
-            container.classList.remove('is-playing');
+        // Footer Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Smooth Scroll for local anchors
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (!t) return;
+                e.preventDefault();
+                t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Pencil-circle: inject doodle + draw on scroll
+        (function() {
+            const NS = 'http://www.w3.org/2000/svg';
+            const D = 'M214 31 C172 10 96 8 52 19 C13 29 7 53 26 67 C50 85 141 86 197 73 C233 65 241 40 213 27 C196 19 166 17 138 20';
+            const circled = document.querySelectorAll('.circled');
+            circled.forEach(el => {
+                const svg = document.createElementNS(NS, 'svg');
+                svg.setAttribute('class', 'circle-doodle');
+                svg.setAttribute('viewBox', '0 0 248 92');
+                svg.setAttribute('preserveAspectRatio', 'none');
+                svg.setAttribute('aria-hidden', 'true');
+                const p = document.createElementNS(NS, 'path');
+                p.setAttribute('d', D);
+                p.setAttribute('pathLength', '1');
+                svg.appendChild(p);
+                el.appendChild(svg);
+            });
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((ents) => {
+                    ents.forEach(e => {
+                        if (e.isIntersecting) {
+                            setTimeout(() => e.target.classList.add('drawn'), 120);
+                            io.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: .7 });
+                circled.forEach(el => io.observe(el));
+            } else {
+                circled.forEach(el => el.classList.add('drawn'));
+            }
+        })();
+
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.closest('.faq-item');
+                const ans = item.querySelector('.faq-a');
+                const isOpen = item.classList.contains('open');
+                
+                document.querySelectorAll('.faq-item.open').forEach(it => {
+                    it.classList.remove('open');
+                    it.querySelector('.faq-a').style.maxHeight = null;
+                    it.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+                });
+                
+                if (!isOpen) {
+                    item.classList.add('open');
+                    ans.style.maxHeight = ans.scrollHeight + 'px';
+                    q.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // Video Audio Toggle
+        function toggleVideoAudio(container) {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.tap-sound-overlay');
+            
+            if (video.muted) {
+                video.muted = false;
+                video.loop = false;
+                container.classList.add('is-playing');
+                video.currentTime = 0;
+                video.play();
+            } else {
+                video.muted = true;
+                video.loop = true;
+                container.classList.remove('is-playing');
+            }
         }
-    }
     </script>
 </body>
 </html>
