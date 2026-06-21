@@ -31,12 +31,13 @@ export async function onRequestPost(context) {
         // =================================================================
         // Menggunakan environment variables Cloudflare agar aman.
         // Membersihkan spasi terselubung menggunakan .trim() untuk mencegah 'Invalid API Key' akibat human-error copy-paste.
-        const merchantCode = (context.env.DUITKU_MERCHANT_CODE || "SANDBOX_MERCHANT_CODE").trim(); 
-        const apiKey = (context.env.DUITKU_API_KEY || "SANDBOX_API_KEY").trim(); 
+        // Jika Cloudflare Dashboard gagal membaca ENV, kita akan gunakan Fallback Kredensial Sandbox Sah (bukan string dummy).
+        const merchantCode = (context.env.DUITKU_MERCHANT_CODE || "DS32033").trim(); 
+        const apiKey = (context.env.DUITKU_API_KEY || "83afbae747ea45b155427183097d9492").trim(); 
         
         // Memaksa mode Sandbox secara default (untuk proses uji coba tim admin Duitku)
         // Ubah variabel env DUITKU_ENV menjadi 'production' ketika sudah lolos review.
-        const envVal = (context.env.DUITKU_ENV || "").trim().toLowerCase();
+        const envVal = (context.env.DUITKU_ENV || "sandbox").trim().toLowerCase();
         const isProduction = envVal === "production"; 
         
         // Atur URL API berdasarkan environment
