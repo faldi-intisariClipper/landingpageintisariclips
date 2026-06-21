@@ -30,13 +30,14 @@ export async function onRequestPost(context) {
         // KREDENSIAL DUITKU (SANDBOX / PRODUCTION VIA ENV)
         // =================================================================
         // Menggunakan environment variables Cloudflare agar aman.
-        // Jika belum diset (misal saat testing lokal), akan menggunakan fallback string kosong yang akan menyebabkan error dari Duitku.
-        const merchantCode = context.env.DUITKU_MERCHANT_CODE || "SANDBOX_MERCHANT_CODE"; 
-        const apiKey = context.env.DUITKU_API_KEY || "SANDBOX_API_KEY"; 
+        // Membersihkan spasi terselubung menggunakan .trim() untuk mencegah 'Invalid API Key' akibat human-error copy-paste.
+        const merchantCode = (context.env.DUITKU_MERCHANT_CODE || "SANDBOX_MERCHANT_CODE").trim(); 
+        const apiKey = (context.env.DUITKU_API_KEY || "SANDBOX_API_KEY").trim(); 
         
         // Memaksa mode Sandbox secara default (untuk proses uji coba tim admin Duitku)
         // Ubah variabel env DUITKU_ENV menjadi 'production' ketika sudah lolos review.
-        const isProduction = context.env.DUITKU_ENV === "production"; 
+        const envVal = (context.env.DUITKU_ENV || "").trim().toLowerCase();
+        const isProduction = envVal === "production"; 
         
         // Atur URL API berdasarkan environment
         const apiUrl = isProduction 
