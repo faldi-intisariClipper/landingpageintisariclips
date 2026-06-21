@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Berhasil! - IntisariClips V10</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
+                        dark: { 900: '#0f172a', 950: '#020617' },
+                        accent: { 400: '#fbbf24', 500: '#f59e0b' },
+                        success: { 400: '#34d399', 500: '#10b981', 600: '#059669' }
+                    },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-center items-center">
+
+    <!-- Efek Latar Belakang -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-success-600 rounded-full mix-blend-screen filter blur-[200px] opacity-10 animate-pulse"></div>
+    </div>
+
+    <!-- MAIN CARD -->
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-5">
+        <div class="bg-dark-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-10 md:p-14 text-center shadow-2xl shadow-black/50">
+            
+            <!-- Ikon Centang -->
+            <div class="w-24 h-24 mx-auto mb-8 bg-success-500/10 rounded-full flex items-center justify-center border border-success-500/20">
+                <i class="fa-solid fa-check text-5xl text-success-400"></i>
+            </div>
+
+            <!-- Pesan Utama -->
+            <h1 class="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Pembayaran <span class="text-success-400">Berhasil!</span></h1>
+            <p class="text-slate-400 text-lg mb-10">Terima kasih atas pesanan Anda. Lisensi IntisariClips V10 Anda sedang diluncurkan.</p>
+
+            <!-- Instruksi Box -->
+            <div class="bg-dark-950 border border-slate-800 rounded-2xl p-6 md:p-8 text-left mb-10">
+                <h3 class="text-white font-bold text-xl mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-list text-brand-400"></i> Langkah Selanjutnya:
+                </h3>
+                
+                <ul class="space-y-6">
+                    <li class="flex gap-4 items-start">
+                        <div class="w-8 h-8 rounded-full bg-brand-500/10 flex-shrink-0 flex items-center justify-center border border-brand-500/20 text-brand-400 font-bold">1</div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Periksa Kotak Masuk Email Anda</h4>
+                            <p class="text-slate-400 text-sm">Sistem kami telah mengirimkan email berisi Nomor Lisensi (*License Key*) ke alamat email yang Anda gunakan saat Checkout. Jangan lupa periksa folder <strong>Spam</strong> atau <strong>Promosi</strong> jika tidak terlihat di folder utama.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <div class="w-8 h-8 rounded-full bg-brand-500/10 flex-shrink-0 flex items-center justify-center border border-brand-500/20 text-brand-400 font-bold">2</div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Simpan Nomor Lisensi Anda</h4>
+                            <p class="text-slate-400 text-sm">Salin kode lisensi tersebut (Contoh: <code>INTI-CLIPS-XXXX-XXXX</code>).</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <div class="w-8 h-8 rounded-full bg-brand-500/10 flex-shrink-0 flex items-center justify-center border border-brand-500/20 text-brand-400 font-bold">3</div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Masuk ke Member Area</h4>
+                            <p class="text-slate-400 text-sm">Gunakan email Anda untuk *Login* ke Portal Member Area, mengunduh installer *software*, dan mengaktifkan lisensi Anda di aplikasi.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tombol CTA -->
+            <a href="https://member-area.intisariapps.com/" class="block w-full py-4 px-6 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-lg rounded-xl transition-all shadow-lg shadow-brand-500/25 hover:-translate-y-1 group">
+                Buka Member Area Sekarang
+                <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <!-- Bantuan Support -->
+            <p class="text-slate-500 text-sm mt-8">
+                Belum menerima email lisensi dalam 5 menit?<br>
+                Hubungi Support WhatsApp kami: <a href="https://wa.me/628567870040" target="_blank" class="text-success-400 hover:underline"><i class="fa-brands fa-whatsapp"></i> 08567870040</a>
+            </p>
+
+        </div>
+    </main>
+
+</body>
+</html>

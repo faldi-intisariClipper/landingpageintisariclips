@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kebijakan Privasi - IntisariClips V10</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
+                        dark: { 900: '#0f172a', 950: '#020617' },
+                        accent: { 400: '#fbbf24', 500: '#f59e0b' }
+                    },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-dark-950/80 backdrop-blur-md border-b border-slate-800 transition-all duration-300">
+        <div class="max-w-[1600px] mx-auto px-5 lg:px-10 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-shield-halved text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tight text-white">Intisari<span class="text-brand-400">Clips</span></span>
+            </a>
+            <div class="hidden md:flex gap-8 items-center text-sm font-medium">
+                <a href="index.html" class="text-slate-300 hover:text-white transition-colors">Kembali ke Beranda</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="pt-32 pb-16 px-5 bg-gradient-to-b from-dark-900 to-dark-950 border-b border-slate-800 text-center relative">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-600 rounded-full mix-blend-screen filter blur-[150px] opacity-10 pointer-events-none"></div>
+        <h1 class="text-3xl md:text-5xl font-black text-white mb-4 relative z-10">Kebijakan Privasi</h1>
+        <p class="text-slate-400 max-w-2xl mx-auto relative z-10">Pembaruan Terakhir: 1 Januari 2026</p>
+    </header>
+
+    <!-- CONTENT -->
+    <section class="py-16 px-5 bg-dark-950">
+        <div class="max-w-4xl mx-auto prose prose-invert prose-emerald prose-lg text-slate-300">
+            <p>Privasi Anda sangat penting bagi kami di IntisariClips. Kebijakan Privasi ini menjelaskan jenis informasi pribadi yang kami kumpulkan saat Anda melakukan transaksi di website ini, serta bagaimana kami memastikan keamanan data proyek (video) yang Anda olah di dalam aplikasi.</p>
+
+            <h2 class="text-white font-bold text-2xl mt-8 mb-4 border-b border-slate-800 pb-2">1. Pengumpulan Informasi Pribadi</h2>
+            <p>Saat Anda melakukan pembelian melalui *landing page* kami, kami mengumpulkan informasi kontak dasar yang murni ditujukan untuk keperluan distribusi lisensi dan *customer support*, meliputi:</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Nama Lengkap</strong>: Untuk personalisasi lisensi dan sapaan dukungan.</li>
+                <li><strong>Alamat Email</strong>: Untuk mengirimkan kunci lisensi (License Key) dan kredensial login Member Area.</li>
+                <li><strong>Nomor WhatsApp</strong>: Untuk pengiriman struk cadangan dan bantuan teknis reaktif.</li>
+            </ul>
+
+            <h2 class="text-white font-bold text-2xl mt-8 mb-4 border-b border-slate-800 pb-2">2. Keamanan Transaksi Finansial</h2>
+            <p>Kami <strong>tidak pernah mencatat, menyimpan, atau melihat</strong> data sensitif kartu kredit/debit atau PIN rekening bank Anda. Seluruh pemrosesan pembayaran dan validasi keuangan di website ini sepenuhnya ditangani secara aman oleh gerbang pembayaran resmi Republik Indonesia, yaitu <strong>Duitku (PT Kharisma Catur Hasta)</strong> yang diawasi oleh Bank Indonesia dan dilengkapi enkripsi setara perbankan.</p>
+
+            <h2 class="text-white font-bold text-2xl mt-8 mb-4 border-b border-slate-800 pb-2">3. Privasi Data Aplikasi (Proses Offline 100%)</h2>
+            <p>Ini adalah komitmen inti kami sebagai *software* produktivitas lokal desktop:</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Aplikasi IntisariClips berjalan sepenuhnya di sistem operasi lokal komputer Anda (*Local Processing*).</li>
+                <li>Semua file video, foto, audio, atau dokumen teks yang Anda impor ke dalam aplikasi <strong>TIDAK PERNAH DIUNGGAH</strong> atau dikirimkan ke *server* awan (cloud) IntisariClips.</li>
+                <li>Hasil *render* (video akhir) yang diproduksi murni tersimpan di *hard-drive* atau penyimpanan komputer Anda sendiri secara rahasia.</li>
+            </ul>
+
+            <h2 class="text-white font-bold text-2xl mt-8 mb-4 border-b border-slate-800 pb-2">4. Penggunaan dan Pembagian Data</h2>
+            <p>Data pribadi kontak Anda hanya kami gunakan untuk pengiriman produk, pembaruan aplikasi, atau penawaran produk internal dari grup Intisari Apps. Kami <strong>sangat melarang dan tidak akan pernah menjual, menyewakan, atau mendistribusikan</strong> database email dan kontak Anda kepada broker data pihak ketiga dengan alasan apa pun.</p>
+
+            <h2 class="text-white font-bold text-2xl mt-8 mb-4 border-b border-slate-800 pb-2">5. Hubungi Kami</h2>
+            <p>Jika Anda memiliki pertanyaan mendalam mengenai penanganan data kami atau ingin mengajukan penghapusan data akun (Right to be Forgotten), silakan hubungi tim *Support* kami melalui alamat kontak yang tertera di website ini.</p>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-dark-950 py-12 text-center text-slate-500 text-base">
+        <div class="w-full max-w-[1600px] mx-auto px-5 lg:px-10 flex flex-col items-center gap-6">
+            <a href="index.html" class="text-brand-400 font-bold hover:text-brand-300"><i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Beranda</a>
+            <p>&copy; 2026 Intisari Apps. Privasi Terjaga.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

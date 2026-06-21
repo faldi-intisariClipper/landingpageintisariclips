@@ -1,0 +1,30 @@
+📄 MANIFEST UPDATE - INTISARI-CLIPS-LANDING
+📅 Tanggal Build  : 2026-04-17 10:17:49
+======================================================================
+NAMA FILE                                     | VERSI SAAT INI
+----------------------------------------------------------------------
+✅ manifest.txt                                | File Statis / Resource
+✅ package.json                                | File Statis / Resource
+✅ wrangler.toml                               | File Statis / Resource
+✅ functions/api/checkout.js                   | 2.1 (Duitku Live Credentials & External Callback)
+✅ public/index.html                           | public/index.html
+✅ public/assets/css/style.css                 | public/assets/css/style.css
+✅ public/assets/img/Auto_Face_Tracking.webm   | File Statis / Resource
+✅ public/assets/img/Auto_Teks_Cover.webm      | File Statis / Resource
+✅ public/assets/img/demo_intisariClips.webm   | File Statis / Resource
+✅ public/assets/img/Face_Tracking_Original.webm | File Statis / Resource
+✅ public/assets/img/Subtitle_Animasi_Dinamis.webm | File Statis / Resource
+✅ public/assets/img/Testimoni- (1).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (10).PNG       | File Statis / Resource
+✅ public/assets/img/Testimoni- (2).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (3).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (4).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (5).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (6).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (7).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (8).PNG        | File Statis / Resource
+✅ public/assets/img/Testimoni- (9).PNG        | File Statis / Resource
+✅ public/assets/js/app.js                     | 2.0 (Cloudflare Pages Function - Duitku API V2)
+✅ public/assets/js/slider.js                  | 2.0 (Dual-Track Infinite Seamless Slider + Pause on Hover)
+✅ public/assets/js/universal.js               | 1.0 (Universal Inti-Logic)
+======================================================================
