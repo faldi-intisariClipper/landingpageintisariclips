@@ -17,10 +17,11 @@ export async function onRequestPost(context) {
         const { name, email, phone } = body;
 
         // Validasi input dari sisi server
-        if (!name || !email || !phone) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!name || name.trim().length < 3 || !email || !emailRegex.test(email) || !phone || phone.trim().length < 9) {
             return new Response(JSON.stringify({ 
                 status: "error", 
-                message: "Data pemesan tidak lengkap." 
+                message: "Data pemesan tidak lengkap atau tidak valid." 
             }), { status: 400, headers: { 'Content-Type': 'application/json' } });
         }
 
