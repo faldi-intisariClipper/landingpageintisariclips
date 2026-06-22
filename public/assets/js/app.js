@@ -193,13 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (video.muted) {
             video.muted = false;
-            video.loop = false;
             container.classList.add('is-playing');
-            video.currentTime = 0;
-            video.play();
+            if (video.paused) {
+                video.play().catch(err => console.log("Play failed:", err));
+            }
         } else {
             video.muted = true;
-            video.loop = true;
             container.classList.remove('is-playing');
         }
     };
