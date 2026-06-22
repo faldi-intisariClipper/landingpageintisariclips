@@ -8,8 +8,8 @@ import requests
 # Kredensial Akses Gateway & Lisensi
 API_URL = "https://api.intisariapps.com/v1/audio/transcriptions"
 GATEWAY_TOKEN = "16ce46d745f077bc89b2671789504582f5edfa566743f5a062312b2829e4f1d1"
-LICENSE_KEY = "INTIADMIN-DEV"
-HWID = "INTIADMIN-DEV"
+LICENSE_KEY = os.getenv("LICENSE_KEY", "LEAD-BDOGZ7")
+HWID = os.getenv("HWID", "INTI-HW-DD7313")
 
 # Batas ukuran file Groq Whisper (25MB)
 MAX_FILE_SIZE_MB = 25
@@ -25,7 +25,7 @@ def check_ffmpeg():
 
 def extract_audio(video_path, output_audio_path):
     """Mengekstrak audio dari file video menggunakan ffmpeg."""
-    print(f"🎬 Mengekstrak audio dari: {video_path}...")
+    print(f"[INFO] Mengekstrak audio dari: {video_path}...")
     try:
         # Mengonversi video ke MP3 dengan bitrate 128k untuk menghemat ukuran file
         cmd = [
@@ -38,15 +38,15 @@ def extract_audio(video_path, output_audio_path):
             output_audio_path
         ]
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print("✅ Berhasil mengekstrak audio.")
+        print("[SUCCESS] Berhasil mengekstrak audio.")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"❌ Gagal mengekstrak audio menggunakan ffmpeg: {e}")
+        print(f"[ERROR] Gagal mengekstrak audio menggunakan ffmpeg: {e}")
         return False
 
 def transcribe_audio(audio_path, language="id"):
     """Mengirimkan file audio ke API Gateway untuk ditranskripsi."""
-    print("🚀 Mengirimkan file ke API Gateway Groq Whisper...")
+    print("[INFO] Mengirimkan file ke API Gateway Groq Whisper...")
     
     headers = {
         "X-License-Key": LICENSE_KEY,
@@ -71,20 +71,31 @@ def transcribe_audio(audio_path, language="id"):
             files = {
                 "file": (filename, f, content_type),
                 "model": (None, "whisper-large-v3"),
-                "language": (None, language)
+                "language": (None, language),
+                "response_format": (None, "verbose_json")
             }
             
             response = requests.post(API_URL, headers=headers, files=files)
             
         if response.status_code == 200:
             result = response.json()
+            if "segments" in result:
+                formatted_segments = []
+                for seg in result["segments"]:
+                    start = seg["start"]
+                    end = seg["end"]
+                    start_min, start_sec = divmod(int(start), 60)
+                    end_min, end_sec = divmod(int(end), 60)
+                    timestamp = f"[{start_min:02d}:{start_sec:02d} -> {end_min:02d}:{end_sec:02d}]"
+                    formatted_segments.append(f"{timestamp} {seg['text']}")
+                return "\n".join(formatted_segments)
             return result.get("text", "")
         else:
-            print(f"❌ Gagal Transkripsi (HTTP {response.status_code}): {response.text}")
+            print(f"[ERROR] Gagal Transkripsi (HTTP {response.status_code}): {response.text}")
             return None
             
     except Exception as e:
-        print(f"❌ Terjadi kesalahan saat menghubungi API: {e}")
+        print(f"[ERROR] Terjadi kesalahan saat menghubungi API: {e}")
         return None
 
 def main():
@@ -98,7 +109,7 @@ def main():
     input_path = args.input
     
     if not os.path.exists(input_path):
-        print(f"❌ Error: File '{input_path}' tidak ditemukan.")
+        print(f"[ERROR] File '{input_path}' tidak ditemukan.")
         sys.exit(1)
         
     file_size = os.path.getsize(input_path)
@@ -114,13 +125,13 @@ def main():
             if extract_audio(input_path, temp_audio_path):
                 transcribe_target = temp_audio_path
                 new_size = os.path.getsize(temp_audio_path)
-                print(f"📊 Ukuran file setelah dikonversi: {new_size / (1024*1024):.2f} MB")
+                print(f"[INFO] Ukuran file setelah dikonversi: {new_size / (1024*1024):.2f} MB")
             else:
-                print("⚠️ Gagal mengekstrak audio. Mencoba mengirimkan file asli...")
+                print("[WARNING] Gagal mengekstrak audio. Mencoba mengirimkan file asli...")
         else:
-            print("⚠️ ffmpeg tidak ditemukan di sistem. Anda perlu menginstal ffmpeg agar dapat mengekstrak audio dari video secara lokal.")
+            print("[WARNING] ffmpeg tidak ditemukan di sistem. Anda perlu menginstal ffmpeg agar dapat mengekstrak audio dari video secara lokal.")
             if file_size > MAX_FILE_SIZE_BYTES:
-                print(f"❌ Error: File '{input_path}' berukuran {file_size / (1024*1024):.2f} MB (Melebihi batas maksimal {MAX_FILE_SIZE_MB} MB).")
+                print(f"[ERROR] File '{input_path}' berukuran {file_size / (1024*1024):.2f} MB (Melebihi batas maksimal {MAX_FILE_SIZE_MB} MB).")
                 sys.exit(1)
 
     # Lakukan transkripsi
@@ -134,18 +145,18 @@ def main():
             pass
             
     if text:
-        print("\n✨ --- HASIL TRANSKRIPSI --- ✨\n")
+        print("\n--- HASIL TRANSKRIPSI ---\n")
         print(text)
-        print("\n✨ -------------------------- ✨\n")
+        print("\n-------------------------\n")
         
         # Simpan jika ada argumen output
         if args.output:
             try:
                 with open(args.output, "w", encoding="utf-8") as out_file:
                     out_file.write(text)
-                print(f"💾 Hasil transkripsi disimpan ke: {args.output}")
+                print(f"[SUCCESS] Hasil transkripsi disimpan ke: {args.output}")
             except Exception as e:
-                print(f"❌ Gagal menyimpan ke file output: {e}")
+                print(f"[ERROR] Gagal menyimpan ke file output: {e}")
     else:
         sys.exit(1)
 
