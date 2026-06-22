@@ -1,3 +1,8 @@
+---
+name: generate-srs
+description: Petunjuk langkah demi langkah untuk membuat atau memperbarui file SRS di direktori docs/srs/ sebelum menyentuh/mengubah kode aplikasi.
+---
+
 # Workflow: Generate Software Requirements Specification (/generate-srs)
 
 Petunjuk langkah demi langkah untuk membuat atau memperbarui file SRS di direktori `docs/srs/` secara terstruktur sebelum AI menyentuh/mengubah kode aplikasinya.

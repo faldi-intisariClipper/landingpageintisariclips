@@ -1,3 +1,8 @@
+---
+name: verify-build
+description: Petunjuk langkah demi langkah untuk menjalankan server lokal simulasi Cloudflare Pages dan memverifikasi backend API serta file frontend statik.
+---
+
 # Workflow: Verify Dev Build (/verify-build)
 
 Petunjuk langkah demi langkah untuk menjalankan server lokal simulasi Cloudflare Pages dan memverifikasi integrasi fungsi backend API serta file frontend statik.

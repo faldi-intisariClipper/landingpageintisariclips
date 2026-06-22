@@ -1,3 +1,8 @@
+---
+name: optimize-assets
+description: Petunjuk langkah demi langkah untuk mengoptimasi gambar statis pada proyek landing page menggunakan format WebP.
+---
+
 # Workflow: Optimize Assets (/optimize-assets)
 
 Petunjuk langkah demi langkah untuk mengoptimasi gambar statis pada proyek landing page agar memiliki performa pemuatan yang cepat dan efisien menggunakan WebP.

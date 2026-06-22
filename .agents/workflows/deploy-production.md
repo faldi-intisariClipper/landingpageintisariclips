@@ -1,3 +1,8 @@
+---
+name: deploy-production
+description: Petunjuk langkah demi langkah untuk melakukan pendeployan landing page beserta fungsinya ke lingkungan produksi Cloudflare Pages.
+---
+
 # Workflow: Deploy to Production (/deploy-production)
 
 Petunjuk langkah demi langkah untuk melakukan pendeployan landing page beserta fungsinya ke lingkungan produksi Cloudflare Pages.
@@ -11,7 +16,7 @@ Petunjuk langkah demi langkah untuk melakukan pendeployan landing page beserta f
 - Pastikan kredensial Duitku mode Production sudah diatur di dashboard admin Cloudflare Pages:
   - `DUITKU_MERCHANT_CODE`
   - `DUITKU_API_KEY`
-- JANGAN menyimpan kredensial produksi ini di dalam file lokal `.dev.vars` atau file kode apa pun yang masuk ke Git.
+- JANGAN menyimpan kredensial produksi ini di dalam file lokal `.dev.vars` or file kode apa pun yang masuk ke Git.
 
 ## Langkah 3: Pembangunan & Kompilasi Aset
 - Jalankan kompilasi CSS Tailwind:

@@ -1,3 +1,8 @@
+---
+name: check-responsiveness
+description: Petunjuk langkah demi langkah untuk memeriksa responsivitas layout HTML dan mendeteksi kebocoran layout (overflow) pada breakpoint terkecil (mobile 320px - 430px).
+---
+
 # Workflow: Check Responsiveness (/check-responsiveness)
 
 Petunjuk langkah demi langkah untuk memeriksa responsivitas layout HTML dan mendeteksi kebocoran layout (*overflow*) pada breakpoint terkecil (mobile 320px - 430px).
