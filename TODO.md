@@ -11,8 +11,8 @@ Dokumen ini mencantumkan hasil audit kepatuhan terhadap file-file HTML di direkt
 - [x] Tambahkan `<meta name="description">` pada `public/syarat-ketentuan.html`.
 
 ### 2. Open Graph & Twitter Cards (Social Share Optimization)
-- [ ] Tambahkan meta tag Open Graph (`og:title`, `og:description`, `og:image`, `og:url`) pada `public/index.html` untuk mematangkan preview tautan saat dibagikan ke WhatsApp, Telegram, atau media sosial iklan.
-- [ ] Tambahkan meta tag Twitter Card (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`).
+- [x] Tambahkan meta tag Open Graph (`og:title`, `og:description`, `og:image`, `og:url`) pada `public/index.html` untuk mematangkan preview tautan saat dibagikan ke WhatsApp, Telegram, atau media sosial iklan.
+- [x] Tambahkan meta tag Twitter Card (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`).
 
 ### 3. Evaluasi Responsivitas & Kebocoran Layout (Sesuai Agent.md)
 - [x] Pastikan properti `overflow-x-hidden` terpasang di pembungkus luar (`<body>`).
