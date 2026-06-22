@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Wrangler Cache & State
+.wrangler/
+
+# Kredensial Sensitif / Rahasia
+.dev.vars
+.env
+.env.*
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+*.lnk
