@@ -13,3 +13,7 @@ node_modules/
 Thumbs.db
 Desktop.ini
 *.lnk
+
+# Large Video Demo files
+NewVideoDemo/
+
