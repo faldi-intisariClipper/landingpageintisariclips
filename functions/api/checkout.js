@@ -37,9 +37,10 @@ export async function onRequestPost(context) {
         const apiKey = (context.env.DUITKU_API_KEY || "83afbae747ea45b155427183097d9492").trim(); 
         
         // Memaksa mode Sandbox secara default (untuk proses uji coba tim admin Duitku)
+        // PENTING: Dipaksa sandbox secara mutlak untuk mempermudah review Duitku.
         // Ubah variabel env DUITKU_ENV menjadi 'production' ketika sudah lolos review.
         const envVal = (context.env.DUITKU_ENV || "sandbox").trim().toLowerCase();
-        const isProduction = envVal === "production"; 
+        const isProduction = false; // DIPAKSA FALSE UNTUK PROSES REVIEW DUITKU 
         
         // Atur URL API berdasarkan environment
         const apiUrl = isProduction 
