@@ -11,9 +11,10 @@ Dokumen ini mencatat pembaruan arsitektur antarmuka dan integrasi *Payment Gatew
   - **Checkout Form**: Menggunakan Layout 2 Kolom (kiri ringkasan harga, kanan formulir data) agar konversi lebih efisien ketimbang sistem modal/popup lama.
 
 ## 2. Kepatuhan Payment Gateway (Duitku)
-Dua halaman statis telah dibuat untuk memenuhi persayaratan legal Duitku:
-1. `syarat-ketentuan.html`: Mencakup Garansi Uang Kembali 1x24 Jam dan batasan tanggung jawab penyalahgunaan *software*.
-2. `kebijakan-privasi.html`: Menegaskan operasional sistem berbasis 100% *Offline First* (tidak ada pengunggahan video user ke *cloud*).
+Untuk memenuhi persyaratan ketat dari tim penilai (*compliance*) Duitku, beberapa penyesuaian telah diterapkan:
+1. `syarat-ketentuan.html` & `kebijakan-privasi.html`: Mencakup Garansi Uang Kembali 1x24 Jam, batasan tanggung jawab, serta penegasan operasional berbasis 100% *Offline First*. Kedua halaman ini telah dilengkapi dengan panel **Contact Support** yang memuat email, alamat usaha, dan nomor telepon yang jelas.
+2. **Deskripsi Produk Rinci**: Pada [index.html](file:///d:/INTISARI-LANDINGPAGE/intisari-clips-landing/public/index.html) tepat di atas formulir checkout, ditambahkan kotak informasi "Detail Produk yang Anda Dapatkan" untuk transparansi item digital yang dibeli pelanggan.
+3. **Kontak Support Footer**: Panel Contact Support diletakkan secara terperinci di footer [index.html](file:///d:/INTISARI-LANDINGPAGE/intisari-clips-landing/public/index.html) yang mencakup alamat surat usaha fisik, email resmi, dan nomor kontak WhatsApp aktif.
 
 ## 3. Spesifikasi Endpoint Checkout Edge Functions
 File pengelola API berada di `functions/api/checkout.js`.
@@ -24,5 +25,7 @@ File pengelola API berada di `functions/api/checkout.js`.
   - `itemDetails`: Rincian spesifik barang (Nama, Harga, Kuantitas).
   - `paymentMethod`: Ditetapkan secara *default* ke `"VC"` (Credit Card/VA) untuk memenuhi kebijakan ketat Sandbox Inquiry v2 yang menolak *empty string*.
   - `returnUrl`: Dialihkan secara dinamis ke `${url.origin}/success.html` menggunakan `context.request.url` di Cloudflare Pages.
-- **Kredensial**: Mengambil kunci `DUITKU_MERCHANT_CODE` dan `DUITKU_API_KEY` dari Cloudflare Pages Environment Variables (`.dev.vars` untuk *localhost*).
+- **Kredensial & Environment**:
+  - Mengambil kunci `DUITKU_MERCHANT_CODE` dan `DUITKU_API_KEY` dari Cloudflare Pages Environment Variables.
+  - **Mode Sandbox Paksa (Temporary)**: Properti `isProduction` dipaksa bernilai `false` (Sandbox Duitku) selama masa review. Hal ini menjamin tim compliance Duitku dapat menguji alur checkout menggunakan merchant code sandbox `DS32033` secara langsung di domain produksi tanpa memicu error "Merchant Tidak Aktif".
 - **Halaman Sukses**: Memandu pengguna dengan 3 langkah (Cek Email, Salin Lisensi, Login Member Area).
