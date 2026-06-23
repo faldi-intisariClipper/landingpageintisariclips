@@ -29,8 +29,54 @@
             }
         }
     </script>
+    
+    <!-- Script Deteksi Status Pembayaran Duitku -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const resultCode = params.get('resultCode');
+            
+            // resultCode !== "00" artinya pembayaran dibatalkan (02) atau gagal (01/lainnya)
+            if (resultCode && resultCode !== "00") {
+                // 1. Ubah Judul Halaman
+                document.title = "Pembayaran Gagal / Dibatalkan - IntisariClips V10";
+                
+                // 2. Ubah Konten Utama
+                const titleEl = document.getElementById('success-title');
+                if (titleEl) {
+                    titleEl.innerHTML = 'Pembayaran <span class="text-red-500">Gagal / Dibatalkan</span>';
+                }
+                
+                const descEl = document.getElementById('success-desc');
+                if (descEl) {
+                    descEl.textContent = 'Transaksi Anda telah dibatalkan atau gagal diproses oleh sistem pembayaran.';
+                }
+                
+                // 3. Ubah Ikon menjadi X Merah
+                const iconContainer = document.getElementById('success-icon-container');
+                if (iconContainer) {
+                    iconContainer.className = "w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/20";
+                    iconContainer.innerHTML = '<i class="fa-solid fa-xmark text-4xl md:text-5xl text-red-500"></i>';
+                }
+                
+                // 4. Sembunyikan langkah selanjutnya (karena pembayaran tidak sukses)
+                const stepsContainer = document.getElementById('success-steps-container');
+                if (stepsContainer) {
+                    stepsContainer.classList.add('hidden');
+                }
+                
+                // 5. Ubah Tombol CTA agar mengarah kembali ke Landing Page
+                const ctaBtn = document.getElementById('success-cta-button');
+                if (ctaBtn) {
+                    ctaBtn.href = window.location.origin;
+                    ctaBtn.innerHTML = 'Kembali ke Landing Page <i class="fa-solid fa-arrow-left ml-2 group-hover:-translate-x-1 transition-transform"></i>';
+                    ctaBtn.className = "block w-full py-4 px-6 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold text-base md:text-lg rounded-xl transition-all shadow-lg shadow-slate-500/25 hover:-translate-y-1 group";
+                }
+            }
+        });
+    </script>
 </head>
-<body class="bg-dark-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-center items-center">
+<body class="bg-dark-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-center items-center py-10 md:py-16">
 
     <!-- Efek Latar Belakang -->
     <div class="fixed inset-0 pointer-events-none z-0">
@@ -38,51 +84,51 @@
     </div>
 
     <!-- MAIN CARD -->
-    <main class="relative z-10 w-full max-w-2xl mx-auto px-5">
-        <div class="bg-dark-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-10 md:p-14 text-center shadow-2xl shadow-black/50">
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-4 sm:px-6">
+        <div class="bg-dark-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 sm:p-10 md:p-14 text-center shadow-2xl shadow-black/50">
             
             <!-- Ikon Centang -->
-            <div class="w-24 h-24 mx-auto mb-8 bg-success-500/10 rounded-full flex items-center justify-center border border-success-500/20">
-                <i class="fa-solid fa-check text-5xl text-success-400"></i>
+            <div id="success-icon-container" class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 bg-success-500/10 rounded-full flex items-center justify-center border border-success-500/20">
+                <i class="fa-solid fa-check text-4xl md:text-5xl text-success-400"></i>
             </div>
 
             <!-- Pesan Utama -->
-            <h1 class="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Pembayaran <span class="text-success-400">Berhasil!</span></h1>
-            <p class="text-slate-400 text-lg mb-10">Terima kasih atas pesanan Anda. Lisensi IntisariClips V10 Anda sedang diluncurkan.</p>
+            <h1 id="success-title" class="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Pembayaran <span class="text-success-400">Berhasil!</span></h1>
+            <p id="success-desc" class="text-slate-400 text-sm sm:text-base md:text-lg mb-10">Terima kasih atas pesanan Anda. Lisensi IntisariClips V10 Anda sedang diluncurkan.</p>
 
             <!-- Instruksi Box -->
-            <div class="bg-dark-950 border border-slate-800 rounded-2xl p-6 md:p-8 text-left mb-10">
-                <h3 class="text-white font-bold text-xl mb-6 flex items-center gap-2">
+            <div id="success-steps-container" class="bg-dark-950 border border-slate-800 rounded-2xl p-5 sm:p-6 md:p-8 text-left mb-10">
+                <h3 class="text-white font-bold text-lg sm:text-xl mb-6 flex items-center gap-2">
                     <i class="fa-solid fa-clipboard-list text-brand-400"></i> Langkah Selanjutnya:
                 </h3>
                 
                 <ul class="space-y-6">
                     <li class="flex gap-4 items-start">
                         <div class="w-8 h-8 rounded-full bg-brand-500/10 flex-shrink-0 flex items-center justify-center border border-brand-500/20 text-brand-400 font-bold">1</div>
-                        <div>
-                            <h4 class="text-white font-bold mb-1">Periksa Kotak Masuk Email Anda</h4>
-                            <p class="text-slate-400 text-sm">Sistem kami telah mengirimkan email berisi Nomor Lisensi (*License Key*) ke alamat email yang Anda gunakan saat Checkout. Jangan lupa periksa folder <strong>Spam</strong> atau <strong>Promosi</strong> jika tidak terlihat di folder utama.</p>
+                        <div class="flex-grow">
+                            <h4 class="text-white font-bold text-sm sm:text-base mb-1">Periksa Kotak Masuk Email Anda</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm">Sistem kami telah mengirimkan email berisi Nomor Lisensi (*License Key*) ke alamat email yang Anda gunakan saat Checkout. Jangan lupa periksa folder <strong>Spam</strong> atau <strong>Promosi</strong> jika tidak terlihat di folder utama.</p>
                         </div>
                     </li>
                     <li class="flex gap-4 items-start">
                         <div class="w-8 h-8 rounded-full bg-brand-500/10 flex-shrink-0 flex items-center justify-center border border-brand-500/20 text-brand-400 font-bold">2</div>
-                        <div>
-                            <h4 class="text-white font-bold mb-1">Simpan Nomor Lisensi Anda</h4>
-                            <p class="text-slate-400 text-sm">Salin kode lisensi tersebut (Contoh: <code>INTI-CLIPS-XXXX-XXXX</code>).</p>
+                        <div class="flex-grow">
+                            <h4 class="text-white font-bold text-sm sm:text-base mb-1">Simpan Nomor Lisensi Anda</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm">Salin kode lisensi tersebut (Contoh: <code>INTI-CLIPS-XXXX-XXXX</code>).</p>
                         </div>
                     </li>
                     <li class="flex gap-4 items-start">
                         <div class="w-8 h-8 rounded-full bg-brand-500/10 flex-shrink-0 flex items-center justify-center border border-brand-500/20 text-brand-400 font-bold">3</div>
-                        <div>
-                            <h4 class="text-white font-bold mb-1">Masuk ke Member Area</h4>
-                            <p class="text-slate-400 text-sm">Gunakan email Anda untuk *Login* ke Portal Member Area, mengunduh installer *software*, dan mengaktifkan lisensi Anda di aplikasi.</p>
+                        <div class="flex-grow">
+                            <h4 class="text-white font-bold text-sm sm:text-base mb-1">Masuk ke Member Area</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm">Gunakan email Anda untuk *Login* ke Portal Member Area, mengunduh installer *software*, dan mengaktifkan lisensi Anda di aplikasi.</p>
                         </div>
                     </li>
                 </ul>
             </div>
 
             <!-- Tombol CTA -->
-            <a href="https://member-area.intisariapps.com/" class="block w-full py-4 px-6 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-lg rounded-xl transition-all shadow-lg shadow-brand-500/25 hover:-translate-y-1 group">
+            <a id="success-cta-button" href="https://member-area.intisariapps.com/" class="block w-full py-4 px-6 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-white font-bold text-base md:text-lg rounded-xl transition-all shadow-lg shadow-brand-500/25 hover:-translate-y-1 group">
                 Buka Member Area Sekarang
                 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
             </a>
