@@ -21,5 +21,11 @@ Log kronologis aktivitas harian sesi pengembangan.
 * **Status**: Sukses (Ter-deploy live di `https://intisari-clips-landing.pages.dev` / `https://f2d7e1ef.intisari-clips-landing.pages.dev`).
 * **Langkah Selanjutnya**: Melakukan pengujian transaksi nominal kecil di mode produksi, dan menindaklanjuti proses approval dengan mengirim draf email compliance ke tim Duitku.
 
+## 24 Juni 2026 - Pengalihan Kembali ke Mode Sandbox untuk Peninjauan Compliance
+* **Aktivitas**: Menjalankan workflow `/switch-sandbox` untuk mengunggah ulang variabel sandbox (`DUITKU_ENV=sandbox`) ke Cloudflare Pages, diikuti dengan pemicuan deployment ulang (`npm run deploy`) untuk mengaktifkannya di runtime.
+* **Status**: Sukses (Ter-deploy di `https://intisari-clips-landing.pages.dev` / `https://a724531f.intisari-clips-landing.pages.dev`).
+* **Langkah Selanjutnya**: Memverifikasi alur checkout sandbox bekerja secara live, lalu mengirim email tanggapan ke tim Duitku.
+
+
 
 
