@@ -21,3 +21,8 @@ Berikut adalah daftar fitur yang sudah selesai dibangun dan berstatus stabil di 
 ## 5. Dokumentasi Teknis & Custom Skills
 * **Deskripsi**: SRS kepatuhan sales landing page, petunjuk deployment Cloudflare Pages, panduan integrasi Duitku, dan Custom Skill untuk penanganan kepatuhan masa depan.
 * **Status**: Selesai.
+
+## 6. Manajemen Env & Deployment Modular (Penyelarasan Autocut)
+* **Deskripsi**: Penambahan berkas `.sandbox.vars`, `.production.vars.example`, dan `.dev.vars` untuk mempermudah pengelolaan rahasia. Penyelarasan alur kerja switch-sandbox dan switch-production di `.agents/workflows/` serta deploy ulang ke proyek Cloudflare Pages `intisari-clips-landing`.
+* **Status**: Selesai.
+
