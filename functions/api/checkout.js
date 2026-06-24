@@ -106,7 +106,7 @@ export async function onRequestPost(context) {
                 email: email,
                 phoneNumber: phone
             },
-            paymentMethod: "VC", // Menggunakan default VC (Credit Card) karena Duitku API Sandbox v2 mewajibkan parameter ini
+            paymentMethod: "SP", // Menggunakan ShopeePay / QRIS sebagai metode pembayaran default
             // ⚠️ PENGALIHAN SETELAH SUKSES PEMBAYARAN: Arahkan ke Halaman Sukses Lokal
             returnUrl: `${new URL(context.request.url).origin}/success.html`, 
             // ⚠️ EXTERNAL CALLBACK URL (Webhooks ke Backend Terpusat)
