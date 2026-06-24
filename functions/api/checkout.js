@@ -28,30 +28,55 @@ export async function onRequestPost(context) {
         console.log(`[INFO] Memulai proses checkout untuk: ${email}`);
 
         // =================================================================
-        // KREDENSIAL DUITKU (SANDBOX / PRODUCTION VIA ENV)
+        // KREDENSIAL & ENVIRONMENT SWITICHING DUITKU (DYNAMIC & MULTI-MERCHANT)
         // =================================================================
-        // Menggunakan environment variables Cloudflare agar aman.
-        // Membersihkan spasi terselubung menggunakan .trim() untuk mencegah 'Invalid API Key' akibat human-error copy-paste.
-        // Jika Cloudflare Dashboard gagal membaca ENV, kita akan gunakan Fallback Kredensial Sandbox Sah (bukan string dummy).
-        const merchantCode = (context.env.DUITKU_MERCHANT_CODE || "DS32033").trim(); 
-        const apiKey = (context.env.DUITKU_API_KEY || "83afbae747ea45b155427183097d9492").trim(); 
-        
-        // Memaksa mode Sandbox secara default (untuk proses uji coba tim admin Duitku)
-        // PENTING: Dipaksa sandbox secara mutlak untuk mempermudah review Duitku.
-        // Ubah variabel env DUITKU_ENV menjadi 'production' ketika sudah lolos review.
+        // Menentukan mode lingkungan (production vs sandbox) secara dinamis via env
         const envVal = (context.env.DUITKU_ENV || "sandbox").trim().toLowerCase();
-        const isProduction = false; // DIPAKSA FALSE UNTUK PROSES REVIEW DUITKU 
+        const isProduction = envVal === "production";
         
+        let merchantCode = "";
+        let apiKey = "";
+        
+        if (isProduction) {
+            // 1. Kredensial khusus produk CLIPS
+            const rawClipsCode = context.env.DUITKU_MERCHANT_CLIPS;
+            const rawClipsKey = context.env.DUITKU_API_KEY_CLIPS;
+            
+            // 2. Fallback ke kredensial global default
+            const rawGlobalCode = context.env.DUITKU_MERCHANT_CODE;
+            const rawGlobalKey = context.env.DUITKU_API_KEY;
+            
+            if (rawClipsCode && rawClipsCode.trim() && rawClipsKey && rawClipsKey.trim()) {
+                merchantCode = rawClipsCode.trim();
+                apiKey = rawClipsKey.trim();
+                console.log("[INFO] Menggunakan Kredensial Produksi Khusus CLIPS");
+            } else if (rawGlobalCode && rawGlobalCode.trim() && rawGlobalKey && rawGlobalKey.trim()) {
+                merchantCode = rawGlobalCode.trim();
+                apiKey = rawGlobalKey.trim();
+                console.log("[INFO] Menggunakan Kredensial Produksi Global Default");
+            } else {
+                // Fallback darurat jika diset production tetapi env vars kosong
+                merchantCode = "DS32033";
+                apiKey = "83afbae747ea45b155427183097d9492";
+                console.warn("[WARNING] DUITKU_ENV=production tetapi tidak ada kredensial produksi yang dikonfigurasi. Fallback ke Sandbox.");
+            }
+        } else {
+            // Mode Sandbox: Paksa kredensial sandbox resmi (DS32033)
+            merchantCode = "DS32033";
+            apiKey = "83afbae747ea45b155427183097d9492";
+            console.log("[INFO] Menggunakan Kredensial Duitku Sandbox");
+        }
+
         // Atur URL API berdasarkan environment
         const apiUrl = isProduction 
             ? "https://passport.duitku.com/webapi/api/merchant/v2/inquiry" 
             : "https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry";
 
         // =================================================================
-        // DATA TRANSAKSI
+        // DATA TRANSAKSI & PAYLOAD
         // =================================================================
         const paymentAmount = 190000; // Harga produk (Rp 190.000) sesuai penawaran di landing page
-        const merchantOrderId = "INTISARI-" + Date.now(); // ID Order Unik
+        const merchantOrderId = "INV-CLIPS-" + Date.now(); // ID Order Unik mengandung 'CLIPS' sesuai aturan emas SRS
 
         console.log(`[INFO] Membuat tagihan Duitku (Order ID: ${merchantOrderId}) di Env: ${isProduction ? 'Live' : 'Sandbox'}`);
 
@@ -59,7 +84,10 @@ export async function onRequestPost(context) {
         const signatureString = merchantCode + merchantOrderId + paymentAmount + apiKey;
         const signature = await generateMD5(signatureString);
 
-        // 2. Susun Payload (Body Request)
+        // 2. Dapatkan URL Webhook secara dinamis
+        const callbackUrl = (context.env.LICENSE_BACKEND_CALLBACK_URL || "https://api.intisariapps.com/v1/webhook/duitku").trim();
+
+        // 3. Susun Payload (Body Request)
         const payload = {
             merchantCode: merchantCode,
             paymentAmount: paymentAmount,
@@ -73,11 +101,16 @@ export async function onRequestPost(context) {
                 price: paymentAmount,
                 quantity: 1
             }],
+            customerDetail: {
+                firstName: name,
+                email: email,
+                phoneNumber: phone
+            },
             paymentMethod: "VC", // Menggunakan default VC (Credit Card) karena Duitku API Sandbox v2 mewajibkan parameter ini
             // ⚠️ PENGALIHAN SETELAH SUKSES PEMBAYARAN: Arahkan ke Halaman Sukses Lokal
             returnUrl: `${new URL(context.request.url).origin}/success.html`, 
             // ⚠️ EXTERNAL CALLBACK URL (Webhooks ke Backend Terpusat)
-            callbackUrl: "https://api.intisariapps.com/v1/webhook/duitku",
+            callbackUrl: callbackUrl,
             signature: signature,
             expiryPeriod: 60 // Waktu kadaluarsa (1 jam)
         };
