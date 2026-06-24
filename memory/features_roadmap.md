@@ -3,7 +3,7 @@
 Daftar fitur, peningkatan, atau perbaikan yang akan dikerjakan ke depannya.
 
 ## 🎯 Prioritas Utama (Fase 1 - Compliance & Deploy)
-- [ ] **Deployment ke Cloudflare Pages**: Deploy kode terbaru dengan footer support seragam dan detail produk menggunakan workflow `/deploy-production`.
+- [x] **Deployment ke Cloudflare Pages**: Deploy kode terbaru dengan footer support seragam dan detail produk menggunakan workflow `/deploy-production`.
 - [ ] **Kirim Email Compliance**: Menyalin draf tanggapan compliance dari `draf_email_duitku.md` dan mengirimkannya ke tim penilai Duitku.
 
 ## 🚀 Migrasi ke Produksi (Fase 2 - Pasca-Persetujuan Duitku)
