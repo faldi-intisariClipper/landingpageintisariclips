@@ -8,11 +8,13 @@ Daftar fitur, peningkatan, atau perbaikan yang akan dikerjakan ke depannya.
 
 ## 🚀 Migrasi ke Produksi (Fase 2 - Pasca-Persetujuan Duitku)
 - [x] **Kembalikan Mode Produksi Dinamis**: Di [checkout.js](file:///d:/INTISARIAPPS_COM/LANDINGPAGE/intisari-clips-landing/functions/api/checkout.js), ubah status `isProduction` kembali menjadi dinamis (berdasarkan variabel environment `DUITKU_ENV`).
-- [ ] **Set Kredensial Produksi di Cloudflare Pages Dashboard**:
+- [x] **Set Kredensial Produksi di Cloudflare Pages Dashboard**:
   - `DUITKU_ENV` = `production`
   - `DUITKU_MERCHANT_CODE` = `D22200`
-  - `DUITKU_API_KEY` = `[API KEY PRODUKSI ANDA]`
-- [ ] **Live-Test Transaksi Nyata**: Melakukan pembayaran dengan nominal kecil (misalnya Rp 10.000) untuk memvalidasi alur produksi Duitku.
+  - `DUITKU_API_KEY` = `5058f27e89e4cc0aa1d485c2ecefb5d2`
+  - `DUITKU_MERCHANT_CLIPS` = `D22200`
+  - `DUITKU_API_KEY_CLIPS` = `5058f27e89e4cc0aa1d485c2ecefb5d2`
+- [ ] **Live-Test Transaksi Nyata**: Melakukan pembayaran dengan nominal kecil (misalnya Rp 10.000) untuk memvalidasi alur produksi Duitku (akan ditransfer kembali setelah Duitku menyetujui proyek).
 
 ## ⚡ Optimasi & Pemeliharaan (Fase 3)
 - [ ] **Optimasi Aset Landing Page**: Jalankan `/optimize-assets` untuk mengonversi gambar promosi statik ke format `.webp` guna meminimalkan ukuran file dan menaikkan skor LCP (Largest Contentful Paint).
