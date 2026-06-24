@@ -76,7 +76,9 @@ export async function onRequestPost(context) {
         // DATA TRANSAKSI & PAYLOAD
         // =================================================================
         const paymentAmount = 190000; // Harga produk (Rp 190.000) sesuai penawaran di landing page
-        const merchantOrderId = "INV-CLIPS-" + Date.now(); // ID Order Unik mengandung 'CLIPS' sesuai aturan emas SRS
+        const productPrefix = (context.env.PRODUCT_PREFIX || "INV-CLIPS").trim();
+        const merchantOrderId = `${productPrefix}-${Date.now()}`; // ID Order Unik dinamis dari env sesuai aturan emas SRS
+
 
         console.log(`[INFO] Membuat tagihan Duitku (Order ID: ${merchantOrderId}) di Env: ${isProduction ? 'Live' : 'Sandbox'}`);
 

@@ -5,6 +5,8 @@ Daftar fitur, peningkatan, atau perbaikan yang akan dikerjakan ke depannya.
 ## 🎯 Prioritas Utama (Fase 1 - Compliance & Deploy)
 - [x] **Deployment ke Cloudflare Pages**: Deploy kode terbaru dengan footer support seragam dan detail produk menggunakan workflow `/deploy-production`.
 - [ ] **Kirim Email Compliance**: Menyalin draf tanggapan compliance dari `draf_email_duitku.md` dan mengirimkannya ke tim penilai Duitku.
+- [x] **Penyelarasan Kode Kepatuhan Duitku**: Menambahkan variabel lingkungan `PRODUCT_PREFIX` dinamis pada API checkout dan melengkapi *Contact Support Panel* di `success.html` secara seragam.
+
 
 ## 🚀 Migrasi ke Produksi (Fase 2 - Pasca-Persetujuan Duitku)
 - [x] **Kembalikan Mode Produksi Dinamis**: Di [checkout.js](file:///d:/INTISARIAPPS_COM/LANDINGPAGE/intisari-clips-landing/functions/api/checkout.js), ubah status `isProduction` kembali menjadi dinamis (berdasarkan variabel environment `DUITKU_ENV`).
