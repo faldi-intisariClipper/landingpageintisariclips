@@ -7,7 +7,7 @@ Daftar fitur, peningkatan, atau perbaikan yang akan dikerjakan ke depannya.
 - [ ] **Kirim Email Compliance**: Menyalin draf tanggapan compliance dari `draf_email_duitku.md` dan mengirimkannya ke tim penilai Duitku.
 
 ## 🚀 Migrasi ke Produksi (Fase 2 - Pasca-Persetujuan Duitku)
-- [ ] **Kembalikan Mode Produksi Dinamis**: Di [checkout.js](file:///d:/INTISARIAPPS_COM/LANDINGPAGE/intisari-clips-landing/functions/api/checkout.js), ubah status `isProduction` kembali menjadi dinamis (berdasarkan variabel environment `DUITKU_ENV`).
+- [x] **Kembalikan Mode Produksi Dinamis**: Di [checkout.js](file:///d:/INTISARIAPPS_COM/LANDINGPAGE/intisari-clips-landing/functions/api/checkout.js), ubah status `isProduction` kembali menjadi dinamis (berdasarkan variabel environment `DUITKU_ENV`).
 - [ ] **Set Kredensial Produksi di Cloudflare Pages Dashboard**:
   - `DUITKU_ENV` = `production`
   - `DUITKU_MERCHANT_CODE` = `D22200`
