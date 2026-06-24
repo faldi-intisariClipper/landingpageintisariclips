@@ -7,7 +7,7 @@ Log kronologis aktivitas harian sesi pengembangan.
 * **Status**: Sukses.
 
 ## 24 Juni 2026 - Penyelarasan Modul Checkout Duitku dengan SRS & Redeploy
-* **Aktivitas**: Menyesuaikan `functions/api/checkout.js` agar mendukung multi-merchant dinamis dengan fallback, switches env dinamis, parameter `customerDetail`, `callbackUrl` dinamis, dan prefiks `merchantOrderId` ("INV-CLIPS-"). Melakukan verifikasi payload lokal menggunakan simulasi Wrangler, dilanjutkan dengan deployment ulang ke Cloudflare Pages.
+* **Aktivitas**: Menyesuaikan `functions/api/checkout.js` agar mendukung multi-merchant dinamis dengan fallback, switches env dinamis, parameter `customerDetail`, `callbackUrl` dinamis, prefiks `merchantOrderId` ("INV-CLIPS-"), serta mengubah metode pembayaran default menjadi QRIS ShopeePay (`SP`). Melakukan verifikasi payload lokal menggunakan simulasi Wrangler, dilanjutkan dengan deployment ulang ke Cloudflare Pages.
 * **Status**: Sukses (Ter-deploy di `https://dev.intisari-clips-landing.pages.dev`).
 * **Langkah Selanjutnya**: Mengirim email tindak lanjut kepatuhan ke Duitku menggunakan draf di `draf_email_duitku.md` dan menunggu persetujuan akun produksi `D22200`.
 
