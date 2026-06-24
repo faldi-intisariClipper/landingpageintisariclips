@@ -26,6 +26,9 @@ File pengelola API berada di `functions/api/checkout.js`.
   - `paymentMethod`: Ditetapkan secara *default* ke `"VC"` (Credit Card/VA) untuk memenuhi kebijakan ketat Sandbox Inquiry v2 yang menolak *empty string*.
   - `returnUrl`: Dialihkan secara dinamis ke `${url.origin}/success.html` menggunakan `context.request.url` di Cloudflare Pages.
 - **Kredensial & Environment**:
-  - Mengambil kunci `DUITKU_MERCHANT_CODE` dan `DUITKU_API_KEY` dari Cloudflare Pages Environment Variables.
-  - **Mode Sandbox Paksa (Temporary)**: Properti `isProduction` dipaksa bernilai `false` (Sandbox Duitku) selama masa review. Hal ini menjamin tim compliance Duitku dapat menguji alur checkout menggunakan merchant code sandbox `DS32033` secara langsung di domain produksi tanpa memicu error "Merchant Tidak Aktif".
+  - Mengadopsi mekanisme **Dynamic Multi-Merchant Mapping dengan Fallback**:
+    - Mode Lingkungan ditentukan oleh variabel lingkungan `DUITKU_ENV` (`production` atau `sandbox`).
+    - Jika `DUITKU_ENV` adalah `production`, kredensial yang digunakan dipetakan secara dinamis: prioritaskan kredensial khusus produk CLIPS (`DUITKU_MERCHANT_CLIPS` & `DUITKU_API_KEY_CLIPS`), dengan fallback ke kredensial global (`DUITKU_MERCHANT_CODE` & `DUITKU_API_KEY`).
+    - Jika `DUITKU_ENV` adalah `sandbox` (atau tidak didefinisikan), sistem otomatis memaksa penggunaan kredensial Sandbox resmi (`DS32033` & `83afbae747ea45b155427183097d9492`) untuk kemudahan peninjauan oleh tim compliance Duitku.
 - **Halaman Sukses**: Memandu pengguna dengan 3 langkah (Cek Email, Salin Lisensi, Login Member Area).
+
