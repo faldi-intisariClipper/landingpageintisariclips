@@ -109,16 +109,22 @@ Berikut adalah visualisasi alur psikologi pembeli dari atas ke bawah:
 ---
 > 💼 **INFORMASI CAMPAIGN & LOWONGAN KERJA CLIPPER AKTIF:**
 > 1. **Campaign Kuliner Artis & Sinema Layar Lebar** (Niche: FMCG & Movies)
+>    * *Path Gambar:* `assets/img/Screenshot 2026-06-22 014143.webp`
 >    * *Detail:* `Basreng Box, Film, & Skincare. Budget total ratusan juta dengan bayaran tinggi per 1.000 views untuk klip promosi kreatif.`
 > 2. **Campaign Fashion, Styling, & Herbal** (Budget: Rp11.000.000)
+>    * *Path Gambar:* `assets/img/Screenshot 2026-06-22 014242.webp`
 >    * *Detail:* `Fyne, Captain Hair, & Etawalin. Daftar produk best-seller nasional dengan komisi affiliate serta reward views tetap.`
 > 3. **Campaign Skincare Pria & Minyak Bayi** (Budget: Rp19.000.000)
+>    * *Path Gambar:* `assets/img/Screenshot 2026-06-22 014347.webp`
 >    * *Detail:* `Kahf, Cessa, & Ohmyskin. Brand perawatan tubuh raksasa yang menargetkan penyebaran klip massal organik.`
 > 4. **Campaign E-Commerce & Parfum Mewah** (Budget: Rp20.000.000)
+>    * *Path Gambar:* `assets/img/Screenshot 2026-06-22 014417.webp`
 >    * *Detail:* `Shopee, Mykonos, & Newlab. Campaign dengan konversi checkout tinggi, sangat potensial digabung affiliate link.`
 > 5. **Campaign Personal Care & Minuman Diet** (Budget: Rp23.000.000)
+>    * *Path Gambar:* `assets/img/Screenshot 2026-06-22 014443.webp`
 >    * *Detail:* `Sandrella, Dr Wahyu, & Taze. Nilai CPM tinggi untuk video edukasi kesehatan dan review wewangian.`
 > 6. **Campaign Content Creator & Band Musik** (Budget: Rp20.000.000)
+>    * *Path Gambar:* `assets/img/Screenshot 2026-06-22 014544.webp`
 >    * *Detail:* `Iben Podcast, Hindia, & Blackstag. Cocok untuk konten berjenis interview, podcast, dan cuplikan penampilan panggung.`
 ---
 > 💡 **KOTAK INFO KREATIF:**
