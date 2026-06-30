@@ -31,8 +31,11 @@ Log kronologis aktivitas harian sesi pengembangan.
 * **Status**: Sukses (Terverifikasi secara visual pada mode sukses dan gagal).
 * **Langkah Selanjutnya**: Melakukan push commit ke repositori Git dev dan menindaklanjuti proses email compliance ke tim Duitku.
 
-## 30 Juni 2026 - Pengaktifan Mode Produksi Duitku & Deploy Ulang
-* **Aktivitas**: Membaca berkas `.production.vars` lokal, melakukan pengunggahan massal (*bulk upload*) 5 variabel rahasia produksi (termasuk merchant code `D23359` dan API Key produksi yang valid) ke Cloudflare Pages menggunakan Wrangler, memverifikasi status secrets secara remote, dan melakukan kompilasi CSS Tailwind serta pendeployan ulang proyek ke Cloudflare Pages.
-* **Status**: Sukses (Ter-deploy live di `https://ba52dcdd.intisari-clips-landing.pages.dev` / `https://intisari-clips-landing.pages.dev`).
-* **Langkah Selanjutnya**: Memverifikasi alur transaksi pembayaran produksi sesungguhnya dengan nominal kecil.
-
+## 30 Juni 2026 - Sinkronisasi Kredensial Produksi & Uji Coba Checkout Live
+* **Aktivitas**: 
+  1. Menambahkan variabel khusus Clips (`DUITKU_MERCHANT_CLIPS=D23359` dan `DUITKU_API_KEY_CLIPS`) ke dalam `.production.vars` lokal.
+  2. Melakukan *bulk upload* 7 variabel produksi ke Cloudflare Pages `intisari-clips-landing` dan mendeploy ulang proyek.
+  3. Melakukan pengujian alur checkout live menggunakan browser subagent.
+* **Status**: Gagal secara fungsional. Transaksi ditolak oleh Duitku dengan kode status HTTP 400 dan pesan `"Konfigurasi merchant/API key Duitku tidak valid."`.
+* **Analisis & Diagnostik**: Akun produksi Duitku (`D23359` / `D22200`) terdeteksi belum diaktifkan/disetujui secara resmi oleh tim Compliance Duitku, sehingga Duitku API memblokir permintaan inquiry live. Ada juga potensi ketidakcocokan kredensial jika di dasbor Duitku sesungguhnya terdaftar di bawah ID merchant yang berbeda.
+* **Langkah Selanjutnya**: Memberikan laporan analisis kepada pengguna, menyarankan pengalihan kembali ke mode Sandbox (`DUITKU_ENV=sandbox`) agar proses audit compliance Duitku dapat berjalan sukses tanpa diblokir oleh Duitku Live.
