@@ -31,11 +31,12 @@ Log kronologis aktivitas harian sesi pengembangan.
 * **Status**: Sukses (Terverifikasi secara visual pada mode sukses dan gagal).
 * **Langkah Selanjutnya**: Melakukan push commit ke repositori Git dev dan menindaklanjuti proses email compliance ke tim Duitku.
 
-## 30 Juni 2026 - Sinkronisasi Kredensial Produksi & Uji Coba Checkout Live
+## 30 Juni 2026 - Migrasi Metode Pembayaran ke Mandiri VA & Rilis Produksi
 * **Aktivitas**: 
-  1. Menambahkan variabel khusus Clips (`DUITKU_MERCHANT_CLIPS=D23359` dan `DUITKU_API_KEY_CLIPS`) ke dalam `.production.vars` lokal.
-  2. Melakukan *bulk upload* 7 variabel produksi ke Cloudflare Pages `intisari-clips-landing` dan mendeploy ulang proyek.
-  3. Melakukan pengujian alur checkout live menggunakan browser subagent.
-* **Status**: Gagal secara fungsional. Transaksi ditolak oleh Duitku dengan kode status HTTP 400 dan pesan `"Konfigurasi merchant/API key Duitku tidak valid."`.
-* **Analisis & Diagnostik**: Akun produksi Duitku (`D23359` / `D22200`) terdeteksi belum diaktifkan/disetujui secara resmi oleh tim Compliance Duitku, sehingga Duitku API memblokir permintaan inquiry live. Ada juga potensi ketidakcocokan kredensial jika di dasbor Duitku sesungguhnya terdaftar di bawah ID merchant yang berbeda.
-* **Langkah Selanjutnya**: Memberikan laporan analisis kepada pengguna, menyarankan pengalihan kembali ke mode Sandbox (`DUITKU_ENV=sandbox`) agar proses audit compliance Duitku dapat berjalan sukses tanpa diblokir oleh Duitku Live.
+  1. Menyelaraskan berkas `.production.vars` dengan menambahkan `DUITKU_MERCHANT_CLIPS=D23359` dan `DUITKU_API_KEY_CLIPS` produksi.
+  2. Memodifikasi `functions/api/checkout.js` untuk mengganti default `paymentMethod` dari `"NQ"` (QRIS) menjadi `"M1"` (Mandiri Virtual Account - Bank Transfer) karena panel transfer bank telah aktif.
+  3. Melakukan pengujian simulasi lokal menggunakan Wrangler dev dan browser subagent.
+  4. Melakukan kompilasi Tailwind CSS dan mendeploy live perubahan tersebut ke Cloudflare Pages `intisari-clips-landing`.
+* **Status**: Berhasil dideploy secara teknis, namun transaksi pembayaran masih ditolak oleh Duitku API.
+* **Analisis & Diagnostik**: Duitku mengembalikan error `"Payment channel not available"` baik untuk channel `"NQ"` maupun `"M1"`. Ini mengonfirmasi bahwa **API Key Duitku** yang tercantum saat ini (`c0a7044e312218a9d628cd82e6544a23`) tidak valid/tidak cocok dengan Merchant ID `D23359` di sistem Duitku, atau terdapat miskonfigurasi IP Whitelist pada dasbor Duitku.
+* **Langkah Selanjutnya**: Meminta pengguna untuk memverifikasi kecocokan API Key produksi di dasbor Duitku untuk proyek `D23359`.
