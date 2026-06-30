@@ -108,7 +108,7 @@ export async function onRequestPost(context) {
                 email: email,
                 phoneNumber: phone
             },
-            paymentMethod: "NQ", // Menggunakan Nobu QRIS sebagai metode pembayaran default (QRIS Universal)
+            paymentMethod: "M1", // Menggunakan Mandiri Virtual Account sebagai metode pembayaran default (Bank Transfer)
             // ⚠️ PENGALIHAN SETELAH SUKSES PEMBAYARAN: Arahkan ke Halaman Sukses Lokal
             returnUrl: `${new URL(context.request.url).origin}/success.html`, 
             // ⚠️ EXTERNAL CALLBACK URL (Webhooks ke Backend Terpusat)
