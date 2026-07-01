@@ -32,9 +32,13 @@ File pengelola API berada di `functions/api/checkout.js`.
     - Jika `DUITKU_ENV` adalah `sandbox` (atau tidak didefinisikan), sistem otomatis memaksa penggunaan kredensial Sandbox resmi (`DS32033` & `83afbae747ea45b155427183097d9492`) untuk kemudahan peninjauan oleh tim compliance Duitku.
 - **Halaman Sukses**: Memandu pengguna dengan 3 langkah (Cek Email, Salin Lisensi, Login Member Area).
 
-## 4. Alur Pembayaran Transfer Manual SeaBank (Non-Gateway)
-Sebagai metode alternatif yang meminimalkan gesekan (friction) pembayaran e-payment gateway, sistem menyediakan opsi Transfer Manual:
-- **Redirection**: Jika pembeli memilih metode `'MANUAL'`, JavaScript di frontend mengabaikan pemanggilan `/api/checkout` dan langsung mengalihkan pembeli ke `/manual-transfer.html?name=[Nama]&email=[Email]&phone=[WhatsApp]`.
-- **Halaman Instruksi**: Halaman `/manual-transfer.html` menyajikan instruksi transfer ke rekening **SeaBank (901470004292 a/n RIFALDI RAMADHON)** sebesar Rp190.000 dengan fitur tombol Salin Rekening.
-- **Konfirmasi**: Tombol konfirmasi di halaman tersebut otomatis membuka WhatsApp menuju admin dengan pesan berisi detail nama, email, dan WhatsApp pembeli agar admin dapat melakukan verifikasi manual dan mengirimkan lisensi.
+## 4. Alur Pembayaran Transfer Manual SeaBank & QRIS GoPay (Non-Gateway)
+Sebagai metode alternatif yang meminimalkan gesekan (friction) pembayaran e-payment gateway, sistem menyediakan opsi Transfer Manual via Dropbox (Dropdown Select):
+- **Redirection**: Jika pembeli memilih metode `'MANUAL_SEABANK'` atau `'MANUAL_QRIS'`, JavaScript di frontend mengabaikan pemanggilan `/api/checkout` dan langsung mengalihkan pembeli ke:
+  - `/manual-transfer.html?method=seabank&name=[Nama]&email=[Email]&phone=[WhatsApp]`
+  - `/manual-transfer.html?method=qris&name=[Nama]&email=[Email]&phone=[WhatsApp]`
+- **Halaman Instruksi Dinamis**: Halaman `/manual-transfer.html` membaca parameter `method` untuk menyajikan instruksi:
+  - **SeaBank**: Rekening **SeaBank (901470004292 a/n RIFALDI RAMADHON)** sebesar Rp190.000 dengan fitur tombol Salin Rekening.
+  - **QRIS GoPay**: Scan QR Code statis (`assets/img/qris_intisariapps.jpg`) merchant Intisari Apps sebesar Rp190.000.
+- **Konfirmasi**: Tombol konfirmasi di halaman tersebut otomatis membuka WhatsApp menuju admin dengan pesan berisi detail nama, email, WhatsApp, serta jenis metode pembayaran manual yang digunakan pembeli agar admin dapat melakukan verifikasi manual dan mengirimkan lisensi.
 
