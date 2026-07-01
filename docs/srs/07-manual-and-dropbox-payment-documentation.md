@@ -21,6 +21,11 @@ Metode pembayaran manual (non-gateway) dialihkan ke detail berikut:
   *Path Lokal Windows*: `d:\INTISARIAPPS_COM\LANDINGPAGE\intisari-clips-landing\public\assets\img\qris_intisariapps.jpg`
 * **Fitur Tambahan**: Tombol Unduh QR Code untuk mempermudah transaksi via mobile (pembeli dapat menyimpan gambar QRIS ke galeri foto dan mengunggahnya ke aplikasi e-wallet).
 
+### C. Nomor WhatsApp Konfirmasi Pembayaran (Default)
+* **Nomor Tujuan**: `628567870040`
+* **Atas Nama**: `RIFALDI RAMADHON`
+* **Fungsi**: Menerima pesan draf konfirmasi transfer manual otomatis (disertai nama, email, nomor ponsel pembeli, dan metode manual yang dipilih).
+
 ---
 
 ## 🛠️ 2. Arsitektur Antarmuka (Dropbox Select)
