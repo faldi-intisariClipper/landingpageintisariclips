@@ -23,7 +23,7 @@ File pengelola API berada di `functions/api/checkout.js`.
 - **Fungsi**: Membuat URL tagihan pembayaran (*Invoice*) via Duitku Web API v2.
 - **Payload Duitku**:
   - `itemDetails`: Rincian spesifik barang (Nama, Harga, Kuantitas).
-  - `paymentMethod`: Ditetapkan secara *default* ke `"VC"` (Credit Card/VA) untuk memenuhi kebijakan ketat Sandbox Inquiry v2 yang menolak *empty string*.
+  - `paymentMethod`: Dipilih secara dinamis oleh pengguna di antarmuka formulir pembelian (seperti `"M1"` Mandiri VA, `"B1"` BNI VA, `"BR"` BRI VA, `"BT"` Permata VA, `"BC"` CIMB VA, atau `"AL"` Alfamart). Jika kosong atau tidak ditentukan, backend menggunakan fallback default `"M1"`.
   - `returnUrl`: Dialihkan secara dinamis ke `${url.origin}/success.html` menggunakan `context.request.url` di Cloudflare Pages.
 - **Kredensial & Environment**:
   - Mengadopsi mekanisme **Dynamic Multi-Merchant Mapping dengan Fallback**:
