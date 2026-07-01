@@ -52,3 +52,35 @@ Salam hangat,
 **[Nama Anda/Nama Pemilik Usaha]**  
 Intisari Apps Support Team  
 https://clips.intisariapps.com/
+
+---
+
+## 2. DRAF BALASAN EMAIL UNTUK AKTIVASI QRIS (Project Code D23359)
+
+Draf ini ditujukan untuk membalas email dari Kak Marsa Setiyani Rubiyanti guna meminta pengaktifan Nobu QRIS (NQ) dan ShopeePay QRIS (SP) yang saat ini berstatus nonaktif (OFF) di dasbor merchant.
+
+**Subjek:** Re: Status Metode Pembayaran Aktif - Project Code D23359 (Pengajuan Aktivasi QRIS)
+
+**Kepada:** Marsa Setiyani Rubiyanti | Customer Service Duitku <support@duitku.com>
+
+Selamat Siang Ibu Marsa Setiyani Rubiyanti dan Tim CS Duitku,
+
+Terima kasih banyak atas informasi dan pemeriksaan yang dilakukan mengenai status metode pembayaran aktif untuk kode proyek **D23359**.
+
+Sehubungan dengan hal tersebut, kami ingin menginformasikan bahwa kami sangat membutuhkan metode pembayaran **QRIS** (Nobu QRIS & ShopeePay QRIS) agar pembeli kami dapat melakukan pembayaran instan menggunakan e-wallet di website kami.
+
+Namun, saat kami memeriksa menu Metode Pembayaran pada dasbor Duitku proyek **D23359**, tombol status untuk **Nobu QRIS** dan **ShopeePay QRIS** masih berada dalam posisi **nonaktif (OFF)** dari sistem dan tidak dapat kami geser secara mandiri.
+
+Oleh karena itu, kami mohon bantuannya untuk dapat mengaktifkan metode pembayaran berikut pada proyek **D23359** kami:
+1. **Nobu QRIS (NQ)**
+2. **ShopeePay QRIS (SP)**
+
+Mohon informasikan kepada kami apabila terdapat persyaratan atau dokumen tambahan yang perlu kami kirimkan agar kedua kanal pembayaran QRIS tersebut dapat diaktifkan.
+
+Atas perhatian, bantuan, dan kerja samanya, kami ucapkan terima kasih banyak. Kami menantikan kabar baik selanjutnya.
+
+Salam hangat,
+
+**[Nama Anda/Nama Pemilik Usaha]**  
+Intisari Apps Support Team  
+https://intisariclips.com / https://intisari-clips-landing.pages.dev
