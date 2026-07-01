@@ -99,13 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
             paymentMethodCards.forEach(c => {
                 const dot = c.querySelector('.payment-dot');
                 
-                c.classList.remove('border-neon-cyan-mid', 'border-neon-pink', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]', 'shadow-[0_0_10px_rgba(255,0,128,0.15)]');
+                c.classList.remove('border-neon-cyan-mid', 'border-neon-pink', 'border-amber-400', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]', 'shadow-[0_0_10px_rgba(255,0,128,0.15)]', 'shadow-[0_0_10px_rgba(251,191,36,0.2)]');
                 c.classList.add('border-neon-border');
                 
                 if (dot) {
-                    dot.classList.remove('border-neon-cyan-mid', 'border-neon-pink');
+                    dot.classList.remove('border-neon-cyan-mid', 'border-neon-pink', 'border-amber-400');
                     dot.classList.add('border-slate-600');
-                    dot.classList.remove('after:bg-neon-cyan-mid', 'after:bg-neon-pink');
+                    dot.classList.remove('after:bg-neon-cyan-mid', 'after:bg-neon-pink', 'after:bg-amber-400');
                     dot.classList.add('after:bg-transparent');
                 }
             });
@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 radio.checked = true;
                 const value = radio.value;
                 const isAlfamart = value === 'AL';
+                const isManual = value === 'MANUAL';
                 const dot = card.querySelector('.payment-dot');
                 
                 card.classList.remove('border-neon-border');
@@ -124,6 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (dot) {
                         dot.classList.remove('border-slate-600');
                         dot.classList.add('border-neon-pink', 'after:bg-neon-pink');
+                    }
+                } else if (isManual) {
+                    card.classList.add('border-amber-400', 'shadow-[0_0_10px_rgba(251,191,36,0.2)]');
+                    if (dot) {
+                        dot.classList.remove('border-slate-600');
+                        dot.classList.add('border-amber-400', 'after:bg-amber-400');
                     }
                 } else {
                     card.classList.add('border-neon-cyan-mid', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]');
@@ -165,6 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (phone.length < 9) {
                 return showAlert('Nomor WhatsApp minimal 9 digit.');
+            }
+
+            // Redirect if manual payment method is selected
+            if (paymentMethod === 'MANUAL') {
+                window.location.href = `/manual-transfer.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+                return;
             }
 
             setLoadingState(true);
