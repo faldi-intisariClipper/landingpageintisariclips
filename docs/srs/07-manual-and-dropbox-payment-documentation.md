@@ -17,7 +17,8 @@ Metode pembayaran manual (non-gateway) dialihkan ke detail berikut:
 ### B. Transfer Manual QRIS (GoPay/Universal)
 * **Kanal Pembayaran**: QRIS Statis (Scan to Pay)
 * **Nama Merchant Resmi**: `INTISARIAPPS SOFTWARE & COMPUTER`
-* **Aset Gambar QR Code**: `public/assets/img/qris_intisariapps.jpg`
+* **Aset Gambar QR Code (Path Asal Spesifik)**: [qris_intisariapps.jpg](file:///d:/INTISARIAPPS_COM/LANDINGPAGE/intisari-clips-landing/public/assets/img/qris_intisariapps.jpg)  
+  *Path Lokal Windows*: `d:\INTISARIAPPS_COM\LANDINGPAGE\intisari-clips-landing\public\assets\img\qris_intisariapps.jpg`
 * **Fitur Tambahan**: Tombol Unduh QR Code untuk mempermudah transaksi via mobile (pembeli dapat menyimpan gambar QRIS ke galeri foto dan mengunggahnya ke aplikasi e-wallet).
 
 ---
@@ -140,9 +141,9 @@ Halaman `manual-transfer.html` dirancang menggunakan **Tailwind CSS & Neo-Brutal
 ## 🚀 5. Cara Penggunaan Ulang di Proyek Lain (Reusable Guide)
 
 Untuk menggunakan kembali modul pembayaran ini pada proyek baru:
-1.  **Salin File**:
+1.  **Salin File & Aset**:
     * Salin berkas `public/manual-transfer.html` ke direktori proyek baru.
-    * Pastikan gambar QRIS diletakkan di `public/assets/img/qris_intisariapps.jpg`.
+    * Salin gambar QRIS dari path lokal: `d:\INTISARIAPPS_COM\LANDINGPAGE\intisari-clips-landing\public\assets\img\qris_intisariapps.jpg` ke dalam direktori `public/assets/img/qris_intisariapps.jpg` di proyek baru Anda.
 2.  **Modifikasi Identitas & Rekening**:
     * Cari ID `accountNumber` di `manual-transfer.html`, ganti nomor rekeningnya.
     * Ganti nama penerima rekening (`Rifaldi Ramadhon`) dan nama toko di QRIS (`INTISARIAPPS SOFTWARE & COMPUTER`).
