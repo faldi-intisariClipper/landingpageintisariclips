@@ -55,31 +55,32 @@ https://clips.intisariapps.com/
 
 ---
 
-## 2. DRAF BALASAN EMAIL UNTUK AKTIVASI QRIS (Project Code D23359)
+## 2. BALASAN EMAIL FORMULIR AKTIVASI NOBU QRIS (Project Code D23359)
 
-Draf ini ditujukan untuk membalas email dari Kak Marsa Setiyani Rubiyanti guna meminta pengaktifan Nobu QRIS (NQ) dan ShopeePay QRIS (SP) yang saat ini berstatus nonaktif (OFF) di dasbor merchant.
+Kirimkan email berikut ke alamat **gateway.ops@duitku.com** menggunakan email terdaftar Anda (`ripaldiramadan1001@gmail.com`) dengan menyertakan subjek email dan lampiran berkas logo outlet Anda (**[logo.webp](file:///d:/INTISARIAPPS_COM/LANDINGPAGE/intisari-clips-landing/public/assets/img/logo.webp)** atau berkas logo resolusi tinggi yang Anda miliki).
 
-**Subjek:** Re: Status Metode Pembayaran Aktif - Project Code D23359 (Pengajuan Aktivasi QRIS)
+---
 
-**Kepada:** Marsa Setiyani Rubiyanti | Customer Service Duitku <support@duitku.com>
+**Subjek:** Pengajuan Payment Channel NOBU QRIS  
+**Kepada:** gateway.ops@duitku.com  
 
-Selamat Siang Ibu Marsa Setiyani Rubiyanti dan Tim CS Duitku,
+Selamat Pagi/Siang Tim Operasional Duitku,
 
-Terima kasih banyak atas informasi dan pemeriksaan yang dilakukan mengenai status metode pembayaran aktif untuk kode proyek **D23359**.
+Sehubungan dengan email permintaan kelengkapan data untuk pengajuan penambahan layanan QRIS Nobu, bersama email ini kami sampaikan data formulir outlet kami sebagai berikut:
 
-Sehubungan dengan hal tersebut, kami ingin menginformasikan bahwa kami sangat membutuhkan metode pembayaran **QRIS** (khususnya Nobu QRIS) agar pembeli kami dapat melakukan pembayaran instan menggunakan e-wallet di website kami.
+*   **Alamat email terdaftar**: ripaldiramadan1001@gmail.com
+*   **Kode merchant**: D23359
+*   **Nama outlet**: Intisari Apps
+*   **Alamat lengkap outlet**: Perumahan Bumi Kencana Jalan Lantana B 1 No 21, Rt 002 Rw 007 Kencana, KOTA BOGOR, TANAH SEREAL, JAWA BARAT, ID, 16167 (Patokan: Perumahan Bumi Kencana)
+*   **Layanan pembayaran**: QRIS Nobu
+*   **Logo outlet**: *(Kami lampirkan berkas gambar logo resolusi tinggi pada lampiran email ini)*
 
-Namun, saat kami memeriksa menu Metode Pembayaran pada dasbor Duitku proyek **D23359**, tombol status untuk **Nobu QRIS (NQ)** masih berada dalam posisi **nonaktif (OFF)** dari sistem dan tidak dapat kami geser secara mandiri.
+Mohon bantuannya untuk dapat memproses pengaktifan metode pembayaran QRIS Nobu tersebut pada proyek kami.
 
-Oleh karena itu, kami mohon bantuannya untuk dapat mengaktifkan metode pembayaran berikut pada proyek **D23359** kami:
-* **Nobu QRIS (NQ)**
-
-Mohon informasikan kepada kami apabila terdapat persyaratan atau dokumen tambahan yang perlu kami kirimkan agar kanal pembayaran Nobu QRIS tersebut dapat diaktifkan.
-
-Atas perhatian, bantuan, dan kerja samanya, kami ucapkan terima kasih banyak. Kami menantikan kabar baik selanjutnya.
+Atas bantuan, perhatian, dan kerja samanya, kami ucapkan terima kasih banyak.
 
 Salam hangat,
 
-**[Nama Anda/Nama Pemilik Usaha]**  
-Intisari Apps Support Team  
-https://intisariclips.com / https://intisari-clips-landing.pages.dev
+**Rifaldi Ramadhon**  
+Owner Intisari Apps  
+https://e8c6cb6a.intisari-clips-landing.pages.dev  
