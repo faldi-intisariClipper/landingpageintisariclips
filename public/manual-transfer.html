@@ -30,8 +30,8 @@
     </nav>
 
     <!-- Main Content Container -->
-    <main class="flex-grow py-12 px-6 flex items-center justify-center">
-        <div class="max-w-xl w-full glass-card border-2 border-amber-400/70 rounded-3xl p-8 md:p-10 shadow-[0_0_30px_rgba(251,191,36,0.15)] relative">
+    <main class="flex-grow py-12 px-4 sm:px-6 flex items-center justify-center">
+        <div class="max-w-xl w-full glass-card border-2 border-amber-400/70 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_0_30px_rgba(251,191,36,0.15)] relative">
             
             <!-- Badge Status -->
             <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-black px-6 py-2 rounded-full tracking-wider uppercase text-xs shadow-md whitespace-nowrap flex items-center gap-2">
@@ -40,42 +40,42 @@
 
             <!-- Intro -->
             <div class="text-center mb-8 pt-3 space-y-2">
-                <h2 class="text-2xl md:text-3xl font-black font-heading text-white">Instruksi Transfer Manual</h2>
+                <h2 class="text-xl sm:text-2xl md:text-3xl font-black font-heading text-white">Instruksi Transfer Manual</h2>
                 <p class="text-slate-400 text-xs md:text-sm">Silakan selesaikan pembayaran Anda dengan mentransfer ke rekening SeaBank resmi kami di bawah ini.</p>
             </div>
 
             <!-- Detail Rekening Container -->
-            <div class="bg-neon-bg-darker/80 border border-slate-800 rounded-2xl p-6 mb-8 space-y-6">
+            <div class="bg-neon-bg-darker/80 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 space-y-6">
                 <!-- Nominal Tagihan -->
                 <div class="text-center border-b border-slate-800/60 pb-4">
                     <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Total Nominal Transfer</span>
-                    <div class="text-3xl md:text-4xl font-black text-amber-400 font-heading mt-1">Rp190.000</div>
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-black text-amber-400 font-heading mt-1">Rp190.000</div>
                     <span class="text-[10px] text-slate-500 block mt-1">Harap transfer tepat sesuai nominal di atas agar proses verifikasi lancar.</span>
                 </div>
 
                 <!-- Bank Info -->
-                <div class="space-y-4 text-sm font-body">
-                    <div class="flex justify-between items-center gap-4">
+                <div class="space-y-4 text-xs sm:text-sm font-body">
+                    <div class="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1 xs:gap-4">
                         <span class="text-slate-400 font-medium">Bank Tujuan:</span>
-                        <span class="text-white font-bold text-base flex items-center gap-2">
+                        <span class="text-white font-bold text-sm sm:text-base flex items-center gap-1.5">
                             <i class="fa-solid fa-building-columns text-amber-400"></i> SeaBank (Kode Bank: 901)
                         </span>
                     </div>
                     
-                    <div class="flex justify-between items-center gap-4">
+                    <div class="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1 xs:gap-4">
                         <span class="text-slate-400 font-medium">Atas Nama:</span>
-                        <span class="text-white font-bold text-base tracking-wide">RIFALDI RAMADHON</span>
+                        <span class="text-white font-bold text-sm sm:text-base tracking-wide">RIFALDI RAMADHON</span>
                     </div>
 
                     <!-- Rekening & Copy Button -->
                     <div class="flex flex-col gap-1.5 pt-2">
-                        <span class="text-slate-400 font-medium">Nomor Rekening:</span>
-                        <div class="flex gap-2">
-                            <div id="accountNumber" class="flex-grow bg-neon-bg-dark font-mono font-bold text-lg md:text-xl text-center text-white py-3 px-4 border border-slate-700 rounded-xl select-all tracking-wider">
+                        <span class="text-slate-400 font-medium text-xs">Nomor Rekening:</span>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <div id="accountNumber" class="flex-grow bg-neon-bg-dark font-mono font-bold text-base sm:text-lg md:text-xl text-center text-white py-3.5 px-4 border border-slate-700 rounded-xl select-all tracking-wider">
                                 901470004292
                             </div>
-                            <button id="btnCopy" class="px-5 bg-amber-500 hover:bg-amber-400 text-black font-extrabold rounded-xl transition-all flex items-center justify-center gap-2 border-none cursor-pointer text-sm tracking-wider uppercase shrink-0">
-                                <i class="fa-solid fa-copy text-base"></i> <span id="copyText">Salin</span>
+                            <button id="btnCopy" class="py-3.5 px-6 bg-amber-500 hover:bg-amber-400 text-black font-extrabold rounded-xl transition-all flex items-center justify-center gap-2 border-none cursor-pointer text-xs sm:text-sm tracking-wider uppercase sm:shrink-0 w-full sm:w-auto">
+                                <i class="fa-solid fa-copy text-sm sm:text-base"></i> <span id="copyText">Salin</span>
                             </button>
                         </div>
                     </div>
@@ -84,12 +84,12 @@
 
             <!-- Call to Action -->
             <div class="space-y-4">
-                <a id="btnConfirmWA" target="_blank" rel="noopener" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-base md:text-lg py-4 px-4 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.01] flex items-center justify-center gap-3 relative cursor-pointer border-none uppercase tracking-wider text-center no-underline">
+                <a id="btnConfirmWA" target="_blank" rel="noopener" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm sm:text-base md:text-lg py-4 px-4 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.01] flex items-center justify-center gap-3 relative cursor-pointer border-none uppercase tracking-wider text-center no-underline">
                     <i class="fa-brands fa-whatsapp text-2xl"></i>
                     <span>Konfirmasi via WhatsApp</span>
                 </a>
                 
-                <div class="bg-blue-500/10 border border-blue-500/30 text-slate-300 p-4 rounded-xl text-xs md:text-sm leading-relaxed flex gap-3">
+                <div class="bg-blue-500/10 border border-blue-500/30 text-slate-300 p-3 sm:p-4 rounded-xl text-[11px] sm:text-xs md:text-sm leading-relaxed flex gap-2.5 sm:gap-3">
                     <i class="fa-solid fa-circle-info text-blue-400 mt-0.5 shrink-0 text-base"></i>
                     <p>Setelah mentransfer, silakan klik tombol di atas untuk mengirimkan bukti transfer ke WhatsApp Admin. Kami akan memverifikasi dan mengirimkan Kunci Lisensi serta file installer ke alamat email Anda dalam hitungan menit.</p>
                 </div>
