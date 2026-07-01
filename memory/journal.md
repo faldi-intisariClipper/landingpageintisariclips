@@ -40,3 +40,15 @@ Log kronologis aktivitas harian sesi pengembangan.
 * **Status**: Berhasil dideploy secara teknis, namun transaksi pembayaran masih ditolak oleh Duitku API.
 * **Analisis & Diagnostik**: Duitku mengembalikan error `"Payment channel not available"` baik untuk channel `"NQ"` maupun `"M1"`. Ini mengonfirmasi bahwa **API Key Duitku** yang tercantum saat ini (`c0a7044e312218a9d628cd82e6544a23`) tidak valid/tidak cocok dengan Merchant ID `D23359` di sistem Duitku, atau terdapat miskonfigurasi IP Whitelist pada dasbor Duitku.
 * **Langkah Selanjutnya**: Meminta pengguna untuk memverifikasi kecocokan API Key produksi di dasbor Duitku untuk proyek `D23359`.
+
+## 1 Juli 2026 - Integrasi Dropbox Metode Pembayaran, Alur Ganda Pembayaran Manual (SeaBank / QRIS Statis), & Rilis Produksi
+* **Aktivitas**:
+  1. Memperbarui dokumen SRS `04-landing-page-checkout.md` untuk merinci spesifikasi alur ganda pembayaran manual.
+  2. Mengganti grid radio button pembayaran di `public/index.html` dengan Dropbox Select (dropdown) premium, menetapkan **Transfer Manual (SeaBank)** sebagai default.
+  3. Memodifikasi frontend logic di `public/assets/js/app.js` untuk merutekan checkout manual ke `/manual-transfer.html` dengan menyematkan parameter query URL `?method=seabank` atau `?method=qris`.
+  4. Merancang layout dinamis di `public/manual-transfer.html` agar menampilkan instruksi transfer SeaBank (rekening + tombol salin) atau instruksi scan QRIS GoPay (nama merchant `INTISARIAPPS SOFTWARE & COMPUTER` + barcode statis dari `assets/img/qris_intisariapps.jpg` + tombol unduh) sesuai parameter query URL.
+  5. Membuat dokumen panduan reuse terpusat di `docs/srs/07-manual-and-dropbox-payment-documentation.md`.
+  6. Memperbarui `draf_email_duitku.md` dengan menyertakan draf balasan kelengkapan aktivasi QRIS Nobu menggunakan email terdaftar `ripaldiramadan1001@gmail.com`.
+  7. Melakukan kompilasi Tailwind CSS dan mendeploy live perubahan tersebut ke Cloudflare Pages (`https://e8c6cb6a.intisari-clips-landing.pages.dev`).
+* **Status**: Sukses 100% (Semua fitur berjalan dinamis dan live di produksi).
+* **Langkah Selanjutnya**: Menunggu peninjauan dan aktivasi resmi kanal QRIS Nobu dari tim Duitku pasca-pengiriman email kelengkapan oleh pengguna.
