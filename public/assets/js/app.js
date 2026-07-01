@@ -91,6 +91,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 2b. Interactive Payment Method Cards Selector
+    const paymentMethodCards = document.querySelectorAll('.payment-method-card');
+    paymentMethodCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Uncheck all other radio inputs & reset their styles
+            paymentMethodCards.forEach(c => {
+                const dot = c.querySelector('.payment-dot');
+                
+                c.classList.remove('border-neon-cyan-mid', 'border-neon-pink', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]', 'shadow-[0_0_10px_rgba(255,0,128,0.15)]');
+                c.classList.add('border-neon-border');
+                
+                if (dot) {
+                    dot.classList.remove('border-neon-cyan-mid', 'border-neon-pink');
+                    dot.classList.add('border-slate-600');
+                    dot.classList.remove('after:bg-neon-cyan-mid', 'after:bg-neon-pink');
+                    dot.classList.add('after:bg-transparent');
+                }
+            });
+
+            // Check this card's radio input & apply active styles
+            const radio = card.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                const value = radio.value;
+                const isAlfamart = value === 'AL';
+                const dot = card.querySelector('.payment-dot');
+                
+                card.classList.remove('border-neon-border');
+                if (isAlfamart) {
+                    card.classList.add('border-neon-pink', 'shadow-[0_0_10px_rgba(255,0,128,0.15)]');
+                    if (dot) {
+                        dot.classList.remove('border-slate-600');
+                        dot.classList.add('border-neon-pink', 'after:bg-neon-pink');
+                    }
+                } else {
+                    card.classList.add('border-neon-cyan-mid', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]');
+                    if (dot) {
+                        dot.classList.remove('border-slate-600');
+                        dot.classList.add('border-neon-cyan-mid', 'after:bg-neon-cyan-mid');
+                    }
+                }
+            }
+        });
+    });
+
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -99,12 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('custName');
             const emailInput = document.getElementById('custEmail');
             const phoneInput = document.getElementById('custPhone');
+            const paymentMethodInput = document.querySelector('input[name="paymentMethod"]:checked');
 
             if (!nameInput || !emailInput || !phoneInput) return;
 
             const name = nameInput.value.trim();
             const email = emailInput.value.trim();
             const phone = phoneInput.value.trim();
+            const paymentMethod = paymentMethodInput ? paymentMethodInput.value : 'M1';
             
             // Basic Client-side Validation
             if (name.length < 3) {
@@ -128,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ name, email, phone })
+                    body: JSON.stringify({ name, email, phone, paymentMethod })
                 });
 
                 const data = await response.json();

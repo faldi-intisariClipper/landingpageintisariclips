@@ -888,6 +888,66 @@
                                 </div>
                             </div>
 
+                            <!-- Pemilih Metode Pembayaran (Kepatuhan D23359) -->
+                            <div class="space-y-3">
+                                <label class="text-xs font-semibold text-slate-300 block uppercase tracking-wider">Pilih Metode Pembayaran</label>
+                                <div class="grid grid-cols-2 gap-3" id="paymentMethodContainer">
+                                    <!-- Mandiri VA (Checked by default) -->
+                                    <label class="payment-method-card relative flex items-center justify-between p-3 bg-neon-bg-darker/80 border-2 border-neon-cyan-mid shadow-[0_0_10px_rgba(0,217,255,0.15)] rounded-xl cursor-pointer hover:border-neon-cyan-mid transition-all select-none">
+                                        <input type="radio" name="paymentMethod" value="M1" checked class="sr-only">
+                                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                                            <i class="fa-solid fa-building-columns text-neon-cyan-mid"></i> Mandiri VA
+                                        </span>
+                                        <span class="payment-dot w-4 h-4 rounded-full border border-neon-cyan-mid flex items-center justify-center after:content-[''] after:w-2 after:h-2 after:bg-neon-cyan-mid after:rounded-full transition-all"></span>
+                                    </label>
+                                    
+                                    <!-- BNI VA -->
+                                    <label class="payment-method-card relative flex items-center justify-between p-3 bg-neon-bg-darker/80 border-2 border-neon-border rounded-xl cursor-pointer hover:border-neon-cyan-mid/50 transition-all select-none">
+                                        <input type="radio" name="paymentMethod" value="B1" class="sr-only">
+                                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                                            <i class="fa-solid fa-building-columns text-neon-cyan-mid opacity-70"></i> BNI VA
+                                        </span>
+                                        <span class="payment-dot w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center after:content-[''] after:w-2 after:h-2 after:bg-transparent after:rounded-full transition-all"></span>
+                                    </label>
+
+                                    <!-- BRI VA -->
+                                    <label class="payment-method-card relative flex items-center justify-between p-3 bg-neon-bg-darker/80 border-2 border-neon-border rounded-xl cursor-pointer hover:border-neon-cyan-mid/50 transition-all select-none">
+                                        <input type="radio" name="paymentMethod" value="BR" class="sr-only">
+                                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                                            <i class="fa-solid fa-building-columns text-neon-cyan-mid opacity-70"></i> BRI VA
+                                        </span>
+                                        <span class="payment-dot w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center after:content-[''] after:w-2 after:h-2 after:bg-transparent after:rounded-full transition-all"></span>
+                                    </label>
+
+                                    <!-- Permata VA -->
+                                    <label class="payment-method-card relative flex items-center justify-between p-3 bg-neon-bg-darker/80 border-2 border-neon-border rounded-xl cursor-pointer hover:border-neon-cyan-mid/50 transition-all select-none">
+                                        <input type="radio" name="paymentMethod" value="BT" class="sr-only">
+                                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                                            <i class="fa-solid fa-building-columns text-neon-cyan-mid opacity-70"></i> Permata VA
+                                        </span>
+                                        <span class="payment-dot w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center after:content-[''] after:w-2 after:h-2 after:bg-transparent after:rounded-full transition-all"></span>
+                                    </label>
+
+                                    <!-- CIMB VA -->
+                                    <label class="payment-method-card relative flex items-center justify-between p-3 bg-neon-bg-darker/80 border-2 border-neon-border rounded-xl cursor-pointer hover:border-neon-cyan-mid/50 transition-all select-none">
+                                        <input type="radio" name="paymentMethod" value="BC" class="sr-only">
+                                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                                            <i class="fa-solid fa-building-columns text-neon-cyan-mid opacity-70"></i> CIMB VA
+                                        </span>
+                                        <span class="payment-dot w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center after:content-[''] after:w-2 after:h-2 after:bg-transparent after:rounded-full transition-all"></span>
+                                    </label>
+
+                                    <!-- Alfamart -->
+                                    <label class="payment-method-card relative flex items-center justify-between p-3 bg-neon-bg-darker/80 border-2 border-neon-border rounded-xl cursor-pointer hover:border-neon-pink/50 transition-all select-none">
+                                        <input type="radio" name="paymentMethod" value="AL" class="sr-only">
+                                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                                            <i class="fa-solid fa-store text-neon-pink"></i> Alfamart
+                                        </span>
+                                        <span class="payment-dot w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center after:content-[''] after:w-2 after:h-2 after:bg-transparent after:rounded-full transition-all"></span>
+                                    </label>
+                                </div>
+                            </div>
+
                             <!-- Submit Button -->
                             <button type="submit" id="btnProcessCheckout" class="w-full mt-6 bg-gradient-to-r from-neon-pink to-neon-purple-deep hover:from-neon-pink/90 hover:to-neon-purple-deep/90 text-white font-black text-lg py-4 px-4 rounded-xl transition-all shadow-[0_0_20px_rgba(255,0,128,0.3)] hover:scale-[1.02] flex items-center justify-center gap-3 relative cursor-pointer border-none uppercase tracking-wider">
                                 <span id="btnProcessText">BAYAR SEKARANG</span>

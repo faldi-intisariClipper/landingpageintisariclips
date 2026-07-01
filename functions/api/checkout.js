@@ -14,7 +14,7 @@ async function generateMD5(string) {
 export async function onRequestPost(context) {
     try {
         const body = await context.request.json();
-        const { name, email, phone } = body;
+        const { name, email, phone, paymentMethod } = body;
 
         // Validasi input dari sisi server
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -108,7 +108,7 @@ export async function onRequestPost(context) {
                 email: email,
                 phoneNumber: phone
             },
-            paymentMethod: "M1", // Menggunakan Mandiri Virtual Account sebagai metode pembayaran default (Bank Transfer)
+            paymentMethod: paymentMethod || "M1", // Menggunakan metode pembayaran terpilih dengan fallback Mandiri VA (M1)
             // ⚠️ PENGALIHAN SETELAH SUKSES PEMBAYARAN: Arahkan ke Halaman Sukses Lokal
             returnUrl: `${new URL(context.request.url).origin}/success.html`, 
             // ⚠️ EXTERNAL CALLBACK URL (Webhooks ke Backend Terpusat)
