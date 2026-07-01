@@ -67,15 +67,14 @@ Selamat Siang Ibu Marsa Setiyani Rubiyanti dan Tim CS Duitku,
 
 Terima kasih banyak atas informasi dan pemeriksaan yang dilakukan mengenai status metode pembayaran aktif untuk kode proyek **D23359**.
 
-Sehubungan dengan hal tersebut, kami ingin menginformasikan bahwa kami sangat membutuhkan metode pembayaran **QRIS** (Nobu QRIS & ShopeePay QRIS) agar pembeli kami dapat melakukan pembayaran instan menggunakan e-wallet di website kami.
+Sehubungan dengan hal tersebut, kami ingin menginformasikan bahwa kami sangat membutuhkan metode pembayaran **QRIS** (khususnya Nobu QRIS) agar pembeli kami dapat melakukan pembayaran instan menggunakan e-wallet di website kami.
 
-Namun, saat kami memeriksa menu Metode Pembayaran pada dasbor Duitku proyek **D23359**, tombol status untuk **Nobu QRIS** dan **ShopeePay QRIS** masih berada dalam posisi **nonaktif (OFF)** dari sistem dan tidak dapat kami geser secara mandiri.
+Namun, saat kami memeriksa menu Metode Pembayaran pada dasbor Duitku proyek **D23359**, tombol status untuk **Nobu QRIS (NQ)** masih berada dalam posisi **nonaktif (OFF)** dari sistem dan tidak dapat kami geser secara mandiri.
 
 Oleh karena itu, kami mohon bantuannya untuk dapat mengaktifkan metode pembayaran berikut pada proyek **D23359** kami:
-1. **Nobu QRIS (NQ)**
-2. **ShopeePay QRIS (SP)**
+* **Nobu QRIS (NQ)**
 
-Mohon informasikan kepada kami apabila terdapat persyaratan atau dokumen tambahan yang perlu kami kirimkan agar kedua kanal pembayaran QRIS tersebut dapat diaktifkan.
+Mohon informasikan kepada kami apabila terdapat persyaratan atau dokumen tambahan yang perlu kami kirimkan agar kanal pembayaran Nobu QRIS tersebut dapat diaktifkan.
 
 Atas perhatian, bantuan, dan kerja samanya, kami ucapkan terima kasih banyak. Kami menantikan kabar baik selanjutnya.
 
