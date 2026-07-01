@@ -72,8 +72,8 @@
                     </span>
                 </div>
 
-                <!-- Bank Info -->
-                <div class="space-y-4 text-xs sm:text-sm font-body">
+                <!-- Bank Info / SeaBank Section -->
+                <div id="seabankSection" class="space-y-4 text-xs sm:text-sm font-body">
                     <div class="flex justify-between items-center gap-4">
                         <span class="text-slate-500 font-bold uppercase tracking-wider">Bank:</span>
                         <span class="text-white font-extrabold flex items-center gap-1.5">
@@ -81,13 +81,13 @@
                         </span>
                     </div>
                     
-                    <div class="flex justify-between items-center gap-4 border-t border-slate-900 pt-3">
+                    <div class="flex justify-between items-center gap-4 border-t border-slate-800 pt-3">
                         <span class="text-slate-500 font-bold uppercase tracking-wider">Penerima:</span>
                         <span class="text-white font-extrabold tracking-wide uppercase">Rifaldi Ramadhon</span>
                     </div>
 
                     <!-- Rekening & Copy Button -->
-                    <div class="flex flex-col gap-2 border-t border-slate-900 pt-4">
+                    <div class="flex flex-col gap-2 border-t border-slate-800 pt-4">
                         <span class="text-slate-500 font-bold uppercase tracking-wider">Nomor Rekening:</span>
                         <div class="flex flex-col gap-2">
                             <div id="accountNumber" class="bg-neon-bg-dark font-mono font-bold text-xl text-center text-white py-3.5 px-4 border-2 border-slate-800 rounded-xl select-all tracking-widest">
@@ -98,6 +98,15 @@
                             </button>
                         </div>
                     </div>
+                </div>
+
+                <!-- QRIS Section (Hidden by default) -->
+                <div id="qrisSection" class="hidden flex flex-col items-center justify-center space-y-4 text-center">
+                    <span class="text-slate-500 font-bold uppercase tracking-widest text-xs">Pindai Kode QRIS</span>
+                    <div class="w-56 h-56 p-2 bg-white rounded-2xl border-2 border-black neo-shadow-orange mx-auto">
+                        <img src="assets/img/qris_intisariapps.jpg" alt="QRIS Intisari Apps" class="w-full h-full object-contain rounded-lg">
+                    </div>
+                    <span class="text-[10px] text-slate-400 block max-w-xs mx-auto">Mendukung GoPay, OVO, Dana, LinkAja, ShopeePay, dan Mobile Banking.</span>
                 </div>
             </div>
 
@@ -152,14 +161,39 @@
             });
         });
 
-        // Parse query params to build WA Link
+        // Parse query params to build WA Link and toggle view
         (function() {
             const params = new URLSearchParams(window.location.search);
+            const method = params.get('method') || 'seabank';
             const name = params.get('name') || '';
             const email = params.get('email') || '';
             const phone = params.get('phone') || '';
 
-            const baseWAText = `Halo Admin, saya ingin konfirmasi pembayaran lisensi IntisariClips secara Transfer Manual.\n\nDetail Pembeli:\n- Nama: ${name}\n- Email: ${email}\n- WhatsApp: ${phone}\n\nSaya telah mentransfer sebesar Rp190.000 ke rekening SeaBank Anda. Berikut bukti transfer terlampir.`;
+            const isQris = method === 'qris';
+            const seabankSection = document.getElementById('seabankSection');
+            const qrisSection = document.getElementById('qrisSection');
+            const titleEl = document.querySelector('h2.font-heading');
+            const descEl = document.querySelector('h2.font-heading + p');
+
+            let paymentMethodName = '';
+
+            if (isQris) {
+                // Show QRIS, Hide SeaBank
+                if (seabankSection) seabankSection.classList.add('hidden');
+                if (qrisSection) qrisSection.classList.remove('hidden');
+                if (titleEl) titleEl.textContent = "Transfer Manual QRIS GoPay";
+                if (descEl) descEl.textContent = "Silakan scan kode QRIS resmi kami di bawah ini.";
+                paymentMethodName = "Transfer Manual QRIS GoPay";
+            } else {
+                // Show SeaBank, Hide QRIS
+                if (seabankSection) seabankSection.classList.remove('hidden');
+                if (qrisSection) qrisSection.classList.add('hidden');
+                if (titleEl) titleEl.textContent = "Transfer Manual SeaBank";
+                if (descEl) descEl.textContent = "Silakan selesaikan pembayaran Anda dengan mentransfer ke rekening SeaBank.";
+                paymentMethodName = "Transfer Manual SeaBank";
+            }
+
+            const baseWAText = `Halo Admin, saya ingin konfirmasi pembayaran lisensi IntisariClips secara ${paymentMethodName}.\n\nDetail Pembeli:\n- Nama: ${name}\n- Email: ${email}\n- WhatsApp: ${phone}\n\nSaya telah mentransfer sebesar Rp190.000. Berikut bukti transfer terlampir.`;
             
             const adminPhone = "628567870040"; // Nomor WhatsApp Ripal
             const waLink = `https://wa.me/${adminPhone}?text=${encodeURIComponent(baseWAText)}`;

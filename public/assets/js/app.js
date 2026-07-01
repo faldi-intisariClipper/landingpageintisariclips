@@ -91,58 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2b. Interactive Payment Method Cards Selector
-    const paymentMethodCards = document.querySelectorAll('.payment-method-card');
-    paymentMethodCards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Uncheck all other radio inputs & reset their styles
-            paymentMethodCards.forEach(c => {
-                const dot = c.querySelector('.payment-dot');
-                
-                c.classList.remove('border-neon-cyan-mid', 'border-neon-pink', 'border-amber-400', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]', 'shadow-[0_0_10px_rgba(255,0,128,0.15)]', 'shadow-[0_0_10px_rgba(251,191,36,0.2)]');
-                c.classList.add('border-neon-border');
-                
-                if (dot) {
-                    dot.classList.remove('border-neon-cyan-mid', 'border-neon-pink', 'border-amber-400');
-                    dot.classList.add('border-slate-600');
-                    dot.classList.remove('after:bg-neon-cyan-mid', 'after:bg-neon-pink', 'after:bg-amber-400');
-                    dot.classList.add('after:bg-transparent');
-                }
-            });
-
-            // Check this card's radio input & apply active styles
-            const radio = card.querySelector('input[type="radio"]');
-            if (radio) {
-                radio.checked = true;
-                const value = radio.value;
-                const isAlfamart = value === 'AL';
-                const isManual = value === 'MANUAL';
-                const dot = card.querySelector('.payment-dot');
-                
-                card.classList.remove('border-neon-border');
-                if (isAlfamart) {
-                    card.classList.add('border-neon-pink', 'shadow-[0_0_10px_rgba(255,0,128,0.15)]');
-                    if (dot) {
-                        dot.classList.remove('border-slate-600');
-                        dot.classList.add('border-neon-pink', 'after:bg-neon-pink');
-                    }
-                } else if (isManual) {
-                    card.classList.add('border-amber-400', 'shadow-[0_0_10px_rgba(251,191,36,0.2)]');
-                    if (dot) {
-                        dot.classList.remove('border-slate-600');
-                        dot.classList.add('border-amber-400', 'after:bg-amber-400');
-                    }
-                } else {
-                    card.classList.add('border-neon-cyan-mid', 'shadow-[0_0_10px_rgba(0,217,255,0.15)]');
-                    if (dot) {
-                        dot.classList.remove('border-slate-600');
-                        dot.classList.add('border-neon-cyan-mid', 'after:bg-neon-cyan-mid');
-                    }
-                }
-            }
-        });
-    });
-
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -151,14 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('custName');
             const emailInput = document.getElementById('custEmail');
             const phoneInput = document.getElementById('custPhone');
-            const paymentMethodInput = document.querySelector('input[name="paymentMethod"]:checked');
+            const paymentMethodSelect = document.getElementById('paymentMethodSelect');
 
             if (!nameInput || !emailInput || !phoneInput) return;
 
             const name = nameInput.value.trim();
             const email = emailInput.value.trim();
             const phone = phoneInput.value.trim();
-            const paymentMethod = paymentMethodInput ? paymentMethodInput.value : 'M1';
+            const paymentMethod = paymentMethodSelect ? paymentMethodSelect.value : 'MANUAL_SEABANK';
             
             // Basic Client-side Validation
             if (name.length < 3) {
@@ -175,8 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Redirect if manual payment method is selected
-            if (paymentMethod === 'MANUAL') {
-                window.location.href = `/manual-transfer.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+            if (paymentMethod === 'MANUAL_SEABANK') {
+                window.location.href = `/manual-transfer.html?method=seabank&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+                return;
+            }
+            if (paymentMethod === 'MANUAL_QRIS') {
+                window.location.href = `/manual-transfer.html?method=qris&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
                 return;
             }
 
