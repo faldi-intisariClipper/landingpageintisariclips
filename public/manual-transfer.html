@@ -7,10 +7,23 @@
     <title>Instruksi Transfer Manual | IntisariClips V10</title>
     
     <!-- Tailwind CSS (compiled via npm run build:css) -->
-    <link rel="stylesheet" href="assets/css/tailwind.css?v=1.0.2">
+    <link rel="stylesheet" href="assets/css/tailwind.css?v=1.1.0">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style for Neo-Brutalism Aesthetics -->
+    <style>
+        .neo-shadow-orange {
+            box-shadow: 6px 6px 0px #F59E0B;
+        }
+        .neo-shadow-green {
+            box-shadow: 6px 6px 0px #10B981;
+        }
+        .neo-shadow-card {
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 <body class="bg-neon-bg-dark text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black min-h-screen flex flex-col justify-between">
 
@@ -21,61 +34,67 @@
                 <div class="w-10 h-10 rounded-full overflow-hidden border border-neon-cyan-mid/30 shadow-[0_0_15px_rgba(0,217,255,0.2)]">
                     <img src="assets/img/logo.webp" alt="IntisariClips Logo" class="w-full h-full object-cover">
                 </div>
-                <span class="font-heading font-bold text-xl tracking-tight">IntisariClips <span class="text-neon-pink text-xs align-super">V10</span></span>
+                <span class="font-heading font-bold text-xl tracking-tight bg-gradient-to-r from-white to-neon-cyan-light bg-clip-text text-transparent">IntisariClips <span class="text-neon-pink text-xs align-super">V10</span></span>
             </div>
-            <a href="index.html" class="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider transition-colors">
-                <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Beranda
+            <a href="index.html" class="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider transition-all hover:scale-105">
+                <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
             </a>
         </div>
     </nav>
 
     <!-- Main Content Container -->
-    <main class="flex-grow py-12 px-4 sm:px-6 flex items-center justify-center">
-        <div class="max-w-xl w-full glass-card border-2 border-amber-400/70 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_0_30px_rgba(251,191,36,0.15)] relative">
+    <main class="flex-grow py-16 px-4 sm:px-6 flex items-center justify-center relative">
+        <!-- Decorative light blur -->
+        <div class="absolute w-[300px] h-[300px] bg-neon-purple-deep/10 blur-[120px] -z-10 rounded-full top-1/4 left-1/4"></div>
+        <div class="absolute w-[250px] h-[250px] bg-neon-cyan-dark/10 blur-[100px] -z-10 rounded-full bottom-1/4 right-1/4"></div>
+
+        <div class="max-w-md w-full bg-neon-surface border-2 border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl relative neo-shadow-card">
             
             <!-- Badge Status -->
-            <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-black px-6 py-2 rounded-full tracking-wider uppercase text-xs shadow-md whitespace-nowrap flex items-center gap-2">
+            <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-black px-6 py-2 rounded-full tracking-wider uppercase text-[10px] sm:text-xs shadow-md whitespace-nowrap flex items-center gap-2 border-2 border-black">
                 <i class="fa-solid fa-hourglass-half animate-pulse"></i> Menunggu Pembayaran
             </div>
 
             <!-- Intro -->
-            <div class="text-center mb-8 pt-3 space-y-2">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-black font-heading text-white">Instruksi Transfer Manual</h2>
-                <p class="text-slate-400 text-xs md:text-sm">Silakan selesaikan pembayaran Anda dengan mentransfer ke rekening SeaBank resmi kami di bawah ini.</p>
+            <div class="text-center mb-8 pt-4 space-y-2">
+                <h2 class="text-xl sm:text-2xl font-black font-heading text-white tracking-tight uppercase">Transfer Manual</h2>
+                <p class="text-slate-400 text-xs sm:text-sm">Selesaikan transfer manual Anda untuk klaim lisensi lifetime.</p>
             </div>
 
             <!-- Detail Rekening Container -->
-            <div class="bg-neon-bg-darker/80 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 space-y-6">
+            <div class="bg-neon-bg-darker border-2 border-slate-800 rounded-2xl p-5 mb-8 space-y-6">
                 <!-- Nominal Tagihan -->
-                <div class="text-center border-b border-slate-800/60 pb-4">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Total Nominal Transfer</span>
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-black text-amber-400 font-heading mt-1">Rp190.000</div>
-                    <span class="text-[10px] text-slate-500 block mt-1">Harap transfer tepat sesuai nominal di atas agar proses verifikasi lancar.</span>
+                <div class="text-center border-b border-slate-800/80 pb-4">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Total Pembayaran</span>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-400 font-heading mt-1 text-glow-purple">Rp190.000</div>
+                    <span class="text-[10px] text-slate-400 block mt-1.5 bg-amber-400/10 py-1 px-2.5 rounded-lg border border-amber-400/20 max-w-xs mx-auto">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1"></i> Transfer nominal pas tanpa pembulatan.
+                    </span>
                 </div>
 
                 <!-- Bank Info -->
                 <div class="space-y-4 text-xs sm:text-sm font-body">
-                    <div class="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1 xs:gap-4">
-                        <span class="text-slate-400 font-medium">Bank Tujuan:</span>
-                        <span class="text-white font-bold text-sm sm:text-base flex items-center gap-1.5">
-                            <i class="fa-solid fa-building-columns text-amber-400"></i> SeaBank (Kode Bank: 901)
+                    <div class="flex justify-between items-center gap-4">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider">Bank:</span>
+                        <span class="text-white font-extrabold flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-amber-400"></i> SeaBank
                         </span>
                     </div>
                     
-                    <div class="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1 xs:gap-4">
-                        <span class="text-slate-400 font-medium">Atas Nama:</span>
-                        <span class="text-white font-bold text-sm sm:text-base tracking-wide">RIFALDI RAMADHON</span>
+                    <div class="flex justify-between items-center gap-4 border-t border-slate-900 pt-3">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider">Penerima:</span>
+                        <span class="text-white font-extrabold tracking-wide uppercase">Rifaldi Ramadhon</span>
                     </div>
 
                     <!-- Rekening & Copy Button -->
-                    <div class="flex flex-col gap-1.5 pt-2">
-                        <span class="text-slate-400 font-medium text-xs">Nomor Rekening:</span>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <div id="accountNumber" class="flex-grow bg-neon-bg-dark font-mono font-bold text-base sm:text-lg md:text-xl text-center text-white py-3.5 px-4 border border-slate-700 rounded-xl select-all tracking-wider">
+                    <div class="flex flex-col gap-2 border-t border-slate-900 pt-4">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider">Nomor Rekening:</span>
+                        <div class="flex flex-col gap-2">
+                            <div id="accountNumber" class="bg-neon-bg-dark font-mono font-bold text-xl text-center text-white py-3.5 px-4 border-2 border-slate-800 rounded-xl select-all tracking-widest">
                                 901470004292
                             </div>
-                            <button id="btnCopy" class="py-3.5 px-6 bg-amber-500 hover:bg-amber-400 text-black font-extrabold rounded-xl transition-all flex items-center justify-center gap-2 border-none cursor-pointer text-xs sm:text-sm tracking-wider uppercase sm:shrink-0 w-full sm:w-auto">
-                                <i class="fa-solid fa-copy text-sm sm:text-base"></i> <span id="copyText">Salin</span>
+                            <button id="btnCopy" class="py-3 px-6 bg-amber-500 hover:bg-amber-400 text-black font-black rounded-xl transition-all flex items-center justify-center gap-2 border-2 border-black cursor-pointer text-xs tracking-widest uppercase w-full neo-shadow-orange active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
+                                <i class="fa-solid fa-copy text-sm"></i> <span id="copyText">Salin Rekening</span>
                             </button>
                         </div>
                     </div>
@@ -84,14 +103,14 @@
 
             <!-- Call to Action -->
             <div class="space-y-4">
-                <a id="btnConfirmWA" target="_blank" rel="noopener" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm sm:text-base md:text-lg py-4 px-4 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.01] flex items-center justify-center gap-3 relative cursor-pointer border-none uppercase tracking-wider text-center no-underline">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    <span>Konfirmasi via WhatsApp</span>
+                <a id="btnConfirmWA" target="_blank" rel="noopener" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-black text-sm sm:text-base py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2.5 cursor-pointer border-2 border-black uppercase tracking-wider text-center no-underline neo-shadow-green active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
+                    <i class="fa-brands fa-whatsapp text-xl sm:text-2xl"></i>
+                    <span>Konfirmasi Pembayaran</span>
                 </a>
                 
-                <div class="bg-blue-500/10 border border-blue-500/30 text-slate-300 p-3 sm:p-4 rounded-xl text-[11px] sm:text-xs md:text-sm leading-relaxed flex gap-2.5 sm:gap-3">
-                    <i class="fa-solid fa-circle-info text-blue-400 mt-0.5 shrink-0 text-base"></i>
-                    <p>Setelah mentransfer, silakan klik tombol di atas untuk mengirimkan bukti transfer ke WhatsApp Admin. Kami akan memverifikasi dan mengirimkan Kunci Lisensi serta file installer ke alamat email Anda dalam hitungan menit.</p>
+                <div class="bg-blue-500/5 border border-blue-500/20 text-slate-400 p-4 rounded-xl text-[11px] leading-relaxed flex gap-3">
+                    <i class="fa-solid fa-circle-info text-neon-cyan-mid mt-0.5 shrink-0 text-base"></i>
+                    <p>Setelah melakukan transfer, silakan klik tombol di atas untuk mengirimkan bukti transfer ke WhatsApp Admin. Lisensi akan otomatis divalidasi dan dikirim ke email Anda.</p>
                 </div>
             </div>
             
@@ -99,10 +118,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-neon-bg-darker border-t border-neon-border/40 py-8 px-6 text-slate-500 text-center text-xs">
-        <div class="max-w-7xl mx-auto space-y-2">
+    <footer class="bg-neon-bg-darker border-t border-neon-border/20 py-8 px-6 text-slate-600 text-center text-[10px]">
+        <div class="max-w-7xl mx-auto space-y-1">
             <p>&copy; <span id="year"></span> Intisari Apps. Seluruh hak cipta dilindungi.</p>
-            <p class="text-[10px] text-slate-600">Perumahan Bumi Kencana Jalan Lantana B 1 No 21, Rt 002 Rw 007 Kencana, KOTA BOGOR, TANAH SEREAL, JAWA BARAT, ID, 16167</p>
+            <p>Perumahan Bumi Kencana Jalan Lantana B 1 No 21, Rt 002 Rw 007 Kencana, KOTA BOGOR, TANAH SEREAL, JAWA BARAT, ID, 16167</p>
         </div>
     </footer>
 
@@ -119,14 +138,14 @@
         btnCopy.addEventListener('click', () => {
             const accNum = accountNumberDiv.innerText.trim();
             navigator.clipboard.writeText(accNum).then(() => {
-                copyText.textContent = "Tersalin!";
-                btnCopy.classList.remove('bg-amber-500', 'hover:bg-amber-400');
+                copyText.textContent = "Berhasil Tersalin!";
+                btnCopy.classList.remove('bg-amber-500', 'hover:bg-amber-400', 'text-black');
                 btnCopy.classList.add('bg-emerald-500', 'text-white');
                 
                 setTimeout(() => {
-                    copyText.textContent = "Salin";
+                    copyText.textContent = "Salin Rekening";
                     btnCopy.classList.remove('bg-emerald-500', 'text-white');
-                    btnCopy.classList.add('bg-amber-500', 'hover:bg-amber-400');
+                    btnCopy.classList.add('bg-amber-500', 'hover:bg-amber-400', 'text-black');
                 }, 2000);
             }).catch(err => {
                 console.error("Gagal menyalin text: ", err);
